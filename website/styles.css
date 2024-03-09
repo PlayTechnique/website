@@ -1,0 +1,13 @@
+#header {
+    border: solid darkcyan;
+    width: fit-content;
+    padding: 1em
+}
+
+#header.link {
+    border: solid darkcyan;
+    width: fit-content;
+    float: left;
+    padding: 2em
+}
+
