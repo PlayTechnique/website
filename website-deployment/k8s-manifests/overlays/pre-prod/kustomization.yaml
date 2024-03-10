@@ -1,0 +1,7 @@
+namespace: pt-website-pre-prod
+resources:
+  - ../../base
+  - namespace.yaml
+patchesStrategicMerge:
+  - ingress-patch.yaml
+  - deployment-container-version-patch.yaml

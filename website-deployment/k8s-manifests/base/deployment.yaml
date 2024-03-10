@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playtechnique-website
+  labels:
+    app: playtechnique-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: playtechnique-website
+  template:
+    metadata:
+      labels:
+        app: playtechnique-website
+    spec:
+      containers:
+      - name: website
+        image: docker.io/playtechnique/website
+        ports:
+        - containerPort: 8080
+          name: pt-port
+
+
