@@ -1,13 +1,21 @@
+body {
+    background-color: rgba(246, 227, 237, 0.8)
+}
+
 #header {
-    border: solid darkcyan;
+    border: solid black;
     width: fit-content;
     padding: 1em
 }
 
-#header.link {
-    border: solid darkcyan;
+#header .link {
+
+    border: solid black;
+    display: inline-block;
     width: fit-content;
-    float: left;
     padding: 2em
 }
 
+a.andrewIndexBodyLink {
+    display: block;
+}
