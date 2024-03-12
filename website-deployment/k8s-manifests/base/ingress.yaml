@@ -17,7 +17,3 @@ spec:
             name:  pt-service
             port:
               number: 8080
-  tls:
-    - hosts:
-        -
-
