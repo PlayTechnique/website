@@ -8,5 +8,5 @@ spec:
     spec:
       containers:
       - name: website
-        image: docker.io/playtechnique/website:1
+        image: docker.io/playtechnique/website:4
 
