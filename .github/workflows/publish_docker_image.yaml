@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     env:
-      DOCKERIMAGE: docker.io/playtechnique/website:${{ github.run_attempt }}
+      DOCKERIMAGE: docker.io/playtechnique/website:${{ github.run_number }}
     runs-on: ubuntu-latest
 
     steps:
