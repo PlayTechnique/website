@@ -2,18 +2,14 @@ body {
     background-color: rgba(246, 227, 237, 0.8)
 }
 
-#header {
-    border: solid black;
-    width: fit-content;
-    padding: 1em
+nav.navigation {
+    text-align: right
 }
-
-#header .link {
-
+nav.navigation .link {
     border: solid black;
     display: inline-block;
     width: fit-content;
-    padding: 2em
+    padding: 1em;
 }
 
 a.andrewIndexBodyLink {
