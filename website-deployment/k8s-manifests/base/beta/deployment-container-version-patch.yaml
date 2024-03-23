@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playtechnique-website
+
+spec:
+  template:
+    spec:
+      containers:
+      - name: website
+        image: docker.io/playtechnique/website:4
+
