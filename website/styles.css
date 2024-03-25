@@ -1,17 +1,44 @@
-body {
-    background-color: rgba(246, 227, 237, 0.8)
-}
+/* background color pale pink - #ffe6ef */
 
 nav.navigation {
-    text-align: right
+    position: relative;
+    text-align: right;
+    background: linear-gradient(#ffe6ef, #f1e6ff);
+    padding-bottom: 5vh;
 }
 nav.navigation .link {
     border: solid black;
     display: inline-block;
     width: fit-content;
     padding: 1em;
+    color: black;
+}
+
+nav.navigation img {
+    height: 10vh; /* Explicitly set the height */
+    width: auto; /* Maintain aspect ratio */
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 a.andrewIndexBodyLink {
     display: block;
+}
+
+main {
+    width: 75vw;
+    flex: 1;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+body {
+    background: #f1e6ff;
+}
+
+article {
+    line-height: 1.5em;
+    width: inherit;
+    /* flex: 1; */
 }

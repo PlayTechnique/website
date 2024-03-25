@@ -4,26 +4,30 @@
 </head>
 
 <body>
-<link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles.css">
 
-<nav class="navigation">
-    <a href="/" class="link">front page</a>
-    <a href="/articles/index.html" class="link">articles</a>
-    <a href="/projects/index.html" class="link">projects</a>
-</nav>
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <a href="/articles/index.html" class="link">articles</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
 
-<div id="header"></div>
-<h1>Generate ssl certs with kubernetes cert-manager</h1>
-<p>
-    I use cert-manager in kubernetes for ssl certs. I wanted a new ssl cert for a service not hosted in kubernetes. I
-    read the cert-manager docs, and it looked like there was no reason I could just request a new cert for an arbitrary
-    hostname.
-</p>
+    <div id="header"></div>
+    <main>
+        <article>
+            <h1>Generate ssl certs with kubernetes cert-manager</h1>
+            <p>
+                I use cert-manager in kubernetes for ssl certs. I wanted a new ssl cert for a service not hosted in
+                kubernetes. I
+                read the cert-manager docs, and it looked like there was no reason I could just request a new cert for
+                an arbitrary
+                hostname.
+            </p>
 
-<p>
-    Here's the yaml:
-</p>
-<pre>
+            <p>
+                Here's the yaml:
+            </p>
+            <pre>
     <code class="yaml">
     ---
     kind: Namespace
@@ -55,14 +59,15 @@
         - key encipherment
 </code>
     </pre>
-<p>
-    I got the "usages" from an already existent cert.
-</p>
+            <p>
+                I got the "usages" from an already existent cert.
+            </p>
 
-<p>
-    After a couple of minutes this made a new TLS secret in the goshdarnit namespace. There was a key and a value.
-</p>
-<pre>
+            <p>
+                After a couple of minutes this made a new TLS secret in the goshdarnit namespace. There was a key and a
+                value.
+            </p>
+            <pre>
     <code class="bash">
     #!/bin/bash
 
@@ -70,7 +75,9 @@
     kubectl get secret goshdarnit-tls -n goshdarnit -o jsonpath="{.data.tls\.key}" | base64 -d > tls.key
     </code>
 </pre>
-<p>
-    All done; I just had to upload the ssl cert to the server and use it.
-</p>
+            <p>
+                All done; I just had to upload the ssl cert to the server and use it.
+            </p>
+        </article>
+    </main>
 </body>
