@@ -8,6 +8,6 @@ spec:
     spec:
       containers:
       - name: website
-        image: docker.io/playtechnique/website:7
+        image: docker.io/playtechnique/website:8
         command: ["/andrew", "/website", "0.0.0.0:8080", "https://playtechnique.io"]
 
