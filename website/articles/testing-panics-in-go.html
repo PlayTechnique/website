@@ -8,6 +8,7 @@
 <body>
     <nav class="navigation">
         <a href="/" class="link">front page</a>
+        <img src="/images/logo.png">
         <a href="/articles/index.html" class="link">articles</a>
         <a href="/projects/index.html" class="link">projects</a>
     </nav>
@@ -52,19 +53,19 @@ panic: I panic! [recovered]
 
 goroutine 34 [running]:
 testing.tRunner.func1.2({0x10441d540, 0x1044455e0})
-        /opt/homebrew/Cellar/go/1.22.2/libexec/src/testing/testing.go:1631 +0x1c4
+/opt/homebrew/Cellar/go/1.22.2/libexec/src/testing/testing.go:1631 +0x1c4
 testing.tRunner.func1()
-        /opt/homebrew/Cellar/go/1.22.2/libexec/src/testing/testing.go:1634 +0x33c
+/opt/homebrew/Cellar/go/1.22.2/libexec/src/testing/testing.go:1634 +0x33c
 panic({0x10441d540?, 0x1044455e0?})
-        /opt/homebrew/Cellar/go/1.22.2/libexec/src/runtime/panic.go:770 +0x124
+/opt/homebrew/Cellar/go/1.22.2/libexec/src/runtime/panic.go:770 +0x124
 panicker.Panics(...)
-        /Users/gwyn/Source/panicker/panicker_test.go:6
+/Users/gwyn/Source/panicker/panicker_test.go:6
 panicker.TestPanics(0x14000124680?)
-        /Users/gwyn/Source/panicker/panicker_test.go:17 +0x30
+/Users/gwyn/Source/panicker/panicker_test.go:17 +0x30
 testing.tRunner(0x14000124680, 0x104444dc0)
-        /opt/homebrew/Cellar/go/1.22.2/libexec/src/testing/testing.go:1689 +0xec
+/opt/homebrew/Cellar/go/1.22.2/libexec/src/testing/testing.go:1689 +0xec
 created by testing.(*T).Run in goroutine 1
-        /opt/homebrew/Cellar/go/1.22.2/libexec/src/testing/testing.go:1742 +0x318
+/opt/homebrew/Cellar/go/1.22.2/libexec/src/testing/testing.go:1742 +0x318
 FAIL    panicker        0.082s
 FAIL
 </code>
