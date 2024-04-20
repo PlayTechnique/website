@@ -1,16 +1,22 @@
 /* background color pale pink - #ffe6ef */
 
+head {
+    background: #ffe6ef;
+}
 nav.navigation {
     position: relative;
     text-align: right;
-    background: linear-gradient(#ffe6ef, #f1e6ff);
-    padding-bottom: 5vh;
+    border-radius: 40vh 40vh 0vh 0vh;
+    background: linear-gradient(#ffe6ef, #ffffff);
+    padding: 5vh;
+    overflow: hidden;
 }
 nav.navigation .link {
-    border: solid black;
+    /* border: solid black;
+    border-radius: 40vh; */
     display: inline-block;
     width: fit-content;
-    padding: 1em;
+    padding: 1vh;
     color: black;
 }
 
@@ -31,10 +37,6 @@ main {
     flex: 1;
     margin-right: 10%;
     margin-left: 10%;
-}
-
-body {
-    background: #f1e6ff;
 }
 
 article {
