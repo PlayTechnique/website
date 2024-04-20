@@ -9,7 +9,7 @@ nav.navigation {
     border-radius: 40vh 40vh 0vh 0vh;
     background: linear-gradient(#ffe6ef, #ffffff);
     padding: 5vh;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 nav.navigation .link {
     /* border: solid black;
