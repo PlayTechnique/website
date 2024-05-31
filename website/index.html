@@ -3,6 +3,18 @@
 <head>
     <script type="text/javascript" src="/main.js"></script>
 
+    <style>
+        .playtechnique {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            text-decoration: underline;
+        }
+
+        .playtechnique .big-bold {
+            font-size: 32px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,18 +24,35 @@
             <img src="images/logo.png">
             <a href="/articles/index.html" class="link">articles</a>
             <a href="/projects/index.html" class="link">projects</a>
+            <a href="/contracting/index.html" class="link">contracting</a>
+            <a href="/social/index.html" class="link">social links</a>
         </nav>
 
         <link rel="stylesheet" href="/styles.css">
         <div id="header"></div>
 
-        <ul style="list-style-type: none;">
-            <li>Is your CI/CD system unmaintained or messy?</li>
-            <li>Do your deployments require manual steps to complete?</li>
-            <li>Do you know you have secrets littered everywhere, but not know when they're going to expire?</li>
-            <li>Is your QA environment a source of blame, developers saying they can't deploy because other people are
-                getting tests?</li>
-            <li>Drop me a line, let's see what we can do together.</li>
-        </ul>
-    </div>
+        <main>
+        <header class="playtechnique">
+            <span class="big-bold">P</span>lay<span class="big-bold">T</span>echnique
+        </header>
+        <div id="mission"><p>
+            Skill is composed of Techniques. Skills are fun to develop, and improving Technique makes skills more rewarding,
+            more enjoyable, more fun, <i>more playful</i>. The more Play Technique I develop, the more fun it is to Play.
+        </p>
+        </div>div>
+
+        <p>
+            Visit <a href="/articles/index.html">articles</a> to read different one off articles I've written.
+        </p>
+
+        <p>
+            Visit <a href="/projects/index.html">projects</a> to read a collection of articles about a specific project.
+        </p>
+    </main>
+
+</div>
 </body>
+<footer>
+    <p>This website is served with <a href="https://github.com/playtechnique/andrew">Andrew</a>, a microblogging web server I put together.</p>
+    <p>If you want to write a website in html, css and javascript, Andrew takes a little of the chore out of a few pieces of maintenance. You might like it!</p>
+</footer>

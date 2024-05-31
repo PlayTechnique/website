@@ -7,7 +7,7 @@ nav.navigation {
     position: relative;
     text-align: right;
     border-radius: 40vh 40vh 0vh 0vh;
-    background: linear-gradient(#ffe6ef, #ffffff);
+    background: linear-gradient(#cad4f4, #ffffff);
     padding: 5vh;
     /* overflow: hidden; */
 }
@@ -33,10 +33,10 @@ a.andrewIndexBodyLink {
 }
 
 main {
-    width: 75vw;
+    width: 65vw;
     flex: 1;
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 15%;
+    margin-left: 15%;
 }
 
 article {
@@ -44,3 +44,17 @@ article {
     width: inherit;
     /* flex: 1; */
 }
+
+footer {
+    margin-right: 10%;
+    margin-left: 10%;
+    
+    position: fixed;
+    bottom: 0;
+  
+    /* And if you want the div to be full-width: */
+    left: 0;
+    right: 0;
+
+    font-size: 0.8em
+  }
