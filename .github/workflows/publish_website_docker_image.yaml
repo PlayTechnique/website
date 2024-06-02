@@ -32,12 +32,8 @@ jobs:
         id: set-docker-image
         run: |
           echo ${{ env.DOCKERIMAGE }}
-          echo "dockerimage=${{ env.DOCKERIMAGE }}" >> ${GITHUB_OUTPUT}
-      
-      - uses: actions/checkout@v4
 
   release-to-production:  
     uses: ./.github/workflows/release_website.yaml
-    needs: build
     with: 
-      docker-image: ${{needs.build.outputs.dockerimage}}
+      docker-image-tag: ${{ github.run_number }}
