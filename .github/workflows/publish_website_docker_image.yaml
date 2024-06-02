@@ -12,6 +12,8 @@ jobs:
     env:
       DOCKERIMAGE: docker.io/playtechnique/website:${{ github.run_number }}
     runs-on: ubuntu-latest
+    outputs:
+      dockerimage: ${{ steps.set-docker-iamge.outputs.dockerimage }}
 
     steps:
       - name: Log in to DockerHub
@@ -27,6 +29,7 @@ jobs:
           tags: ${{ env.DOCKERIMAGE }}
 
       - name: what is the docker image and set it to github output
+        id: set-docker-iamge
         run: |
           echo ${{ env.DOCKERIMAGE }}
           echo "dockerimage=${{ env.DOCKERIMAGE }}"" >> ${GITHUB_OUTPUT}
@@ -34,6 +37,7 @@ jobs:
       - uses: actions/checkout@v4
 
   release-to-production:  
-    uses: .github/workflows/release_website.yaml
+    uses: ./.github/workflows/release_website.yaml
+    needs: build
     with: 
       docker-image: ${{needs.build.outputs.dockerimage}}
