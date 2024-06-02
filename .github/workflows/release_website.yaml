@@ -17,6 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: validate input
+        run: |
+          if [ -z "${{ inputs.docker-image }}" ]; then
+            echo "Input was ${{ inputs.docker-image }}. Bailing".
+            exit 1
+          fi
+
       - name: edit file
         run: |
           yq e '.spec.template.spec.containers[0].image = "${{ inputs.docker-image }}"' -i website-deployment/k8s-manifests/overlays/production/deployment-container-version-patch.yaml

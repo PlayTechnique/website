@@ -13,7 +13,7 @@ jobs:
       DOCKERIMAGE: docker.io/playtechnique/website:${{ github.run_number }}
     runs-on: ubuntu-latest
     outputs:
-      dockerimage: ${{ steps.set-docker-iamge.outputs.dockerimage }}
+      dockerimage: ${{ steps.set-docker-image.outputs.dockerimage }}
 
     steps:
       - name: Log in to DockerHub
