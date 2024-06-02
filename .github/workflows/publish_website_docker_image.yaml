@@ -29,3 +29,8 @@ jobs:
       - name: what is the docker image
         run: |
           echo ${{ env.DOCKERIMAGE }}
+      
+      - name: release to production
+        uses: ./.github/workflows/release_website.yaml
+        with: 
+          docker-image: ${{ env.DOCKERIMAGE }}
