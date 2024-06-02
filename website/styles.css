@@ -46,8 +46,8 @@ article {
 }
 
 footer {
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 15%;
+    margin-left: 15%;
     
     position: fixed;
     bottom: 0;
@@ -56,5 +56,5 @@ footer {
     left: 0;
     right: 0;
 
-    font-size: 0.8em
+    font-size: 0.7em
   }
