@@ -32,7 +32,7 @@ jobs:
         id: set-docker-iamge
         run: |
           echo ${{ env.DOCKERIMAGE }}
-          echo "dockerimage=${{ env.DOCKERIMAGE }}"" >> ${GITHUB_OUTPUT}
+          echo "dockerimage=${{ env.DOCKERIMAGE }}" >> ${GITHUB_OUTPUT}
       
       - uses: actions/checkout@v4
 
