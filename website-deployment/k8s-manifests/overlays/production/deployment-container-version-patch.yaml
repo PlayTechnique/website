@@ -2,12 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: playtechnique-website
-
 spec:
   template:
     spec:
       containers:
-      - name: website
-        image: docker.io/playtechnique/website:13
-        command: ["/andrew", "/website", "0.0.0.0:8080", "https://playtechnique.io"]
-
+        - name: website
+          image: ""
+          command: ["/andrew", "/website", "0.0.0.0:8080", "https://playtechnique.io"]
