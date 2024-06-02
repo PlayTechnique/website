@@ -20,8 +20,8 @@ jobs:
 
       - name: validate input
         run: |
-          if [ -z "${{ inputs.docker-image }}" ]; then
-            echo "Input was ${{ inputs.docker-image }}. Bailing".
+          if [ -z "${{ inputs.docker-image-tag }}" ]; then
+            echo "Input was ${{ inputs.docker-image-tag }}. Bailing".
             exit 1
           fi
 
@@ -33,5 +33,5 @@ jobs:
         run: |
           git config --global user.name 'Playtechnique github bot'
           git config --global user.email 'github-bot@playtechnique.io'
-          git commit -am "Updates production deployment with ${{ inputs.docker-image }} "
+          git commit -am "Updates production deployment with ${{ inputs.docker-image-tag }} "
           git push
