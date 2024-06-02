@@ -26,13 +26,14 @@ jobs:
           push: true
           tags: ${{ env.DOCKERIMAGE }}
 
-      - name: what is the docker image
+      - name: what is the docker image and set it to github output
         run: |
           echo ${{ env.DOCKERIMAGE }}
+          echo "dockerimage=${{ env.DOCKERIMAGE }}"" >> ${GITHUB_OUTPUT}
       
       - uses: actions/checkout@v4
-      
-      - name: release to production
-        uses: ./.github/workflows/release_website.yaml
-        with: 
-          docker-image: ${{ env.DOCKERIMAGE }}
+
+  release-to-production:  
+    uses: .github/workflows/release_website.yaml
+    with: 
+      docker-image: ${{needs.build.outputs.dockerimage}}
