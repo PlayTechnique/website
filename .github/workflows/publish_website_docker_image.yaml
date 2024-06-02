@@ -23,13 +23,13 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PAT }}
 
       - name: Build and Publish the Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: ${{ env.DOCKERIMAGE }}
 
       - name: what is the docker image and set it to github output
-        id: set-docker-iamge
+        id: set-docker-image
         run: |
           echo ${{ env.DOCKERIMAGE }}
           echo "dockerimage=${{ env.DOCKERIMAGE }}" >> ${GITHUB_OUTPUT}
