@@ -30,6 +30,8 @@ jobs:
         run: |
           echo ${{ env.DOCKERIMAGE }}
       
+      - uses: actions/checkout@v4
+      
       - name: release to production
         uses: ./.github/workflows/release_website.yaml
         with: 
