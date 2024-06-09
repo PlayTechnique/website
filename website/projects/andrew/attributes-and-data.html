@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>attributes and data: parsing html in golang</title>
+    <meta name="andrew-published-at" content="<no value>" </head>
+
+<body>
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <a href="/articles/index.html" class="link">articles</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <section id="introduction">
+                <h1>The Question</h1>
+                <p>
+                    If you pass these two into the go stdlib html parser, you get different outcomes. This has been puzzling me in Andrew; Andrew figures out
+                    information about your pages, like the titles, from standard HTML tags where I can figure that out, so I actually need to understand these tags. Here's my deeper dive.
+                 <br>
+                    <code>&lt;title&gt;article title&lt;/title&gt;</code><br>
+                    <code>&lt;meta name="metaname" content="metacontent" /&gt</code><br>
+                </p>
+                <p>
+                    Here's the tool I'm using to inspect these things:
+                    <code>
+                            <pre>
+package main
+
+import (
+    "bytes"
+    "fmt"
+    "os"
+
+    "github.com/davecgh/go-spew/spew"
+    "golang.org/x/net/html"
+)
+
+func main() {
+    title := []byte("<title>article title</title>")
+    meta := []byte("<meta name=\"metaname\" content=\"metacontent\">")
+
+    for i, elem := range [][]byte{title, meta} {
+        // html.Parse returns the entire parse tree
+        parsed, err := html.ParseFragment(bytes.NewReader(elem), nil)
+        if err != nil {
+            panic(err)
+        }
+
+        os.WriteFile(fmt.Sprint(i)+".txt", []byte(spew.Sdump(parsed)), 0o755)
+    }
+}
+                            </pre>
+                        </code>
+                </p>
+            </section>
+
+            <section>
+                <h2>What's  in these HTML nodes?</h2>
+                <p>
+                    The HTML is parsed into a list of *html.Node. There's a FirstChild, Parent, LastChild, PrevSIbling
+                    and NextSibling set of relationships that are tracked.
+                    I've redacted some in the structure dumps shown as irrelevant/empty.
+                </p>
+                Each new html node is a Child of some element. We're dumping parsed fragments of html, so the parser
+                arranges for an empty <code>head</code> node as the topmost node;
+                its first FirstChild is a <code>head</code> node, and the structure keeps being traversable by calling
+                FirstChild, NextSibling or whatever other relationship you
+                want to traverse. There's <a href=https://pkg.go.dev/golang.org/x/net/html#Parse>a good recursive
+                    function</a> provided as an example in the go docs for traversing
+                every element in the parsed tree.
+                </p>
+                <p>Here's what I've figured out about the fields in the html.Node type:
+                <ul>NodeType: tracks whether the node is an ErrorNode, TextNode, DocumentNode, ElementNode, COmmentNode,
+                    DoctypeNode or RawNode.<br />
+                    These seem very similar to the types listed on the <a
+                        href=https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType>MSDN Web API Node docs</a>
+                </ul>
+                <ul>DataAtom: There's a <a href=https://pkg.go.dev/golang.org/x/net@v0.26.0/html/atom#Atom>lookup table
+                        in the godocs</a> mapping integers to specific html
+                    tag values, such as the &lt;title&gt or &lt;a&gt or &lt;imge&gt tags</ul>
+                <ul>Data: The comment in the go package tells us data contains "tag name for element nodes, content for
+                    text, and are part of a tree of Nodes". I don't
+                    see in spew's Sdump output how to distinguish element nodes from text; it _does_ seem like an
+                    element node will have a DataAtom that's populated, and it
+                    will have a FirstChild that has no DataAtom but _does_ contain Data, which in our example is the
+                    text held between the &lttitle&gt and &lt/title&gt
+                </ul>
+                <ul>Namespace: Usually empty in html! In html you have something like &lta href="foo"&lt; in xml, you
+                    can have &lta namspace:href="foo"&gt</ul>
+                </p>
+                <p>
+                <div style="display: flex; flex-wrap: wrap; width: 100%;">
+                    <div style="flex: 1 1 50%; box-sizing: border-box; padding: 10px;">
+                        <h3>title</h3>
+                        <pre><code>
+FirstChild: (*html.Node)(0x1400013a930)({
+    Parent: (*html.Node)(0x1400013a8c0)(<already shown>),
+    FirstChild: (*html.Node)(0x1400013a9a0)({
+        Parent: (*html.Node)(0x1400013a930)(<already shown>),
+        //redacted empty data members
+        DataAtom: (atom.Atom) , 
+        Data: (string) (len=13) "article title",
+        Namespace: (string) "",
+        Attr: ([]html.Attribute) <nil>
+    }),
+    LastChild: (*html.Node)(0x1400013a9a0)({
+        //redacted empty data members
+        Data: (string) (len=13) "article title",
+        Namespace: (string) "",
+        Attr: ([]html.Attribute) <nil>
+    }),
+    PrevSibling: (*html.Node)(<nil>),
+    NextSibling: (*html.Node)(<nil>),
+    Type: (html.NodeType) 3,
+    DataAtom: (atom.Atom) title,
+    Data: (string) (len=5) "title",
+    Namespace: (string) "",
+    Attr: ([]html.Attribute) <nil>
+    }),
+    </code></pre>
+                    </div>
+                    <div style="flex: 1 1 50%; box-sizing: border-box; padding: 10px;">
+                        <h2>meta</h2>
+                        <pre><code>
+FirstChild: (*html.Node)(0x14000166cb0)({
+    Parent: (*html.Node)(0x14000166c40)(<already shown>),
+    FirstChild: (*html.Node)(<nil>),
+    LastChild: (*html.Node)(<nil>),
+    PrevSibling: (*html.Node)(<nil>),
+    NextSibling: (*html.Node)(<nil>),
+    Type: (html.NodeType) 3,
+    DataAtom: (atom.Atom) meta,
+    Data: (string) (len=4) "meta",
+    Namespace: (string) "",
+    Attr: ([]html.Attribute) (len=2 cap=2) {
+        (html.Attribute) {
+        Namespace: (string) "",
+        Key: (string) (len=4) "name",
+        Val: (string) (len=8) "metaname"
+        },
+        (html.Attribute) {
+        Namespace: (string) "",
+        Key: (string) (len=7) "content",
+        Val: (string) (len=11) "metacontent"
+        }
+    }
+    }),
+</code></pre>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <section id="explanation">
+                    <h2>Description of the Differences</h2>
+                    <h3>Title Element</h3>
+                    <p>
+                        The title element has been parsed as an *html.Node which a DataAtom of Title and Data of Title.
+                        From the go doc comment I quoted above, I don't see why Data
+                        contains title also; I'd have to walk through the constructor to figure that out, I guess?</p>
+                    <p>
+                        The title element node has a child node with a Data element containing the title.
+                    </p>
+                    <p>
+                        If we were to change the title to contain an attribute such as an id attribute &lttitle id="foo"&gt, 
+                        then we'd see that attribute called out in the Attr section at the same level of indentation as the Data node.
+                    </p>
+                    <h3>Meta Element</h3>
+                    <p>
+                        The meta element has 2 attributes, stored inside the element itself. It's a self-enclosed tag, so it doesn't have child
+                        elements; it's the leaf of its parse tree.
+                    </p>
+                </section>
+                <section id="closer">
+                    <p>
+                        My current approach in Andrew for tracking when an article is published is to use a meta tag; that was where I started diving into
+                        these two element nodes, trying to understand why it was easy to grab a title but hard to get the meta tag attributes. Now I know!
+                    </p>
+                </section>
+        </article>
+    </main>
+</body>
