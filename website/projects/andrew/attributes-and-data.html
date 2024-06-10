@@ -17,16 +17,27 @@
     <main>
         <article>
             <section id="introduction">
-                <h1>The Question</h1>
+                <h1>What are the data structures come out of the HTML parser in golang?</h1>
                 <p>
-                    If you pass these two into the go stdlib html parser, you get different outcomes. This has been puzzling me in Andrew; Andrew figures out
-                    information about your pages, like the titles, from standard HTML tags where I can figure that out, so I actually need to understand these tags. Here's my deeper dive.
-                 <br>
-                    <code>&lt;title&gt;article title&lt;/title&gt;</code><br>
+                    If you pass the two tags below into the go stdlib html parser, the parser's output has a few meaningful differences. This has been puzzling me in 
+                    Andrew, which aims to remove the things I find tedious about maintaining a website using html, css and javascript by hand.</p>
+                    <p>
+                     I want to sort articles in the { AndrewIndexBody } structure by date; I also want to design Andrew to get this sort of metadata either through an 
+                     obvious standard html tag, or from a custom meta tag. The outcome of calling Parse is a series of data structures, all of which are html.Nodes.
+                    </p> 
+                 <p>
+                 These are the tags that get parsed differently:
+                </p>
+                    <code>
+                        &lt;title&gt;article title&lt;/title&gt;
+                    </code>
+                    <br>
                     <code>&lt;meta name="metaname" content="metacontent" /&gt</code><br>
                 </p>
                 <p>
-                    Here's the tool I'm using to inspect these things:
+                    This is the code I wrote to inspect these things. It creates two byte arrays of the tags, and parses each through
+                    html.ParseFragment, which can parse a snippet of html:
+                </p>
                     <code>
                             <pre>
 package main
@@ -41,8 +52,8 @@ import (
 )
 
 func main() {
-    title := []byte("<title>article title</title>")
-    meta := []byte("<meta name=\"metaname\" content=\"metacontent\">")
+    title := []byte("&lttitle&gtarticle title&lt/title&gt")
+    meta := []byte("&ltmeta name=\"metaname\" content=\"metacontent\"&gt")
 
     for i, elem := range [][]byte{title, meta} {
         // html.Parse returns the entire parse tree
