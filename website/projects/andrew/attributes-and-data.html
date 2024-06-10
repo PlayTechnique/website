@@ -28,18 +28,19 @@
                  <p>
                  These are the tags that get parsed differently:
                 </p>
+                <pre>
                     <code>
-                        &lt;title&gt;article title&lt;/title&gt;
+&lt;title&gt;article title&lt;/title&gt;
+&lt;meta name="metaname" content="metacontent" /&gt
                     </code>
-                    <br>
-                    <code>&lt;meta name="metaname" content="metacontent" /&gt</code><br>
+                </pre>
                 </p>
                 <p>
                     This is the code I wrote to inspect these things. It creates two byte arrays of the tags, and parses each through
                     html.ParseFragment, which can parse a snippet of html:
                 </p>
+                <pre>
                     <code>
-                            <pre>
 package main
 
 import (
@@ -65,8 +66,8 @@ func main() {
         os.WriteFile(fmt.Sprint(i)+".txt", []byte(spew.Sdump(parsed)), 0o755)
     }
 }
+</code>
                             </pre>
-                        </code>
                 </p>
             </section>
 
