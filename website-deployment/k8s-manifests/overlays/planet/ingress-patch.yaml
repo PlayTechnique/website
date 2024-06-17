@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: pt-website-ingress
   annotations:
-    kubernetes.io/ingress.class: "webapprouting.kubernetes.azure.com"
     cert-manager.io/cluster-issuer: "letsencrypt-production"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
+  ingressClassName: "webapprouting.kubernetes.azure.com"
   rules:
   - host: playtechnique.io
     http:
