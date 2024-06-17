@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pt-website-ingress
+  annotations:
+    kubernetes.io/ingress.class: "webapprouting.kubernetes.azure.com"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+  - host: playtechnique.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pt-service
+            port:
+              number: 8080
+  tls:
+  - hosts:
+    - playtechnique.io
+    secretName: prodingress-cert
