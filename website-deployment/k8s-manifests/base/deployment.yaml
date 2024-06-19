@@ -14,12 +14,12 @@ spec:
       labels:
         app: playtechnique-website
     spec:
-      containers:
       tolerations:
       - key: "kubernetes.azure.com/scalesetpriority"
         operator: "Equal"
         value: "spot"
         effect: "NoSchedule"
+      containers:
       - name: website
         image: docker.io/playtechnique/website
         ports:
