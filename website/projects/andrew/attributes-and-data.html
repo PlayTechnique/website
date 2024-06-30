@@ -3,7 +3,7 @@
 <head>
     <script type="text/javascript" src="/main.js"></script>
     <title>attributes and data: parsing html in golang</title>
-    <meta name="andrew-published-at" content="<no value>" </head>
+    <meta name="andrew-publish-time" content="<no value>" </head>
 
 <body>
     <nav class="navigation">
@@ -23,7 +23,7 @@
                     If you pass the two tags below into the go stdlib html parser, the parser's output has a few meaningful differences. This has been puzzling me in 
                     Andrew, which aims to remove the things I find tedious about maintaining a website using html, css and javascript by hand.</p>
                     <p>
-                     I want to sort articles in the { AndrewIndexBody } structure by date; I also want to design Andrew to get this sort of metadata either through an 
+                     I want to sort articles in the { AndrewTableOfContents } structure by date; I also want to design Andrew to get this sort of metadata either through an 
                      obvious standard html tag, or from a custom meta tag. The outcome of calling Parse is a series of data structures, all of which are html.Nodes.
                     </p> 
                  <p>
