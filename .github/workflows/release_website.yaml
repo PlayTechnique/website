@@ -27,7 +27,7 @@ jobs:
 
       - name: edit file
         run: |
-          yq e '.spec.template.spec.containers[0].image = "docker.io/playtechnique/website:${{ inputs.docker-image-tag }}"' -i website-deployment/k8s-manifests/overlays/production/deployment-container-version-patch.yaml
+          yq e '.spec.template.spec.containers[0].image = "docker.io/playtechnique/website:${{ inputs.docker-image-tag }}"' -i website-deployment/k8s-manifests/overlays/planet/deployment-container-version-patch.yaml
       
       - name: commit back to github
         run: |
