@@ -28,10 +28,6 @@ nav.navigation img {
     left: 0;
 }
 
-a.AndrewTableOfContentsLink {
-    display: block;
-}
-
 main {
     width: 65vw;
     flex: 1;
@@ -57,4 +53,12 @@ footer {
     right: 0;
 
     font-size: 0.7em
+  }
+
+  #AndrewTableOfContentsLink0 {
+    font-weight: bold;
+  }
+
+  .AndrewTableOfContentsLink {
+    line-height: 2.0em;
   }
