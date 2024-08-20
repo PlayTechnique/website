@@ -1,52 +1,47 @@
 ---
-- name: Deploy SSL Certificate and Private Key and Start Docker Container
-  hosts: droplet
-  tasks:
-    - name: SSL setup
-      block:
-        - name: Create SSL directory if it doesn't exist
-          file:
-            path: /home/playtechnique/ssl
-            state: directory
-            mode: '0700'
-            owner: playtechnique
-            group: playtechnique
+- name: Create SSL directory if it doesn't exist
+  file:
+    path: /home/playtechnique/ssl
+    state: directory
+    mode: '0700'
+    owner: playtechnique
+    group: playtechnique
 
-        - name: Install SSL Private Key
-          copy:
-            content: "{{ ssl_private_key }}"
-            dest: /home/playtechnique/ssl/private.key
-            mode: '0600'
-            owner: playtechnique
-            group: playtechnique
+- name: Install SSL Private Key
+  copy:
+    content: "{{ ssl_private_key }}"
+    dest: /home/playtechnique/ssl/private.key
+    mode: '0600'
+    owner: playtechnique
+    group: playtechnique
 
-        - name: Install SSL Certificate
-          copy:
-            content: "{{ ssl_certificate }}"
-            dest: /home/playtechnique/ssl/certificate.crt
-            mode: '0644'
-            owner: playtechnique
-            group: playtechnique
+- name: Install SSL Certificate
+  copy:
+    content: "{{ ssl_certificate }}"
+    dest: /home/playtechnique/ssl/certificate.crt
+    mode: '0644'
+    owner: playtechnique
+    group: playtechnique
 
-    - name: Re-create websites container
-      docker_container:
-        name: website
-        image: docker.io/playtechnique/website:latest
-        state: started
-        recreate: yes
-        pull: true
-        exposed_ports:
-          - 8080
-        published_ports:
-          - "443:8080"
-        volumes:
-          - /home/playtechnique/ssl:/etc/ssl/playtechnique:ro
-        command:
-          - "/andrew"
-          - "-c"
-          - "/etc/ssl/playtechnique/certificate.crt"
-          - "-p"
-          - "/etc/ssl/playtechnique/private.key"
-          - "/website"
-          - "0.0.0.0:8080"
-          - "https://playtechnique.io"
+- name: Re-create websites container
+  docker_container:
+    name: website
+    image: docker.io/playtechnique/website:latest
+    state: started
+    recreate: yes
+    pull: true
+    exposed_ports:
+      - 8080
+    published_ports:
+      - "443:8080"
+    volumes:
+      - /home/playtechnique/ssl:/etc/ssl/playtechnique:ro
+    command:
+      - "/andrew"
+      - "-c"
+      - "/etc/ssl/playtechnique/certificate.crt"
+      - "-p"
+      - "/etc/ssl/playtechnique/private.key"
+      - "/website"
+      - "0.0.0.0:8080"
+      - "https://playtechnique.io"
