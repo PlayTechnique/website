@@ -14,4 +14,4 @@ COPY --chown=1000:1000 website /website
 
 EXPOSE 8080
 #By default, andrew will serve the pwd.
-ENTRYPOINT ["/andrew", "/website"]
+ENTRYPOINT ["/andrew"]
