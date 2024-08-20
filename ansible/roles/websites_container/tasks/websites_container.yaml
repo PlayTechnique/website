@@ -28,26 +28,26 @@
           owner: playtechnique
           group: playtechnique
 
-    - name: Re-create websites container
-      docker_container:
-        name: website
-        image: docker.io/playtechnique/website:latest
-        state: started
-        recreate: yes
-        pull: true
-        exposed_ports:
-          - 8080
-        published_ports:
-          - "443:8080"
-        volumes:
-          - /home/playtechnique/ssl:/etc/ssl/playtechnique:ro
-        command:
-          - "/andrew"
-          - "-c"
-          - "/etc/ssl/playtechnique/certificate.crt"
-          - "-p"
-          - "/etc/ssl/playtechnique/private.key"
-          - "/website"
-          - "0.0.0.0:8080"
-          - "https://playtechnique.io"
+      - name: Re-create websites container
+        docker_container:
+          name: website
+          image: docker.io/playtechnique/website:latest
+          state: started
+          recreate: yes
+          pull: true
+          exposed_ports:
+            - 8080
+          published_ports:
+            - "443:8080"
+          volumes:
+            - /home/playtechnique/ssl:/etc/ssl/playtechnique:ro
+          command:
+            - "/andrew"
+            - "-c"
+            - "/etc/ssl/playtechnique/certificate.crt"
+            - "-p"
+            - "/etc/ssl/playtechnique/private.key"
+            - "/website"
+            - "0.0.0.0:8080"
+            - "https://playtechnique.io"
 
