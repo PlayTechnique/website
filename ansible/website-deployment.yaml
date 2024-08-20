@@ -1,4 +1,5 @@
-- hosts: droplets
+- name: Start website container
+  hosts: droplets
   remote_user: playtechnique
   roles:
   - websites_container
