@@ -1,0 +1,4 @@
+- hosts: droplets
+  remote_user: playtechnique
+  roles:
+  - websites_container

@@ -1,37 +1,27 @@
 name: Release to Production
 
 on:
-  push:
-    paths: 
-      - 'website/k8s-manifests/overlays/**'
   workflow_call:
-    inputs:
-      docker-image-tag:
-        description: 'Docker tag to udpate to'
-        required: true
-        type: string
 
 jobs:
-  update-container-version-patch:
+  ssh-to-digiocean-and-upgrade:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+    
+      - name: Install Ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible
 
-      - name: validate input
+      - name: Run ansible playbook installing docker
         run: |
-          if [ -z "${{ inputs.docker-image-tag }}" ]; then
-            echo "Input was ${{ inputs.docker-image-tag }}. Bailing".
-            exit 1
-          fi
+          mkdir -p .ssh
+          echo '${{ secrets.DIGITAL_OCEAN_ROOT }}' >> .ssh/digital-ocean-root
+          ansible-playbook install-upgrade-docker.yaml -i inventory.yaml -e "ansible_user=root" --private-key .ssh/digital-ocean-root
 
-      - name: edit file
+      - name: Run Ansible Playbook starting container
         run: |
-          yq e '.spec.template.spec.containers[0].image = "docker.io/playtechnique/website:${{ inputs.docker-image-tag }}"' -i website-deployment/k8s-manifests/overlays/planet/deployment-container-version-patch.yaml
-      
-      - name: commit back to github
-        run: |
-          git config --global user.name 'Playtechnique github bot'
-          git config --global user.email 'github-bot@playtechnique.io'
-          git commit -am "Updates production deployment with ${{ inputs.docker-image-tag }} "
-          git push
+          mkdir -p .ssh
+          echo '${{ secrets.DIGITAL_OCEAN_PLAYTECHNIQUE }}' >> .ssh/digital-ocean-playtechnique
+          ansible-playbook install-upgrade-docker.yaml -i inventory.yaml -e "ssl_private_key=${{ secrets.SSL_PRIVATE_KEY }}" \
+          -e "ssl_certificate=${{ secrets.SSL_CERTIFICATE }}" -e "ansible_user=root" --private-key .ssh/digital-ocean-playtechnique

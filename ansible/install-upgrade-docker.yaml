@@ -1,0 +1,6 @@
+---
+- hosts: droplets
+  remote_user: root
+  roles:
+    - install-upgrade-docker
+  

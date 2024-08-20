@@ -11,6 +11,7 @@ jobs:
   build:
     env:
       DOCKERIMAGE: docker.io/playtechnique/website:${{ github.run_number }}
+      LATESTDOCKERIMAGE: docker.io/playtechnique/website:latest
     runs-on: ubuntu-latest
     outputs:
       dockerimage: ${{ steps.set-docker-image.outputs.dockerimage }}
@@ -28,6 +29,12 @@ jobs:
           push: true
           tags: ${{ env.DOCKERIMAGE }}
 
+      - name: Build and Publish the latest Docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ env.LATESTDOCKERIMAGE }}
+
       - name: what is the docker image and set it to github output
         id: set-docker-image
         run: |
@@ -35,5 +42,3 @@ jobs:
 
   release-to-production:  
     uses: ./.github/workflows/release_website.yaml
-    with: 
-      docker-image-tag: ${{ github.run_number }}

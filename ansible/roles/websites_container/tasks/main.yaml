@@ -1,0 +1,3 @@
+---
+- name: Install and start the websites container
+  import_tasks: websites_container.yaml

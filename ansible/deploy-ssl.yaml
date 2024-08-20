@@ -1,0 +1,10 @@
+---
+- hosts: droplets
+  remote_user: root
+  roles:
+    - docker
+    
+- hosts: droplets
+  remote_user: playtechnique
+  roles:
+  - websites_container
