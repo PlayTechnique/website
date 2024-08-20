@@ -30,8 +30,11 @@ jobs:
           chmod 600 ".ssh/digital-ocean-playtechnique" #to stop the ssh permissions squawking at me
 
           mkdir -p ssl
-          echo '${{ secrets.PLAYTECHNIQUE_SSL_CRT}}' > 'ssl/private.key'
+          echo '${{ secrets.PLAYTECHNIQUE_WEBSITE_PRIVATE_KEY}}' > 'ssl/private.key'
           echo '${{ secrets.PLAYTECHNIQUE_SSL_CRT}}' > 'ssl/playtechnique.crt'
+
+          md5sum ssl/private.key
+          ls -l ssl/private.key
 
           ansible-playbook -vvv website-deployment.yaml -i inventory.yaml -e "ssl_private_key=ssl/private.key" \
           -e "ssl_certificate=ssl/playtechnique.crt" -e "ansible_user=playtechnique" --private-key .ssh/digital-ocean-playtechnique
