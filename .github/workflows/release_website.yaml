@@ -18,7 +18,7 @@ jobs:
         run: |
           cd ansible
           mkdir -p .ssh
-          echo '${{ secrets.DIGITAL_OCEAN_ROOT }}' >> ".ssh/digital-ocean-root"
+          echo '${{ secrets.DIGITAL_OCEAN_ROOT_SSH }}' >> ".ssh/digital-ocean-root"
           chmod 600 ".ssh/digital-ocean-root"
           ansible-playbook install-upgrade-docker.yaml -i inventory.yaml -e "ansible_user=root" --private-key ".ssh/digital-ocean-root"
 
