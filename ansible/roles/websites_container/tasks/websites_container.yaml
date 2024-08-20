@@ -43,9 +43,10 @@
     command:
       - "/andrew"
       - "-c"
-      - "/home/playtechnique/ssl/certificate.crt"
+      - "/etc/ssl/playtechnique/certificate.crt"
       - "-p"
-      - "/home/playtechnique/ssl/private.key"
+      - "/etc/ssl/playtechnique/private.key"
       - "/website"
       - "0.0.0.0:8080"
       - "https://playtechnique.io"
+
