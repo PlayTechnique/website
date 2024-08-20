@@ -1,6 +1,5 @@
 ---
 - name: Deploy SSL Certificate and Private Key
-  hosts: droplet
   tasks:
   - name: set up ssl
   block:
