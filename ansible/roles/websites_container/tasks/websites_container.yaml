@@ -21,3 +21,4 @@
       - "/website"
       - "0.0.0.0:8080"
       - "https://playtechnique.io"
+    restart_policy: always
