@@ -1,27 +1,4 @@
 ---
-- name: Create SSL directory if it doesn't exist
-  file:
-    path: /home/playtechnique/ssl
-    state: directory
-    mode: '0700'
-    owner: playtechnique
-    group: playtechnique
-
-- name: Install SSL Private Key
-  copy:
-    content: "{{ ssl_private_key }}"
-    dest: /home/playtechnique/ssl/private.key
-    mode: '0600'
-    owner: playtechnique
-    group: playtechnique
-
-- name: Install SSL Certificate
-  copy:
-    content: "{{ ssl_certificate }}"
-    dest: /home/playtechnique/ssl/certificate.crt
-    mode: '0644'
-    owner: playtechnique
-    group: playtechnique
 
 - name: Re-create websites container
   docker_container:
@@ -37,11 +14,10 @@
     volumes:
       - /home/playtechnique/ssl:/etc/ssl/playtechnique:ro
     command:
-      - "/andrew"
       - "-c"
-      - "/etc/ssl/playtechnique/certificate.crt"
+      - "/etc/ssl/playtechnique/playtechnique_io.crt"
       - "-p"
-      - "/etc/ssl/playtechnique/private.key"
+      - "/etc/ssl/playtechnique/playtechnique_io.key"
       - "/website"
       - "0.0.0.0:8080"
       - "https://playtechnique.io"
