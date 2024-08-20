@@ -27,8 +27,8 @@ jobs:
           cd ansible
           mkdir -p .ssh
           echo '${{ secrets.DIGITAL_OCEAN_PLAYTECHNIQUE }}' > ".ssh/digital-ocean-playtechnique"
+          chmod 600 ".ssh/digital-ocean-playtechnique" #to stop the ssh permissions squawking at me
 
-          mkdir -p ssl
           echo '${{ secrets.PLAYTECHNIQUE_SSL_CRT}}' > 'ssl/private.key'
           echo '${{ secrets.PLAYTECHNIQUE_SSL_CRT}}' > 'ssl/playtechnique.crt'
 
