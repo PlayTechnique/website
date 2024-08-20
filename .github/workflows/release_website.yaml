@@ -28,7 +28,7 @@ jobs:
           mkdir -p .ssh
           echo '${{ secrets.DIGITAL_OCEAN_PLAYTECHNIQUE }}' > ".ssh/digital-ocean-playtechnique"
           mkdir -p ssl
-          chmod 0500 ssl
+          chmod 600 ssl
           echo '${{ secrets.PLAYTECHNIQUE_SSL_CRT}}' > 'ssl/private.key'
           echo '${{ secrets.PLAYTECHNIQUE_SSL_CRT}}' > 'ssl/playtechnique.crt'
 
