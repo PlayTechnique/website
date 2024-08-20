@@ -27,6 +27,11 @@ jobs:
           cd ansible
           mkdir -p .ssh
           echo '${{ secrets.DIGITAL_OCEAN_PLAYTECHNIQUE }}' > ".ssh/digital-ocean-playtechnique"
+          mkdir -p ssl
+          chmod 0500 ssl
+          echo '${{ secrets.PLAYTECHNIQUE_SSL_CRT}}' > 'ssl/private.key'
+          echo '${{ secrets.PLAYTECHNIQUE_SSL_CRT}}' > 'ssl/playtechnique.crt'
+
           chmod 600 ".ssh/digital-ocean-playtechnique"
-          ansible-playbook -vvv website-deployment.yaml -i inventory.yaml -e "ssl_private_key=${{ secrets.SSL_PRIVATE_KEY }}" \
-          -e "ssl_certificate=${{ secrets.SSL_CERTIFICATE }}" -e "ansible_user=playtechnique" --private-key .ssh/digital-ocean-playtechnique
+          ansible-playbook -vvv website-deployment.yaml -i inventory.yaml -e "ssl_private_key=ssl/private.key" \
+          -e "ssl_certificate=ssl/playtechnique.crt" -e "ansible_user=playtechnique" --private-key .ssh/digital-ocean-playtechnique
