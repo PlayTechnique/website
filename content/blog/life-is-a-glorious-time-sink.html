@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Andrew is a glorious time sink</title>
+    <meta name="andrew-publish-time" content="2024-08-21"/>
+</head>
+
+<body>
+<nav class="navigation">
+    <a href="/" class="link">front page</a>
+        <img src="/images/logo.png">
+    <a href="/articles/index.html" class="link">articles</a>
+    <a href="/projects/index.html" class="link">projects</a>
+</nav>
+
+<link rel="stylesheet" href="/styles.css">
+<div id="playtechnique-header"></div>
+<main>
+<article>
+    <section id="introduction">
+        <p>
+            I started Andrew because I don't know html, css or javascript. I thought writing an old school, frameworkless, website was the way to go to solve this. 
+            It's a decent strategy so far.
+        </p>
+        <p>
+            There are ideas coming out of its design constraints, and my naivete.
+        </p>
+    </section>
+    <section id="andrew-digitalocean-migration">
+        <h2>Website Migration from AKS to DigitalOcean</h2>
+        <p>
+            Andrew's getting new releases again, yes! I had always run it on kubernetes, because I had a little cluster in my old flat and I knew how to set up cert-manager
+            to generate SSL certificates inside a kubernetes cluster.
+        </p>
+            <p>
+                When I moved, I wanted the site to stay up, so I rented a cluster from Azure, thinking I could probably keep its costs inside a dollar or so a day. It turned out I could not;
+                 I was puzzled that my server costs were low as I used spot instances everywhere in the cluster, but storage costs were high inside an otherwise stateless cluster. 
+            </p>
+            <p>I brushed it off; after all, I was actually hosting argo-cd, cert-manager, nginx and my website so I needed a couple of spot instances to make it work.
+                Cost manager, though, showed 
+            </p>
+
+            <p>It took me a month to figure out that the spot instances were coming with premium SSD storage. The default view of a VM in the azure portal doesn't show the GUID
+                for a disk, so I was asserting that this showed that I had mystery premium SSD disks in my subscription
+            </p>
+<code>
+    <pre>
+az graph query -q "Resources | where tolower(properties.resourceGuid) == 'disk guid from azure cost explorer'"
+{
+    "count": 0,
+    "data": [],
+    "skip_token": null,
+    "total_records": 0
+}        
+    </pre>
+</code>
+
+    <p>The azure support team agreed, and escalated me three or four times in three weeks. The they sent me screenshots of a disk that does not show the GUID anywhere and said, case closed we found it!</p>
+    <p>
+    So, I wanted to move the site but I was also moving into a new place, and running a new team at work, and learning about manufacturing automation according to ISA-95 and designing a roadmap for five people, and I was just beat.
+    So for two months I paid 200 a month for a website that has maybe 10 people visit it on a good week, while trying to financially recuperate from moving home. It was aggravating!
+</p>
+<p>
+I don't have long enough ethernet cabling to set up my in-house k8s cluster outside of the living room, so I wanted to rehost to digital ocean. Last weekend I woke up feeling fresh, migrated Andrew and was
+reminded that I'd need to (a) figure out how to run cert-manager on a droplet and (b) host nginx to deal with SSL termination if I wanted to migrate my website.
+</p>
+<p>
+Instead of those things, I spent a trivial amount on namecheap for an SSL certificate that's good for 5 years, then spent a day adding SSL support directly to Andrew. I had feared this would be a hard task,
+but the go http server's excellent and it was actually super easy, barely an inconvenience.
+</p>
+<p>I love these sorts of chores out of nowhere when they're easy to resolve.</p>
+    </section>
+    <section id="whats-next">
+        <h2>What's next?</h2>
+        <p>
+            So what comes next?
+        </p>
+        <p>
+            Andrew's got a slew of features I want. Support for templatised headers and footers provided by users would be great, for example. So would an RSS feed.
+        </p>
+        <p>
+            I really want to get back to jinx, and adding tests to templ, and writing a logging library. I really want to write a compiler, too, to establish my basic
+            computer science knowledge.
+        </p>
+        <p>
+            So many projects! Life is a glorious time sink!
+        </p>
+        </section>
