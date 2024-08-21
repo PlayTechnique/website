@@ -10,8 +10,8 @@ FROM scratch
 COPY --from=base /etc/passwd /etc/passwd
 USER 1000
 COPY --from=base /go/bin/andrew /andrew
-COPY --chown=1000:1000 website /website
+COPY --chown=1000:1000 content /website
 
 EXPOSE 8080
-#By default, andrew will serve the pwd.
+
 ENTRYPOINT ["/andrew"]
