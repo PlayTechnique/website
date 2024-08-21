@@ -1,7 +1,0 @@
-namespace: pt-website-beta
-resources:
-  - ../../base
-  - namespace.yaml
-patchesStrategicMerge:
-  - ingress-patch.yaml
-  - deployment-container-version-patch.yaml

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>writing-a-daemon-in-golang</title>
+    <meta name="andrew-publish-time" content="2024-06-01" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <a href="/articles/index.html" class="link">articles</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <section id="introduction">
+                <p>
+                    Grafanasink's going to be a kubernetes operator. My intention is that it will monitor the grafana 
+                    sqlite database and take actions when some update is performed.
+                </p>
+                <p>
+                    So how do you start monitoring the database? Well you have to write a daemon, right?
+                    There's functionality in go-sqlite3 to allow you to put a function directly into the 
+                    <a href="https://www.sqlite.org/c3ref/update_hook.html">sqlite update hook</a>. For each
+                    change noticed, I'll need the code to take an action.
+                </p>
+                <p>
+                    Either way, we can start by writing a daemon.
+                </p>
+            </section>
+
+            <section id="">
+                <p>
+                </p>
+            </section>
+
+        </article>
+    </main>
+</body>
+

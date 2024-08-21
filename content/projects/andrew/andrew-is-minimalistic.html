@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>andrew is minimalistic</title>
+    <meta name="andrew-publish-time" content="2024-03-17" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <img src="/images/logo.png">
+        <a href="/articles/index.html" class="link">articles</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <section id="introduction">
+                <p>
+                    <a href="https://github.com/playtechnique/andrew">Andrew</a>'s intentionally a very minimalist web
+                    server. I'm aiming it to be one small
+                    step above fronting your website with apache or nginx; it takes care of a couple of nice chores but
+                    the rest is on you. It builds out links
+                    to each page from your index.html, maintains a sitemap, that sort of thing. It doesn't have an
+                    opinion on much else.
+                </p>
+                <p>
+                    I'm aiming at an audience interested in <a href="https://neustadt.fr/essays/the-small-web/">small
+                        web</a> development. I share the general
+                    nostalgia for when web pages all looked like we didn't know what we were doing.
+                </p>
+                <p>
+                    I wanted a web server that takes care of just a few tedious chores, but otherwise leaves my styling
+                    to <i>me</i> to figure out how to do,
+                    leaves it to <i>me</i> to figure out what javascript libraries to include (if any). When I used
+                    hugo, I did what the framework gave me by
+                    default, but with andrew I had to figure out how to manage code highlighting on this site, where
+                    each element should go and how it gets there,
+                    that sort of hand-tweaking.
+                </p>
+                <p>
+                    If you want a hand with maintaining the boilerplate of your website, I have another tool called <a
+                        href="https://github.com/playtechnique/templ">templ</a>.
+                    Like every other tool called templ, it manages go templates; like Andrew, it's minimalist. It asks
+                    you to store templates in a public git repository, then
+                    you download that git repository into templ's cache. When you add new templates to your git repo (by
+                    using your familiar, everyday text editor and git push-ing them)
+                    you can <code>templ -u</code> to download the new templates.
+                </p>
+                <p>
+                    If you want, you can download my templates; you can download as many git repositories as you need.
+                    <a href="https://github.com/PlayTechnique/templ_templates/blob/main/webpages/article.html">
+                        Here's</a> one of my templates, the one I use for writing new html docs in this website. I love
+                    keeping my small tools separate from each other.
+                </p>
+            </section>
+
+        </article>
+    </main>
+</body>

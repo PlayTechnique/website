@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>managed-grafana-self-installed-loki</title>
+    <meta name="andrew-publish-time" content="2024-06-17" </head>
+
+<body>
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <img src="/images/logo.png">
+        <a href="/articles/index.html" class="link">articles</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="header"></div>
+    <main>
+        <article>
+            <section id="introduction">
+                <p>
+                    What would it take for managed grafana (quick to set up!) + managed kubernetes (also quick), 
+                    plus Loki + promtail inside the cluster, but with all of the grafana -> Loki traffic happening
+                    on the azure backbone? More effort than using the integrated monitoring for your managed cluster,
+                    but 😎 cooler 😎.
+                </p>
+            </section>
+
+            <section id="goals">
+                <h2>Our Goals</h2>
+                <p>
+                    <ul>
+                        <li>Where possible, use Azure Managed Identities to set up access between services, as this is much easier to manage</li>
+                    </ul>
+                </p>
+            </section>
+
+            <section id="implementation">
+                <h2>Implementation</h2>
+                <h3>Loki & Storage Account</h3>
+                <aside>
+                    <p>
+                    Grafana's docs are written towards their yaml configuration file. I'm installing this into a kubernetes cluster using
+                    their helm chart. It's unclear from the docs what are the minimal required fields for the helm chart. If you get discouraged,
+                    remember these things: (a) the docs <i>do exist</i> because people want you to be able to figure this out (b) figuring out
+                    the helm chart configuration is <i>part of the puzzle</i>, part of the fun.
+                </aside>
+                <p>
+                    grant managed identity access created via script
+                </p>
+                <p>
+                    configure storage account with right blobs https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml#L312 in bicep
+                </p>
+                <p>
+                    https://grafana.com/docs/loki/latest/configure/#azure_storage_config
+                    It's fairly unclear what the docs are asking for.
+                </p>
+                <p>
+                    disable auth_enabled - https://github.com/grafana/loki/issues/10873 - claims it was fixed in april. The fix was merged https://github.com/grafana/loki/pull/12411
+                    and is in 3.1.0. The current helm chart references 3.0.0 as the most recent version.
+                </p>
+                <p>
+                    All this to get an error. 
+
+                    Refresh request failed. Status Code = '400'. Response body: {"error":"invalid_request","error_description":"Multiple user assigned identities exist, please specify the clientId / resourceId of the identity in the token request"} Endpoint http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https%3A%2F%2Fplaytechniquelokilogs.blob.core.windows.net
+
+                    Do we let this stop us? Do we fuck.
+                </p>
+                <p>
+                    Downloading the loki source code; makefile has a build target for loki-image, can override the destination of make with <code>IMAGE_PREFIX=playtechnique make loki-image</code>
+                    Plan:
+                    <li>
+                        <ol>Build custom image with better logging or something</ol>
+                    </li>
+                    How do we figure out where Loki needs tweaking? Started by searching for 'azure storage multiple identities.' Found nice article https://learn.microsoft.com/en-us/azure/storage/common/migrate-azure-credentials?tabs=roles-azure-portal%2Csign-in-azure-cli%2Cgo%2Cazure-portal-create%2Cazure-portal-associate%2Capp-service-identity%2Capp-service-connector%2Cassign-role-azure-portal
+                    which says part way through that if I were writing a custom app in go (Loki's written in go) then <code>go get -u github.com/Azure/azure-sdk-for-go/sdk/azidentity</code> and
+                    <code>cred, err := azidentity.NewDefaultAzureCredential(nil)</code> should look familiar.
+                </p>
+            </section>
+
+
+        </article>
+    </main>
+</body>
+

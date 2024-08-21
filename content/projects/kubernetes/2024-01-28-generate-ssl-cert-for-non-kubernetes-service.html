@@ -1,0 +1,84 @@
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Generate ssl certs with cert-manager</title>
+</head>
+
+<body>
+    <link rel="stylesheet" href="/styles.css">
+
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <img src="/images/logo.png">
+        <a href="/articles/index.html" class="link">articles</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>Generate ssl certs with kubernetes cert-manager</h1>
+            <p>
+                I use cert-manager in kubernetes for ssl certs. I wanted a new ssl cert for a service not hosted in
+                kubernetes. I
+                read the cert-manager docs, and it looked like there was no reason I could just request a new cert for
+                an arbitrary
+                hostname.
+            </p>
+
+            <p>
+                Here's the yaml:
+            </p>
+            <pre>
+    <code class="yaml">
+    ---
+    kind: Namespace
+    metadata:
+    name: goshdarnit
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+        name: goshdarnit-playtechnique-io
+        namespace: goshdarnit
+    spec:
+        secretName: goshdarnit-playtechnique-io-tls
+
+        duration: 2160h # 90d
+        renewBefore: 360h # 15d
+
+        dnsNames:
+            - goshdarnit.playtechnique.io
+
+        # Issuer references are always required.
+        issuerRef:
+            name: letsencrypt-production
+        kind: ClusterIssuer
+        # I grabbed these few values from a certificate request I had made using nginx.
+        group: cert-manager.io
+        usages:
+        - digital signature
+        - key encipherment
+</code>
+    </pre>
+            <p>
+                I got the "usages" from an already existent cert.
+            </p>
+
+            <p>
+                After a couple of minutes this made a new TLS secret in the goshdarnit namespace. There was a key and a
+                value.
+            </p>
+            <pre>
+    <code class="bash">
+    #!/bin/bash
+
+    kubectl get secret goshdarnit-tls -n goshdarnit -o jsonpath="{.data.tls\.crt}" | base64 -d > tls.crt
+    kubectl get secret goshdarnit-tls -n goshdarnit -o jsonpath="{.data.tls\.key}" | base64 -d > tls.key
+    </code>
+</pre>
+            <p>
+                All done; I just had to upload the ssl cert to the server and use it.
+            </p>
+        </article>
+    </main>
+</body>
