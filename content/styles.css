@@ -30,15 +30,15 @@ nav.navigation img {
 }
 
 main {
-    width: 65vw;
+    width: 55vw;
+    max-width: 1000px;
     flex: 1;
-    margin-right: 15%;
-    margin-left: 15%;
+    margin: 0 auto;
 }
 
 article {
-    line-height: 1.5em;
-    width: inherit;
+    line-height: 2.0em;
+    width: 100%;
     /* flex: 1; */
 }
 
