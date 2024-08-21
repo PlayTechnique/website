@@ -2,6 +2,11 @@ name: Release to Production
 
 on:
   workflow_call:
+    secrets:
+      DIGITAL_OCEAN_ROOT_SSH:
+        required: true
+      DIGITAL_OCEAN_PLAYTECHNIQUE:
+          required: true
   workflow_dispatch:
 
 jobs:

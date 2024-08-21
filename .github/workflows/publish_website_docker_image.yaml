@@ -43,3 +43,8 @@ jobs:
 
   release-to-production:  
     uses: ./.github/workflows/release_website.yaml
+    secrets:
+      DIGITAL_OCEAN_ROOT_SSH: ${{ secrets.DIGITAL_OCEAN_ROOT_SSH }}
+      DIGITAL_OCEAN_PLAYTECHNIQUE: ${{ secrets.DIGITAL_OCEAN_PLAYTECHNIQUE }}
+
+
