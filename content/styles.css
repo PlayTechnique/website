@@ -39,6 +39,7 @@ main {
 article {
     line-height: 2.0em;
     width: 100%;
+    font-size: 1.3em;
     /* flex: 1; */
 }
 
