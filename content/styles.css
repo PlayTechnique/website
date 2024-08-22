@@ -84,3 +84,8 @@ article {
     font-size: 0.7em;
     text-align: center; /* Ensure content inside the footer is centered */
 }
+
+pre, code {
+  line-height: 1em; /* or any value that matches your intended line spacing */
+  font-size: 1em; /* Ensures font size is consistent */
+}
