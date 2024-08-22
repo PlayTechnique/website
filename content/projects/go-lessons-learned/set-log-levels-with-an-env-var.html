@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Set Log Levels With An Environment Variable</title>
+    <meta name="andrew-published-at" content="2024-08-22" </head>
+
+<body>
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <section id="introduction">
+                <p>
+                    The examples in the <a href="https://pkg.go.dev/log/slog">slog docs</a> are pretty convoluted. Setting a log level via an environment variable's actually
+                    pretty simple. Here's the code. Note the function at the bottom called `getLogLevelFromEnv()` and that it's called in the HandlerOptions.
+                </p>
+            </section>
+
+            <section id="code">
+<pre><code>
+package main
+
+import (
+    "log/slog"
+    "os"
+    "strings"
+)
+
+func main() {
+    opts := &slog.HandlerOptions{
+        Level  : getLogLevelFromEnv(),
+    }
+
+    handler := slog.NewTextHandler(os.Stdout, opts)
+
+    logger := slog.New(handler)
+    logger.Debug("Debug message")
+    logger.Info("Info message")
+    logger.Warn("Warning message")
+    logger.Error("Error message")
+
+    // This message will not be logged since it's below the warning level
+    logger.Debug("This debug message will not be logged")
+    logger.Info("This info message will not be logged")
+
+    // These messages will be logged
+    logger.Warn("This is a warning message", "key", "value")
+    logger.Error("This is an error message", "key", "value")
+}
+
+func getLogLevelFromEnv() slog.Level {
+    levelStr := os.Getenv("LOG_LEVEL")
+    switch strings.ToLower(levelStr) {
+    case "debug":
+        return slog.LevelDebug
+    case "info":
+        return slog.LevelInfo
+    case "warn":
+        return slog.LevelWarn
+    case "error":
+        return slog.LevelError
+    default:
+        return slog.Level(100) // Custom level higher than any standard level, so silent by default
+
+    }
+}    
+</code></pre>
+
+            </section>
+
+        </article>
+    </main>
+</body>
+
+
+
