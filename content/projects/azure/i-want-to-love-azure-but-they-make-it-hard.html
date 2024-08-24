@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>I Want to Love Azure, But They Make It Hard</title>
+    <meta name="andrew-publish-time" content="2024-08-23" 
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>I Want to Love Azure, But They Make It Hard</h1>
+            <section id="introduction">
+                <p>
+                    I use Azure at work. It's fine, nothing stands out as great but certainly good enough. So I try using it at home, and I keep finding challenges.
+                </p>
+                <p>I'm not here to just gripe. I know cloud environments are mammoth undertakings. But when I'm paying for a service, 
+                    I expect it to work without tripping over needless hurdles—and Azure has thrown more than its fair share of those my way.
+                </p> 
+            </section>
+
+            <section id="grievances">
+                <h2>Grievances</h2>
+                <p>Here's a list of frustrations:</p>
+                <ol>
+                    <li>Constant service renames with outdated docs — good luck finding what you need in Azure;s shifting landscape.
+                         For example, Azure CNI is now Azure CNI Node Subnet according to the Portal interface, but the docs still say it's Azure CNI networking, matching no UI entry ever,
+                                and meaning no search ever appears to show the feature you're told to look for.</li>
+                    <li>Broken Kubernetes log search examples — when the default table name changed, so did the usefulness of Azure's own examples.. Here's a screenshot:
+                        <img src="images/queries.png" alt="A screenshot, it shows the Azure log analytics web interface. I have scrolled to the Container
+                        prepackaged query section, and selected the first default KQL query. There is a red rectangle highlighting that the default
+                        table provided is called ContainerLog." style="max-width: 100%; height: auto"> See how the default table is called ContainerLog? The default table that receives your logs 
+                        is now called ContainerLogV2, so this queries an empty-by-default table. It took me and a team of four Azure support engineers to figure out this problem about 18 months ago when
+                        the changeover happened, and the bug report I made has never resulted in the action of updating the examples to use ContainerLogV2.
+                    </li>
+                    <li>You can pass all of the validations for an Azure Kubernetes Service cluster, only to find out that the virtual machine type Azure selected by default for you 
+                        doesn't exist in your deployment region when you try to create the VM. Why offer a nonsensical default?</li>
+                    <li>Azure Portal will automatically request required "providers", which enable relevant API endpoints for the services for your subscription when you try to use that service.
+                        Azure CLI does not do this, nor does the Microsoft-developed Azure Terraform Provider. It's inconsistent.
+                    </li>
+                    <li>The tooling to enable required providers is often broken, leaving the provider in a state of permanently being requested. There's no user-available fix for this, it requires a support ticket.</li>
+                    <li>The small business "free" tier of Azure does not allow you to submit support tickets. You have to pay the monthly fee for this privilege</li>
+                    <li>The response times for support tickets <i>that you are paying for</i> is not respected by the support teams. A 24 hour response time <i>you are paying for</i> can easily take 1-2 weeks to get a reply.</li>
+                    <li>
+                        Again, AKS. You are offered a list of VM sizes for system nodes, including B Series node sizes. If you try to use a B-Series node, you are given a red warning that the node sizes you were just offered "cannot be scheduled". Why offer them?
+                    </li>
+                    <li>The consumer version of Azure does not allow you to create integrations for O365 services, such as writing and embedding bots in Teams.</li>
+                    <li>Again, AKS. If you request spot instances in the a consumer tier for Azure, to keep costs low, they often come with Premium SSDs that cost as much as the instance. You can intend to have a stateless cluster, but you have to pay the Premium SSD tax.</li>
+                    <li>There's no coherence to the documentation: it reads like ten geographically, uncommunicating teams write the docs for every individual service.</li>
+                    <li>The docs aren't kept up to date with code changes in supporting projects, so you read a learn.microsoft.com page saying "The example works like X" and then you use the example and it does in fact not work at all like that</li>
+                    <li>Here's the Azure Terraform Provider advice for dealing with broken Azure Resource Providers:
+<code><pre>
+│ If you don't have permission to register Resource Providers you may wish to disable this
+│ functionality by adding the following to the Provider block:
+│ 
+│ provider "azurerm" {
+│   "resource_provider_registrations = "none"
+│ }
+</pre></code>                        
+<i>This advice will not work.</i> The "resource_provider_registrations" is a feature in the backend block, not the provider block.
+                    </li>
+                </ol>
+            </section>
+
+            <section id="conclusion">
+                <p> I don't enjoy being a critic for criticism's sake. But these issues aren't just frustrating — they're a barrier to getting things done. It took me and a colleague
+                    months of sifting docs and examples to put together all the info for oauth projects, for example.
+                </p>
+                <p>This reminds me of <a href="https://openbsd.org">OpenBSD</a> — a small team, minimal bugs, and docs that are always up to date. It's a stark contrast to Azure's sprawling, inconsistent documentation.</p>
+
+                <p>I admire that Microsoft is trying to change with the times, create a very responsive org that moves fast with indepenent teams, much more like
+                    open source. I don't go to Microsoft for an under-documented experience, I expect stability and attention to detail—qualities that seem to be slipping.
+                </p>
+
+            </section>
+        </article>
+    </main>
+</body>
+
+
+

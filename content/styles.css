@@ -43,7 +43,7 @@ main {
 article {
     line-height: 2.0em;
     width: 100%;
-    font-size: 1.3em;
+    font-size: 1.2em;
     /* flex: 1; */
 }
 
@@ -54,10 +54,9 @@ article {
   gap: 2%; /* Adjust the gap between columns */
 }
 
-.AndrewTableOfContentsWithDirectories ul {
-  flex: 1 1 30%; /* Each ul will take up approximately 30% of the container width */
-  max-width: 25%; /* Prevent the columns from becoming too wide */
-  min-width: 15rem; /* Ensure the ul elements have a minimum width based on the root font size */
+.AndrewTableOfContents {
+  margin-right: 25%;
+  margin-left: 25%;
 }
 
 
