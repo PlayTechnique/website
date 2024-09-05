@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Marching With Two Pointers</title>
+    <meta name="andrew-publish-time" content="2024-09-05" 
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href="/" class="link">front page</a>
+        <a href=/><img src="/images/logo.png"></a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>Arrays and Strings</h1>
+            <section id="introduction">
+                <p>
+                    The first set of leetcode problems about arrays and strings are teaching you to march through
+                    arrays and strings using the <b>two pointers</b> technique.
+                </p>
+            </section>
+
+            <section id="body">
+                <p>
+<pre><code>
+package ArraysAndStrings
+
+import (
+    "errors"
+
+    "golang.org/x/exp/constraints"
+)
+
+// Example 1: Given a string s, return true if it is a palindrome, false otherwise.
+// A string is a palindrome if it reads the same forward as backward. That means,
+// after reversing it, it is still the same string. For example: "abcdcba", or "racecar".s
+func CheckIfPalindrome(target string) bool {
+
+    // the end of the string
+    end := len(target) - 1
+
+    // i begins at the start of the string
+    for i := range target {
+        // march end and i towards each other, comparing results. Don't prematurely
+        // optimise by trying to stop half way into the string, as that is the way of
+        // thinking the difference between O(n) and O(n/2) is meaningful.
+        if target[i] == target[end-i] {
+            continue
+        } else {
+            return false
+        }
+    }
+
+    return true
+}
+
+// Example 2: Given a sorted array of unique integers and a target integer,
+// return true if there exists a pair of numbers that sum to target, false otherwise.
+// This problem is similar to Two Sum. (In Two Sum, the input is not sorted).
+// For example, given nums = [1, 2, 4, 6, 8, 9, 14, 15] and target = 13, return true because 4 + 9 = 13.
+func FindPairThatSums(data []int, target int) ([2]int, error) {
+
+    last := len(data) - 1
+    initial := 0
+
+    // Iterating over the array slightly differently to the previous question, just
+    // to explore. The algorithm's trivial, but in brief: try adding the first
+    // and last items. If the resulting candidate sum is bigger than the target,
+    // the last item must be too big, so reduce it to the next biggest item, and
+    // vice-versa for the smallest item.
+    // If we hit the goal, return it.
+    for initial < last {
+        switch candidate := data[initial] + data[last]; {
+        case candidate == target:
+            return [2]int{data[initial], data[last]}, nil
+        case candidate < target:
+            initial = initial + 1
+        case candidate > target:
+            last = last - 1
+        }
+    }
+
+    return [2]int{-1, -1}, errors.New("no pair found")
+
+}
+
+// Example 3: Given two sorted integer arrays arr1 and arr2,
+// return a new array that combines both of them and is also sorted.
+//
+// JoinTwoSortedArrays is a generic interface to joining two sorted arrays.
+// Generic for practice, not because the problem's calling for it particularly.
+// Parameters can be any type that satisfies constraints.Ordered.
+// This constraint is documented as:
+// // Ordered is a constraint that permits any ordered type: any type
+// // that supports the operators < <= >= >.
+// This is presently ints, floats, and strings.
+func JoinTwoSortedArrays[T constraints.Ordered](left []T, right []T) []T {
+    // Set up indices for the last element in each array.
+    l, r := len(left), len(right)
+
+    // Set up indices for the first elements in each array.
+    i, j := 0, 0
+
+    joinedAndSorted := make([]T, 0, l+r)
+
+    // while it is true that there are elements still in the shorter of
+    // either left or right. Using a naked `for` as a synonym for `while`
+    // actually wasn't habitual before working through these issues, but
+    // go's syntactical simplicity is in sight here.
+    for i < l && j < r {
+        if left[i] < right[j] {
+            joinedAndSorted = append(joinedAndSorted, left[i])
+            i++
+        } else {
+            joinedAndSorted = append(joinedAndSorted, right[j])
+            j++
+        }
+    }
+
+    // Above, we reached the end of the shortest array. We need
+    // to drain the longer one, but we don't know which it is.
+    // One of the vars i or j already points to the end of the shortest array.
+    // Tell the computer what to do, don't ask it which is shorter.
+    for i < l {
+        joinedAndSorted = append(joinedAndSorted, left[i])
+        i++
+    }
+
+    for j < r {
+        joinedAndSorted = append(joinedAndSorted, right[j])
+        j++
+    }
+
+    return joinedAndSorted
+
+}
+
+// Example 4: Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+// A subsequence of a string is a sequence of characters that can be obtained by
+// deleting some (or none) of the characters from the original string, while maintaining
+// the relative order of the remaining characters.
+// For example, "ace" is a subsequence of "abcde" while "aec" is not.
+func IsSubsequence(candidate string, superstring string) bool {
+    // Set up indices for the beginning of the strings.
+    i, j := 0, 0
+
+    // len(candidate) and len(superstring) didn't seem to be recalculated
+    // for every loop when I checked the profiler.
+    for i < len(candidate) && j < len(superstring) {
+        c := candidate[i]
+        s := superstring[j]
+        // If we have a match, we can proceed to the next item in both candidate and superstring.
+        if c == s {
+            i++
+            j++
+        } else {
+            j++
+        }
+    }
+
+    // If the index we used to march through the candidate is the same as the length of the candidate,
+    // we're golden. I didn't verify whether len(candidate) is re-calculated here: that'd be good to know.
+    return i == len(candidate)
+}  
+</code></pre>
+                </p>
+            </section>
+
+        </article>
+    </main>
+</body>
+
+
+
