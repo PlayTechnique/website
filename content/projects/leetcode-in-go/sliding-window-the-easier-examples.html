@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Sliding Window - The Easier Examples</title>
+    <meta name="andrew-publish-time" content="2024-09-05 20:05:24" 
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href=/><img src="/images/logo.png"></a>
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>Sliding Window - the easier examples</h1>
+            <section id="introduction">
+                <p>
+                    Conceptually, this is straightforwards enough, but implementing the examples has repeatedly had something tricky that's stumped me.
+                </p>
+                <p>
+                    The goal is practice, practice, practice. So I'm stopping in this problem set and picking sliding window problems from leetcode's list of tagged
+                    problems, to get more practice.
+                </p>
+            </section>
+
+            <section id="Solved easily enough">
+                <p>
+<pre><code>
+// Given an array of positive integers nums and an integer limit,
+// find the length of the longest subarray whose sum is less
+// than or equal to the limit. 
+func FindLongestSubArrayUnderLimit(numbers []int, limit int) int {
+    lengthOfLongestSubArray := 0
+    left, currentTotal := 0, 0
+
+    // we have a leftmost pointer initialised above; here we initialise a pointer that'll march
+    // right. It starts at the same spot as the leftmost pointer.
+    for right := range numbers {
+        currentTotal += numbers[right]
+
+        // If the total of the sliding window exceeds the limit, start
+        // trimming values from the left.
+        for currentTotal > limit {
+            currentTotal -= numbers[left]
+            left++
+        }
+
+        lengthOfLongestSubArray = int(math.Max(float64(lengthOfLongestSubArray), float64(right)-float64(left)+1))
+    }
+
+    return lengthOfLongestSubArray
+}
+</code></pre>
+    This one was neat to figure out. For a slice <code>[1, 2, 3, 4]</code> and a limit of <code>2</code>, on the first iteration
+     the running total is 1. 
+                </p>
+                <p>
+                    The longest subarray is the maximum of either 0, or right - left, which is 1 - 0, which is 1, so the longest subarray we found without
+                    blowing the limit is 1.
+                </p>
+
+                <p>
+                    The second iteration, currentTotal gets 2 added to it, for a currentTotal of 3. This is higher than our limit of 2, so we delete a value from the leftmost.
+                </p>
+                <p>
+                    The algorithm works because we're asking a question about the maximum number of elements in a sequential piece of the array; it's cool.
+                </p>
+            </section>
+
+            <section id="harder">
+                <p>
+                    This one, I tried and tried. I ended up reading the python example that leetcode provided and using that to get the answer correct.
+                </p>
+                <p>
+                    The question is: You are given a binary string s (a string containing only "0" and "1"). You may choose up to one "0" 
+                    and flip it to a "1". What is the length of the longest substring achievable that contains only "1"?
+                    For example, given s = "1101100111", the answer is 5. If you perform the flip at index 2, the string becomes 1111100111.
+                </p>
+<pre><code>
+func WhatIsMostSequentialOnesIfYouFlipOneZero(numbers []int) int 
+    // numZeroes tracks the number of sequential zeroes we've seen
+    // longestSequentialOnes tracks the highest value cur reaches
+    // left is the left pointer in the sliding window
+    numZeroes, longestSequentialOnes, left := 0, 0, 0
+
+    for right := range numbers {
+        val := numbers[right]
+
+        if val == 0 {
+            numZeroes++
+        }
+
+        // This took me a while to finally understand. The logic is so _simple_ to read,
+        // but what was tricky was persuading myself to stop messing around with 
+        // "if numbers[right] == 0 then peek at numbers [right+1]"
+        // Instead, I had to stop and _tell the computer what to do_, not describe 
+        // _how to do it_.
+        for numZeroes > 1 {
+            if numbers[left] == 0 {
+                numZeroes--
+            }
+
+            left++
+        }
+
+        longestSequentialOnes = int(math.Max(float64(longestSequentialOnes), float64(right)-float64(left)+1))
+    }
+
+    return longestSequentialOnes
+}
+</code></pre>                
+            </section>
+        </article>
+    </main>
+</body>
+
+
+
