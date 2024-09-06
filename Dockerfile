@@ -3,7 +3,7 @@ FROM golang:1.23 AS base
 WORKDIR /usr/src/app
 
 ENV CGO_ENABLED=0
-RUN go install github.com/playtechnique/andrew/cmd/andrew@v0.1.4
+RUN go install github.com/playtechnique/andrew/cmd/andrew@v0.1.5
 
 FROM scratch
 
