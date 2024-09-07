@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Sliding Window 2: Length of Longest Substring Without Repeating Characters</title>
+    <meta name="andrew-publish-time" content="2024-09-07 14:57:39" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href=/><img src="/images/logo.png"></a>
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>Sliding Window 2: Length of Longest Substring Without Repeating Characters</h1>
+            <section id="introduction">
+                <p>
+                    To get past my <a href="sliding-window-the-easier-examples.html">previous problem</a> understanding sliding windows, I've
+                    kept working on them.
+                </p>
+            </section>
+
+            <section id="problem">
+                <p>
+                    Given a string s, find the length of the longest substring without repeating characters.
+                </p>
+            </section>
+
+            <section id="solutions">
+            <p>
+                The puzzle has a strict limit for defining how to proeed: no character can appear more than once. This kind of condition
+                being checked repeatedly over the length of an array is asking for sliding windows.
+            </p>
+            <p>Identifying this was helped by getting this from the <a href="https://leetcode.com/problem-list/sliding-window/">"sliding window"</a>
+                section of the leetcode problems.
+            </p>
+            </section>
+            <section id="solutions">
+                <h2>Speed Run</h2>
+                <p>
+                    <img src="images/length-longest-substring.gif"
+                </p>
+            <p>
+                Below is the first iteration of the code above. It's not my first version, but you can see the flaw I mentioned in the <a href="sliding-window-the-easier-examples.html">last post</a>,
+                that I'm using <code>if</code> to try and show the computer what to do, rather than just telling it the algorithm.
+            </p>
+            <p>
+                Now, in writing the big comment in there, I started seeing my error. 
+            </p>
+<pre><code>
+// Given a string s, find the length of the longest substring without repeating characters.
+func LengthOfLongestSubstring(s string) int {
+    left, length := 0, 0
+    lastIndexOfChar := make(map[rune]int)
+
+    for right, char := range s {
+
+        // When there's no repeating characters in the string this always generates an off by one error.
+        // Consider it for a run of a string of length 1.
+        // On the first test of `if lastIndexOfChar[char] >= left`, that test will always succeed
+        // and left is always incremented to 1.
+        // From here, lastIndexOfChar is set to the value of right.
+        // In the length calculation, 0 - 1 + 1 == 0. That's wrong; we have 1 character without repetition.
+        // For a two character string this can't happen.
+        if lastIndexOfChar[char] >= left {
+            left = lastIndexOfChar[char] + 1
+        }
+
+        lastIndexOfChar[char] = right
+
+        length = int(math.Max(float64(length), float64(right)-float64(left)+1))
+    }
+
+    return length
+}
+</code></pre>                
+            </p>
+            <p>
+                <blockquote>Learning is easier when I stop coding and start thinking, and I did that above by trying to explain the code in the comment there.</blockquote>
+            </p>
+            <p>
+                Once I had done that, I saw the failure case clearly and wrote two tests for it: <i>the failure case was any string that didn't contain a repeating character.</i>
+            </p>
+            <p>Here's the solution I found eventually. You can see in the gif above that I actually found a surprisingly similar piece of code from leetcode's submitted samples; that
+                was entirely because I knew I had <i>something</i> wrong but couldn't see it. It turned out I thought I had written <code>for</code> but had actually retained <code>if</code>
+                even though I knew that wasn't what was needed.
+<code><pre>
+func LengthOfLongestSubstring(s string) int {
+    left, length := 0, 0
+    countOfChars := make(map[rune]int)
+
+    for right, char := range s {
+        countOfChars[char]++
+
+        for countOfChars[char] > 1 {
+            leftChar := rune(s[left])
+            countOfChars[leftChar]--
+            left++
+        }
+
+        length = max(length, right-left+1)
+    }
+
+    return length
+}   
+</pre></code>
+                </p>
+            </section>    
+        </article>
+    </main>
+</body>
+
+
+
