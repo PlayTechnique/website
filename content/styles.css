@@ -35,7 +35,7 @@ nav.navigation img {
 
 main {
     width: 55vw;
-    max-width: 1000px;
+    max-width: 850px;
     flex: 1;
     margin: 0 auto;
 }
@@ -86,4 +86,53 @@ article {
 pre, code {
   line-height: 1em; /* or any value that matches your intended line spacing */
   font-size: 1em; /* Ensures font size is consistent */
+}
+
+side-by-side > div {
+  flex: 1 1 calc(50% - 20px); /* Calculate width considering padding/margins */
+  box-sizing: border-box;
+  padding: 10px;
+  min-width: 0; /* Allows divs to shrink */
+}
+
+.side-by-side {
+   display: flex;
+   width: 95%; /* Ensure the side-by-side container takes full width */
+   gap: 10px; /* Add space between the two columns */
+ }
+
+.side-by-side pre, 
+.side-by-side code {
+  font-size: 1em; /* Base font size */
+  overflow: auto;
+  white-space: pre-wrap; /* Ensures code wraps if necessary */
+  word-wrap: break-word; /* Break long words if necessary */
+}
+
+/* Responsive font size and scaling */
+@media (max-width: 768px) {
+  .side-by-side pre, 
+  .side-by-side code {
+      font-size: 0.9em;
+      transform: scale(0.9);
+      transform-origin: top left;
+  }
+}
+
+@media (max-width: 600px) {
+  .side-by-side pre, 
+  .side-by-side code {
+      font-size: 0.8em;
+      transform: scale(0.8);
+      transform-origin: top left;
+  }
+}
+
+@media (max-width: 480px) {
+  .side-by-side pre, 
+  .side-by-side code {
+      font-size: 0.7em;
+      transform: scale(0.7);
+      transform-origin: top left;
+  }
 }

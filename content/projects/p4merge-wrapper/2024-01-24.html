@@ -2,10 +2,10 @@
     <script type="text/javascript" src="/main.js"></script>
     <meta name="andrew-publish-time" content="2024-01-24" />
     <title>Wrapping P4Merge and P4Diff For The Cli</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-    <link rel="stylesheet" href="/styles.css">
     <div id="playtechnique-header"></div>
 
     <nav class="navigation">
@@ -48,9 +48,25 @@
 
             <p>
                 The official docs tell you that if you want to integrate it with the command line then you have to write
-                that
-                integration yourself. It's annoying, but I wrote a bad version several years ago
+                that integration yourself. It's annoying, but I wrote a bad version several years ago. I've since tweaked it a couple of times.
+                Here's the two wrapper scripts I use.
             </p>
+<div class="side-by-side">
+    <div>
+        <h3>p4diff</h3>
+        <pre><code>
+#!/bin/sh
+[ $# -eq 7 ] && /usr/local/bin/p4merge "$2" "$PWD/$5" 
+        </code></pre>
+    </div>
+    <div>
+        <h3>p4merge</h3>
+        <pre><code>
+#!/bin/sh
+/Applications/p4merge.app/Contents/MacOS/p4merge $*
+        </code></pre>
+    </div>
+</div>
 
         </article>
     </main>
