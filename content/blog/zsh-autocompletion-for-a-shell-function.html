@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>zsh autocompletion for a shell function</title>
+    <meta name="andrew-publish-time" content="2024-09-12 06:26:45" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href=/><img src="/images/logo.png"></a>
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>zsh autocompletion for a shell function</h1>
+            <section id="introduction">
+                <p>
+			I have this shell function
+<pre><code>
+function cdd() {
+  DEST=$1
+  cd "${DEV}/${DEST}/"
+}
+</code></pre>
+		</p>
+		<p>
+			I'd like to type <code>cdd &lttab&gt</code> and autocomplete directory names from inside <code>${DEV}/${DEST}</code>
+                </p>
+            </section>
+
+            <section id="solving">
+		<h2>Having ChatGPT Solve My Difficulty Reading Docs</h2>
+                <p>
+		I started by reading <a href="https://thevaluable.dev/zsh-completion-guide-examples/">a zsh completion guide blog post</a> I got from a web search.
+		I see a lot about using zstyle to configure the defaults, not much to address my ask.
+                </p>
+		<p>
+		I continued by looking at the <a href="https://zsh.sourceforge.io/Doc/Release/Completion-System.html">Zsh Completion System docs</a>, which are famously
+		dense. 
+		</p>
+		<p>
+		I lost patience after ten minutes. This autocomplete stuff is an incidental problem to other goals, not my main goal, so reading these docs for hours sucks.
+		</p>
+		<p>
+		I asked ChatGPT. She seemed so confident, so all-knowing
+		<blockquote>
+Now, you need to create a custom completion function that provides the directory suggestions based on the $DEV path:
+<pre><code>
+# Custom completion function for cdd
+_cdd_complete() {
+  local cur=${words[2]}
+  # Complete directories in the $DEV path
+  compadd -o nospace -o filenames -- $(compgen -d "${DEV}/${cur}")
+}
+
+# Register the custom completion function for cdd
+compdef _cdd_complete cdd
+</code></pre>
+		</blockquote>
+		</p>
+		<p>
+		Assuming she's right, what have I learned? Have I learned less than if I'd stumbled on a random blog post with this answer? I copy/pasted into <b>.zshrc</b>
+<pre><code>
+; cdd _cdd_complete:3: command not found: compgen
+                                    cdd
+--         -o         filenames  nospace
+</code></pre>
+		</p>
+		<p>
+		There's always a detail to get right. She tells me <blockquote>The error you're encountering is due to the fact that compgen, which is commonly used in Bash for generating completion lists, isn't available in Zsh. </blockquote>
+		</p>
+		<p>
+		Thus I learned that chatGPT doesn't really know her own context, a lesson I've learned again and again and again.
+		</p>
+		<p>
+		Her second attempt:
+<pre><code>
+# Custom completion function for cdd
+_cdd_complete() {
+  # Use _files to generate a list of directories in $DEV
+  _files -W "${DEV}" -/
+}
+
+# Register the custom completion function for cdd
+compdef _cdd_complete cdd
+</code></pre>
+		</p>
+		<p>
+		It worked immediately. What have I learned?
+		</p>
+            </section>
+		<section id="learnings">
+			<h2>Learnings</h2>
+			<p>
+			<ol>
+				<li>You use compdef to bind an underscore function to another function. Now <a href="https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org#telling-zsh-which-function-to-use-for-completing-a-command">This github doc on zsh completions</a> makes sense.</li>
+				<li><a href="https://zsh.sourceforge.io/Doc/Release/Completion-System.html#Functions-4">The Zsh completion system docs</a> are approachable once you know what you're looking for. They're like <code>man bash</code> that way. In the link above, it clearly says "[functions] beginning ‘_’ are called by the completion code. The shell functions of this set, which implement completion behaviour and may be bound to keystrokes, are referred to as ‘widgets’. These proliferate as new completions are required."</li>
+				<li>_files is a built in <a href="https://zsh.sourceforge.io/Doc/Release/Completion-System.html#Completion-Functions">Utility Function</a>. It's a wrapper around another function. They're both useful sounding; probably reading all of the Utility Functions should be on my ToDo list</li>
+			</p>
+			<p>
+			I also learned I'm grateful that chatGPT exists and helps me move quicker, even as I'm sad that I wasn't forced to wade through this problem for days. I miss the revelation after suffering.
+			</p>
+        </article>
+    </main>
+</body>
+
+
+
