@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Adding Permissions To MapFS Part 1</title>
+    <meta name="andrew-publish-time" content="2024-09-24 20:34:05" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href=/><img src="/images/logo.png"></a>
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>Adding Permissions To MapFS Part 1</h1>
+            <section id="introduction">
+                <p>
+			I decided to try and commit to golang, because I was feeling brave.
+                </p>
+                <p>
+			First step was identifying a github issue for a specific problem: The test.MapFS package does not
+			enforce file permissions. I'd found this problem while working on Andrew, and John Arundel kindly
+			identified <a href="https://github.com/golang/go/issues/50787">a github issue</a> tracking the 
+			problem.
+                </p>
+		<p>
+			"Hah", I thought, "This'll be easy."
+		</p>
+		<p>
+			There's no hubris quite like the hubrjis of estimating while never having working on a problem like the one before you.
+		</p>
+		<p>
+			Those wiser than me have noted that the moment of beginning is the moment of greatest ignorance.
+		</p>
+            </section>
+
+            <section id="preprocess">
+		<p>
+			First I compiled golang. Then I figured out how to source that same build repeatedly. It turned out that 
+			vs code was being weird about interacting with the custom build, so I had to add <code>"go.goroot": "/Users/gwyn/Developer/go/bin"</code>
+			to settings.json
+		</p>
+		<p>
+			Unfortunately, settings.json is global to all instances of vs code, so I have to either remember to turn
+			it off or have mostly broken package imports in other projectsfor a few weeks.
+		</p>
+		<p>
+			I also wrote a .env file to set up my command line environment
+<pre><code>
+; cat ./src/gwyn.env
+PATH=/Users/gwyn/Developer/go/bin:$PATH
+</code></pre>
+
+			It wouldn't be hard to automatically activate it when I enter into <code>~/Developer/go</code> but I'm manually sourcing it. I'm l a z y.
+		</p>	
+            </section>
+	    <section id="coding">
+		    <p>
+		    	I started with adding a test into <code>go/src/testing/fstest/mapfs_test.go</code>
+<pre><code>
+func TestMapFSFileSystemPermissions(t *testing.T) {
+	m := MapFS{
+		"path/to/a.txt": &MapFile{Mode: 0o000},
+	}
+	_, err := m.Open("path/to/a.txt") // Use Open instead of Stat
+	want := fs.ErrPermission
+
+	if !errors.Is(err, fs.ErrPermission) {
+		t.Errorf("MapFS should not open a file with permissions 0o000 want:\n%s\ngot:\n%v\n", want, err)
+	}
+}
+
+</pre></code>
+		All I'm trying to achieve is trying to open a file without permissions and getting an error.
+		</p>
+		<p>
+		So how do you check file system permissions anyway? Normally this'd be enforced by the kernel (the <a href="https://www.man7.org/linux/man-pages/man2/open.2.html">open</a> system
+		call returns an EACCES error if permission is denied, but a mapFS is just a hashmap that contains
+			a bunch of a type called a <a href="https://cs.opensource.google/go/go/+/refs/tags/go1.23.1:src/testing/fstest/mapfs.go;drc=b0b1d42db32a992150dd26681d3bda222e108303;l=16">MapFile</a>
+		</p>
+		<p>
+			The kernel source for open() shows that it mostly dumps the work to a second function, after checking for whether it needs a special type to represent the size of a big file.
+			The kernel shows that it populates a struct tracking file permissions, but I can't quite <a href="https://github.com/torvalds/linux/blob/16f73eb02d7e1765ccab3d2018e0bd98eb93d973/fs/open.c#L1044">
+				figure out from the kernel source</a> precisely what else is happening.
+		</p>
+		<p>
+			So, I need to figure out how to verify if a string like "644" and validate it against a set of permissions. Fun!
+		</p>
+	    </section>
+
+        </article>
+    </main>
+</body>
+
+
+
