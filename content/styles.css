@@ -42,6 +42,7 @@ main {
     max-width: 850px;
     flex: 1;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 article {
@@ -139,4 +140,22 @@ side-by-side > div {
       transform: scale(0.7);
       transform-origin: top left;
   }
+}
+
+aside {
+  float: right; /* Float to the right side */
+  background-color: #f2f2f2; /* Light grey background */
+  padding: 10px; /* Add some padding inside the block */
+  margin-left: 20px; /* Add space between the aside and the main content */
+  width: 30%; /* Adjust width as needed */
+  box-sizing: border-box; /* Ensures padding doesn't affect the total width */
+  font-size: 0.8em; /* Slightly smaller font size */
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+/* Clear fix for the aside, to ensure correct content flow after the aside */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }
