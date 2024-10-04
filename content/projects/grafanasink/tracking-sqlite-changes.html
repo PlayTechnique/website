@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Tracking Sqlite Changes</title>
+    <meta name="andrew-publish-time" content="2024-10-03 06:42:12" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href=/><img src="/images/logo.png"></a>
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>Tracking Sqlite Changes</h1>
+            <section id="introduction">
+                <p>
+                    grafanasink wants to track changes in the grafana sqlite database as they're being written.
+                </p>
+                <p>
+                    I see two options: an outside observer trying to track changes, by comparing them with a known
+                    good data source, or sqlite somehow tracking inserts and updates itself.
+                </p>
+            </section>
+
+            <section id="tracking-from-outside">
+                <h2>Can Go Register A Callback?</h2>
+                <p>
+                    go-sqlite3 lets you <a href="https://pkg.go.dev/github.com/mattn/go-sqlite3#hdr-Connection_Hook">provide a callback function</a> when a database mutation happens. 
+                </p>
+                <p>
+                    It didn't work for my needs. Following the code is tricky as it crosses the C boundary, but any mutations happening outside of the current connection didn't trigger
+                    the hook. The behaviour sounds like it wraps <a href="https://www.sqlite.org/c3ref/update_hook.html">Sqlite's Update Hook</a>.
+                </p>
+                <p>
+                    This quote from the update_hook documentation seems fairly damning for this approach:
+                    <blockquote>The sqlite3_update_hook() interface registers a callback function with the database connection identified by the first argument</blockquote>
+                </p>
+                <p>
+                    Whomp whomp.
+                </p>
+            </section>
+            <section id="trigger-me">
+                <h2>Plan B: sqlite somehow tracking inserts and updates itself</h2>
+                <aside>
+                    <p>Minor confession: there was about 30 minutes of screwing around with <a href="https://www.sqlite.org/doclist.html">sqlite docs</a> before I got somewhere. I read how to (a) create a table, (b)
+                    ask for table info, (c) create a trigger.</p>
+                </aside>
+                <p>
+                    The truth is that I don't know much about sqlite, but the docs are pretty great and showed it shouldn't be bad to <a href="https://www.sqlite.org/lang_createtrigger.html">create a trigger</a>
+                    that'll keep track of changes in the grafana database table.
+                </p>
+                <p>
+                    Plan: start showing I know how to use a trigger. Then, see if the trigger can automatically insert some data from the original insert, so ultimately I can add a trigger to Grafana's sqlite db
+                    that will track the name of an updated dashboard and the content of the update.
+                </p>
+                <h3>Start Simple</h3>
+                <p>
+                    <pre><code>
+sqlite> CREATE TABLE inputs(input text);
+sqlite> CREATE TABLE triggered(tracking text);
+sqlite> CREATE TRIGGER inputtrigger AFTER INSERT ON inputs BEGIN INSERT INTO triggered VALUES("trig"); END;
+sqlite> INSERT INTO inputs VALUES("hi friend");
+sqlite> select * from triggered;
+trig
+sqlite> 
+                    </code></pre>
+                </p>
+                <h3>Insert Some Info From The Original Query</h3>
+                <p>
+                    I realised at this point that I'm building an audit table. Once I put the name to the concept I found <a href="https://simonwillison.net/2023/Apr/15/sqlite-history/">really good prior art</a>"
+                    to guide me.
+                </p>
+                <p> The <i>mask</i> field in there isn't something I need while I'm toying around, but looks valuable for when I implement this against grafana itself.</p>
+<pre><code>
+sqlite> CREATE TABLE _inputs_history ( _rowid INTEGER, id INTEGER, input TEXT, _version INTEGER, _updated INTEGER);
+sqlite> CREATE TRIGGER input_insert_history
+   ...> AFTER INSERT ON inputs
+   ...> BEGIN 
+   ...> INSERT INTO _inputs_history(_rowid, id, input, _version, _updated) 
+   ...> VALUES (new.rowid, new.id, new.input, 1, unixepoch('subsec'));
+   ...> END;
+sqlite> INSERT INTO inputs(input) VALUES("hi friend");
+Parse error: no such column: new.id
+</code></pre>
+            <p>
+                The first bug! I had thought I got a free ID column, but <a href="https://www.sqlite.org/lang_createtable.html#the_primary_key">the Primary Key docs</a> show
+                that I have to explicitly request one with the <code>PRIMARY KEY</code> keywords.
+            </p>
+            <p>  I can't add a primary key after the fact to my inputs table; it's not supported. Time to delete and recreate:</p>
+<pre><code>
+sqlite> DROP TABLE inputs;
+sqlite> CREATE TABLE inputs(
+(x1...> id INTEGER PRIMARY KEY,
+(x1...> input TEXT
+(x1...> );
+sqlite> INSERT INTO inputs(input) VALUES("hi friend");
+sqlite> select * from _inputs_history;
+//nothing here
+</code></pre>
+<p>Second learning, this one from the docs<quote>Triggers are automatically dropped when the table that they are associated with (the table-name table) is dropped.</quote></p>
+<pre><code>
+sqlite> CREATE TRIGGER input_insert_history AFTER INSERT ON inputs BEGIN INSERT INTO _inputs_history(_rowid, id, input, _version, _updated)  VALUES (new.rowid, new.id, new.input, 1, unixepoch('subsec')); END;
+sqlite> INSERT INTO inputs(input) VALUES("hi friend");
+sqlite> select * from _inputs_history;
+2|2|hi friend|1|1728051238.601
+</code></pre>
+            </section>
+            <section id="wrap-up">
+                <p>
+                    Okay! Enough for the proof of concept stuff. I can move on to investigating the grafana db now. That'll be for next time in this project.
+                </p>
+            </section>
+        </article>
+    </main>
+</body>
+
+
+
