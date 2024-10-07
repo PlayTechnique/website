@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Grafana's Sqlite Database</title>
+    <meta name="andrew-publish-time" content="2024-10-05 13:47:37" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href= /><img src="/images/logo.png"></a>
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>How Grafana's Sqlite Database Sees A New Dashboard and Panel</h1>
+            <section id="introduction">
+                <p>
+                    After <a href="/content/blog/grafanasink/tracking-sqlite-changes.html">learning a little about
+                        sqlite</a> in the last part of this project, it's time to get on with understanding grafana's own sqlite database. 
+                </p>
+                <p>
+                    To start I should use apk to add sqlite to the grafana image so I can query the database there, then snapshot the state of the container
+                    to a new image so I capture the progress.
+                </p>
+    <pre><code>
+    #make sure we can use sqlite3 inside the container; it'll be easier than copying the db out all the time like we did above
+    ; docker exec -u root -it grafana apk add sqlite
+    OK: 22 MiB in 29 packages
+    
+    #save our progress after adding the data source
+    ; docker tag $(docker commit grafana) gwyn-baseline-adds-data-source:1
+    </code></pre>
+                <p>
+                    The project goal is to start responding to changes in the dashboards. Let's figure out what changes in the database as we mutate dashboards.
+                </p>
+            </section>
+            <section id="investigating-the-database">
+                <p>
+                    In the last article we figured out that triggers can work for the project, so I want to see if there are any existing triggers:
+                </p>
+<pre><code>
+; sqlite3 grafana.db .schema | grep TRIGGER
+;
+</code></pre>
+                <p>
+                    Nope!
+                </p>
+                <p>
+                    Let's check the tables in this database to get orientated:
+                </p>
+                <pre><code>
+; sqlite3 grafana.db .tables   
+alert                        login_attempt              
+alert_configuration          migration_log              
+alert_configuration_history  ngalert_configuration      
+alert_image                  org                        
+alert_instance               org_user                   
+alert_notification           permission                 
+alert_notification_state     playlist                   
+alert_rule                   playlist_item              
+alert_rule_tag               plugin_setting             
+alert_rule_version           preferences                
+annotation                   provenance_type            
+annotation_tag               query_history              
+anon_device                  query_history_star         
+api_key                      quota                      
+builtin_role                 role                       
+cache_data                   secrets                    
+correlation                  seed_assignment            
+dashboard                    server_lock                
+dashboard_acl                session                    
+dashboard_provisioning       short_url                  
+dashboard_public             signing_key                
+dashboard_snapshot           sso_setting                
+dashboard_tag                star                       
+dashboard_version            tag                        
+data_keys                    team                       
+data_source                  team_member                
+entity_event                 team_role                  
+file                         temp_user                  
+file_meta                    test_data                  
+folder                       user                       
+kv_store                     user_auth                  
+library_element              user_auth_token            
+library_element_connection   user_role
+</code></pre>
+                <p>
+                    What's in the dashboard tables in this new instance of Grafana? The quickest way I can think of to find out is a little shell scripting.
+                </p>
+                <pre><code>
+for TABLE in $(sqlite3 grafana.db "SELECT name FROM sqlite_master WHERE type='table'" | grep dashboard)
+do
+    echo "======${TABLE}====="; 
+    sqlite3 grafana.db "select * from ${TABLE}"
+done
+
+======dashboard=====
+======dashboard_acl=====
+1|-1|-1|||1|Viewer|2017-06-20|2017-06-20
+2|-1|-1|||2|Editor|2017-06-20|2017-06-20
+======dashboard_provisioning=====
+======dashboard_public=====
+======dashboard_snapshot=====
+======dashboard_tag=====
+======dashboard_version=====
+</code></pre>
+            </section>
+            <section id="making-a-dashboard">
+                <h3>Setup For Tracking How The Database Is Updated When Dashboards Change</h3>
+                <p>
+                    Can't have a Grafana dashboard without a Data Source and a Visualisation.
+                </p>
+                <p>
+                    The quickest way to get a Data Source is to add Prometheus and get Grafana talking to it. I asked ChatGPT for a docker
+                    compose file with Prometheus and Grafana.
+                </p>
+                <p>
+                    Then I can add the dashboard and Visualisation in the UI.
+                </p>
+                <p>
+                    I'll mutate the dashboard then use the for loop above to dump the database contents to text files. Then I'll diff the text files
+                     and see what changes as I add data.
+                </p>
+<pre><code>
+#use this loop repeatedly to query the database, redirecting output to different files to diff later.
+for TABLE in $(docker exec -it grafana sqlite3 /var/lib/grafana/grafana.db "SELECT name FROM sqlite_master WHERE type='table'")
+do               
+    echo "======${TABLE}====="
+    docker exec -it grafana sqlite3 /var/lib/grafana/grafana.db "select * from ${TABLE}"
+done
+</code></pre>
+
+                <h4>What's In The Database After Adding A Data Source?</h4>
+
+                <p>
+                    The text diff of the database is ugly after adding a Data Source. Here's a summary:
+                <ol type="A">
+                    <li>
+                        increments the <i>sqlite_sequence</i> table; the data_source and secrets integers increment to
+                        2. This table <a href="https://www.sqlite.org/autoinc.html">
+                            tracks the highest reached ROWID</a> for any table with an autoincrementing primary key.
+                    </li>
+                    <li>
+                        increments a timestamp in the user table tracking the last login
+                    </li>
+                    <li>
+                        adds an entry to data_source adding a new entry
+                    </li>
+                    <li>
+                        adds an entry to the server_lock table. No idea what that does.
+                    </li>
+                    <li>
+                        adds an entry to the user_auth_table tracking something about the user's auth token.
+                    </li>
+                    <li>
+                        adds an entry in data_keys. It's some sort of secretKey.
+                    </li>
+                    <li>
+                        adds a new secret for my new data source.
+                    </li>
+                </ol>
+                </p>
+                <h4>What's In The Database After Adding A Dashboard With A Panel?</h4>
+                <p>
+                    When a new dashboard's added, the exciting changes are in the dashboard table. It's both updated to
+                    contain the dashboard, and the fourth column in the table
+                    (named <code>data</code>) is updated with the <code>panel</code> containing the visualisation.
+                </p>
+                <pre><code>
+1|1|gwyndashboard|gwyndashboard|{"annotations":
+...
+"panels":[
+    {"datasource":
+        {"type":"prometheus","uid":"de02xhx53jpq8a"},
+        "description":"","fieldConfig": 
+            { "defaults":
+                {"color":
+                    {"mode":"palette-classic"} ,"custom":
+                    {"axisBorderShow":false,"axisCenteredZero":false,"axisColorMode":"text","axisLabel":"","axisPlacement":"auto","barAlignment":0,"drawStyle":"line","fillOpacity":0,"gradientMode":"none","hideFrom":
+                    {"legend":false,"tooltip":false,"viz":false}
+...etc
+</code></pre>
+                <h4>What's Updated In The Database After Adding A Panel?</h4>
+                <p>
+                    The Panel is a sub-item inside the dashboard table. It's a column called "data". 
+                    Let's check the schema of the dashboard table:
+<pre><code>
+sqlite> PRAGMA table_info(dashboard);
+0|id|INTEGER|1||1
+1|version|INTEGER|1||0
+2|slug|TEXT|1||0
+3|title|TEXT|1||0
+4|data|TEXT|1||0
+5|org_id|INTEGER|1||0
+6|created|DATETIME|1||0
+7|updated|DATETIME|1||0
+8|updated_by|INTEGER|0||0
+9|created_by|INTEGER|0||0
+10|gnet_id|INTEGER|0||0
+11|plugin_id|TEXT|0||0
+12|folder_id|INTEGER|1|0|0
+13|is_folder|INTEGER|1|0|0
+14|has_acl|INTEGER|1|0|0
+15|uid|TEXT|0||0
+16|is_public|INTEGER|1|0|0
+17|folder_uid|TEXT|0||0
+</code></pre>
+
+                    When adding a panel:
+                    <ol type="A">
+                    <li>
+                        The Dashboard's Version is incremented by 1. 
+                    </li>
+                    <li>
+                        The data field in the Dashboard is updated with the new panel information; this field contains a json represenation of the dashboard.
+                    </li>
+                    <li>
+                        The database table "dashboard_version" receives a second row, with the new dashboard in it.
+                    </li>
+                    </ol> 
+                
+                </p>
+            </section>
+            <section id="findings">
+                <p>
+                    When mutating Grafana's Dashboards, the dashboard table and the data source table are the only ones I'm going to need to add triggers for.
+                </p>
+                <p>
+                    I'll also rename grafanasink soon. It hit me that "Grafana" is probably a registered trademark, so I shouldn't name a tool after it.
+                </p>
+            </section>
+        </article>
+    </main>
+</body>
