@@ -18,6 +18,8 @@
       - "/etc/ssl/playtechnique/playtechnique_io.crt"
       - "-p"
       - "/etc/ssl/playtechnique/playtechnique_io.key"
+      - "-d 'Improving, playfully'"
+      - "-t PlayTechnique"
       - "/website"
       - "0.0.0.0:8080"
       - "https://playtechnique.io"
