@@ -2,7 +2,6 @@
 
 - name: Update and upgrade apt packages
   apt:
-    update_cache: yes
     upgrade: dist
     cache_valid_time: 3600
   ignore_errors: true
@@ -10,7 +9,7 @@
   apt:
     name: "{{item}}"
     state: present
-    update_cache: yes
+    cache_valid_time: 3600
   loop:
     - apt-transport-https
     - ca-certificates
@@ -29,7 +28,7 @@
   apt:
     name: "{{item}}"
     state: latest
-    update_cache: yes
+    cache_valid_time: 3600
   loop:
     - docker-ce
     - docker-ce-cli
@@ -52,7 +51,7 @@
   apt:
     name: python3-pip
     state: latest
-    update_cache: yes
+    cache_valid_time: 3600
 - name: Install docker python extension to manage the container
   ansible.builtin.pip:
     name: docker-py
