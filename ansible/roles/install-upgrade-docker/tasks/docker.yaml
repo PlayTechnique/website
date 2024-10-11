@@ -9,7 +9,7 @@
   apt:
     name: "{{item}}"
     state: present
-    cache_valid_time: 3600
+    update_cache: no
   loop:
     - apt-transport-https
     - ca-certificates
@@ -28,7 +28,7 @@
   apt:
     name: "{{item}}"
     state: latest
-    cache_valid_time: 3600
+    update_cache: no
   loop:
     - docker-ce
     - docker-ce-cli
@@ -51,7 +51,7 @@
   apt:
     name: python3-pip
     state: latest
-    cache_valid_time: 3600
+    update_cache: no
 - name: Install docker python extension to manage the container
   ansible.builtin.pip:
     name: docker-py
