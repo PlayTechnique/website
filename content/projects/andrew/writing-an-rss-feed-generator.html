@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Writing An RSS Feed Generator</title>
+    <meta name="andrew-publish-time" content="2024-10-11 07:06:51" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href=/><img src="/images/logo.png"></a>
+        <a href="/" class="link">front page</a>
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>Writing An RSS Feed Generator</h1>
+            <section id="introduction">
+                <p>
+                    RSS is just a big string. You can write an RSS feed using <code>print</code> or
+                    its equivalent in your language.
+                </p>
+            </section>
+
+            <section id="rss-secrets">
+                <p>
+                    <a href="https://github.com/PlayTechnique/andrew/blob/main/rss_feed.go">Andrew's RSS feed generator</a>
+                    is the second one I've written. The first, neatly, was for Hacker News (not the official one or anything, just one I wrote).
+                </p>
+                <p>
+                    The format's simple enough. There's a standard header:
+<pre><code>
+&lt;?xml version="1.0"?&gt;
+&lt;rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"&gt;
+&lt;channel&gt;
+
+</code></pre>
+
+                    At the bottom of the whole kit and kaboodle is a closer for the channel element:
+<pre><code>
+&lt;/channel&gt;
+</code></pre>
+In between there's a whole lot of elements called items. They can have <a href="https://www.rssboard.org/rss-specification">a lot of elements inside</a>. I kept it simple this time:
+<pre><code>
+    &lt;title&gt;%s&lt;/title&gt;\n"+
+    "\t&lt;link&gt;%s&lt;/link&gt;\n"+
+    "\t&lt;description&gt;%s&lt;/description&gt;\n"+
+    "\t&lt;generator&gt;Andrew&lt;/generator&gt;
+</code></pre>
+
+
+                </p>
+                <p>
+                    I wish there was more to tell you, but there really isn't. Just remember: it looks jenky, but <a href="https://www.rssboard.org/rss-specification">https://www.rssboard.org/rss-specification</a> really is the spec.
+                </p>
+            </section>
+
+        </article>
+    </main>
+</body>
+
+
+
