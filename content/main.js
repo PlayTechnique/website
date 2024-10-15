@@ -16,6 +16,27 @@ function addCodeHighlightingToHeader(callback) {
     document.body.appendChild(script);
 }
 
+// Function to render the new navigation
+function renderNavigation() {
+    const navHTML = `
+        <nav class="navigation">
+            <a href="/"><img src="images/logo.png" alt="Logo"></a>
+            <div id="links-group">
+                <a href="/blog/index.html" class="link">blog</a>
+                <a href="/projects/index.html" class="link">projects</a>
+                <a href="/social/index.html" class="link">social links</a>
+                <a href="/rss.xml" class="link"><img src="images/rss.png" alt="RSS"></a>
+            </div>
+        </nav>
+    `;
+
+    // Inject the navHTML into the new container with an ID 'playtechnique-nav'
+    const navElement = document.getElementById('playtechnique-nav');
+    if (navElement) {
+        navElement.innerHTML = navHTML;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     addGoogleTagToHead();
 });

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Fixing An OpenSSL Intermediate Chain</title>
+    <meta name="andrew-publish-time" content="2024-10-13 09:26:21" />
+</head>
+
+<body>
+<nav class="navigation">
+    <a href=/><img src="/images/logo.png"></a>
+    <div id="links-group">
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+        <a href="/" class="link">front page</a>
+        <a href="/rss.xml" class="link"><img src="/images/rss.png"></a>
+    </div>
+</nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>Fixing An OpenSSL Intermediate Chain With Sectigo and PositiveSSL</h1>
+            <section id="introduction">
+                <p>
+                    I decided to add prometheus metrics to <a href="https://github.com/playtechnique/andrew">Andrew</a>, my web server.
+                </p>
+                <p>
+                    To display them, I signed up for grafana cloud. I assumed I'd be able to point their prometheus instance at my unauthenticated
+                    metrics endpoint. How wrong I was; you must either use Bearer tokens or Basic Auth.
+                </p>
+                <p>
+                    That's fair enough. So I thought I'd just use an agent to scrape and push. Grafana likes <i>grafana alloy</i>, so I figured I'd
+                    give it a shot.
+                </p>
+                <p>
+                    It hates my ssl certificate.
+                </p>
+                <p>
+                    Checking into its complaint, it's right.
+                </p>
+            </section>
+
+            <section id="whats-wrong-with-my-cert">
+                <p>
+<pre><code>
+; openssl s_client -connect playtechnique.io:443 -showcerts
+...redactions-for-clarity...
+Verify return code: 21 (unable to verify the first certificate)
+...redactions-for-clarity...
+</code></pre>
+                </p>
+                <p>
+                    I assume this is the dreaded intermediate certificate problem.
+                </p>
+                <p>
+                    It's dreaded because I've fixed it a dozen times and can <i>never remember the right bloody technique.</i>
+                </p>
+            </section>
+
+            <section id="openssl-for-fun-and-education">
+                <p>
+                    
+                </p>
+            </section>
+        </article>
+    </main>
+</body>
+
+
+
