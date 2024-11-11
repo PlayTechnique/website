@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<head>
+  <script type="text/javascript" src="/main.js"></script>
+  <title>Create A Trigger Table And Watch Grafana Save Changes</title>
+  <meta name="andrew-publish-time" content="2024-10-24 07:18:14" />
+</head>
+
+<body>
+  <nav class="navigation">
+    <a href="/"><img src="/images/logo.png" /></a>
+    <div id="links-group">
+      <a href="/" class="link">front page</a>
+      <a href="/blog/index.html" class="link">blog</a>
+      <a href="/projects/index.html" class="link">projects</a>
+    </div>
+  </nav>
+
+  <link rel="stylesheet" href="/styles.css" />
+  <div id="playtechnique-header"></div>
+  <main>
+    <article>
+      <h1>Create A Trigger Table And Watch Grafana Save Changes</h1>
+      <section id="introduction">
+        <p>
+          Time to do some serious business now. Let's actually watch some
+          changes in Grafana and respond to them.
+        </p>
+        <p>
+          The simplest response I can think of is logging to stdout some nice
+          text.
+        </p>
+        <p>
+          First, I'll make a trigger table watching the dashboards table, then
+          figure out what happens afterwards.
+        </p>
+      </section>
+
+      <section id="the-trigger-table">
+        <h2>The Trigger Table</h2>
+
+        <p>First let's grab a database real quick.</p>
+        <pre><code>
+; docker run -v $(pwd):/mnt/ -it --entrypoint bash gwyn-baseline-adds-data-source:1
+$ cp /var/lib/grafana/grafana.db /mnt/
+ctrl+d
+</code></pre>
+        <p>Ta da!</p>
+
+        <aside>
+          I wondered for a minute at /var/lib being the path for the db. I knew
+          that the FHS specified /var as being for mutable data (though I'll go
+          to my grave claiming this ought to be /usr/local), but why lib, which
+          suggests library, not.../var/db? The furthest I got was a claim that
+          this belongs to the standard that predates the FHS, but the
+          conversation at the time is lost to internet rot.
+        </aside>
+
+        <p>Now a quick trigger table:</p>
+        <pre><code>
+-- Ensure the _gsync_dashboard_tracker table has the necessary columns
+CREATE TABLE IF NOT EXISTS _gsync_dashboard_tracker (
+    _rowid INTEGER,
+    id INTEGER,
+    title TEXT,  -- updated from 'input' to 'title'
+    _version INTEGER,
+    _updated INTEGER
+);
+
+-- Create the trigger to track inserts in the dashboard table
+
+CREATE TRIGGER IF NOT EXISTS gsync_dashboard_insert_tracker
+AFTER INSERT OR UPDATE ON dashboard
+BEGIN
+    INSERT INTO _gsync_dashboard_tracker (_rowid, id, title, _version, _updated)
+    VALUES (new.rowid, new.id, new.title, 1, CAST(strftime('%s', 'now') AS INTEGER));
+END; 
+</code></pre>
+        <p>
+          This triggers correctly; I get entries in _gsync_dashboard_tracker
+          when inserts or updates happen. Great. What should actually happen,
+          though?
+        </p>
+      </section>
+      <section id="lessons-learned">
+        <h2>The Wrong Approach</h2>
+        <p>
+          This exploration has been pretty interesting and neat and all, but I'm
+          starting to reach the conclusion it's the wrong approach.
+        </p>
+        <p>
+          What it accomplishes is updating a table whenever a different table is
+          updated. The reason is that the design I thought I wanted is to have a
+          callback in a go process that responds to changes in this table.
+        </p>
+        <p>
+          I hadn't considered a simple problem: what if the daemon dies? Does it
+          try to register another callback it can respond to? The limitation of
+          go callbacks for sqlite databases is that you can't have the callback
+          registered outside of the current database connection. If the current
+          db connection didn't create the callback trigger, I don't think it can
+          register a callback to automatically respond to the trigger changes;
+          it'd need to be monitoring the table actively. If that's the case, why
+          do I need the trigger table in the first place?
+        </p>
+        <p>
+          I have an idea towards a simpler design: a simple daemon that dumps
+          the contents of the dashboard table to json files. I can monitor the
+          json files for changes using fsnotify.
+        </p>
+        <p>
+          I learned a good load about using sqlite so far in this project,
+          though. I never had confidence with it, but now I've got a handle on
+          it, so that's got to be worth something, right?
+        </p>
+      </section>
+    </article>
+  </main>
+</body>
