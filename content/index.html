@@ -1,84 +1,89 @@
 <!DOCTYPE html>
 
 <head>
-    <script type="text/javascript" src="/main.js"></script>
+  <script type="text/javascript" src="/main.js"></script>
 
-    <style>
-        .whoarewe {
-            /* background: linear-gradient(#ffffff, #cad4f4, #ffffff); */
+  <style>
+    .whoarewe {
+      /* background: linear-gradient(#ffffff, #cad4f4, #ffffff); */
 
-            border-radius: 0vh 0vh 40vh 40vh;
-        }
-        
-        .whoarewe-inner {
-            margin-right: 25%;
-            margin-left: 25%;
-            margin-bottom: 2%;
-        }
+      border-radius: 0vh 0vh 40vh 40vh;
+    }
 
-        .playtechnique {
-            font-family: Arial, sans-serif;
-            font-size: 24px;
-            text-decoration: underline;
-        }
+    .whoarewe-inner {
+      margin-right: 25%;
+      margin-left: 25%;
+      margin-bottom: 2%;
+    }
 
-        .playtechnique .big-bold {
-            font-size: 24px;
-            font-weight: bold;
-        }
+    .playtechnique {
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      text-decoration: underline;
+    }
 
-        #links {
-            margin-right: 25%;
-            margin-left: 25%;
-        }
+    .playtechnique .big-bold {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-    </style>
+    #links {
+      margin-right: 25%;
+      margin-left: 25%;
+    }
+  </style>
 </head>
 
 <body>
-    <link rel="stylesheet" href="/styles.css">
-    
-    <div class="container">
+  <link rel="stylesheet" href="/styles.css" />
 
-<nav class="navigation">
-    <a href=/><img src="/images/logo.png"></a>
-    <div id="links-group">
+  <div class="container">
+    <nav class="navigation">
+      <a href="/"><img src="/images/logo.png" /></a>
+      <div id="links-group">
         <a href="/blog/index.html" class="link">blog</a>
         <a href="/projects/index.html" class="link">projects</a>
         <a href="/" class="link">front page</a>
-        <a href="/rss.xml" class="link"><img src="/images/rss.png"></a>
+        <a href="/rss.xml" class="link"><img src="/images/rss.png" /></a>
+      </div>
+    </nav>
+
+    <div class="whoarewe">
+      <div class="whoarewe-inner">
+        <header class="playtechnique">
+          <span class="big-bold">play</span>technique
+        </header>
+      </div>
     </div>
-</nav>
+    <div id="links">
+      <p>
+        <a href="/blog/index.html">blog</a> is one-off things I've written, and
+        a little life reflection.
+      </p>
 
+      <p>
+        <a href="/projects/index.html">projects</a> document specific projects
+        I'm working on.
+      </p>
 
-        <div class="whoarewe">
-            <div class="whoarewe-inner">
-                <header class="playtechnique">
-                    <span class="big-bold">play</span>technique
-            </div>
-        </div>
-        <div id="links">
-
-            <p>
-                <a href="/blog/index.html">blog</a> is one-off things I've written, and a little life reflection.
-            </p>
-
-            <p>
-                <a href="/projects/index.html">projects</a> document specific projects I'm working on.
-            </p>
-
-                <div style="font-size: 0.9em;"
-                    <p>
-                        This website is served with <a href="https://github.com/playtechnique/andrew">Andrew</a>, a web
-                        server I put together to serve web pages from flat files on the file system.
-                    </p>
-                    <p>
-                        Andrew has an RSS feed generator, a sitemap generator, automatic table of contents generation. Try it out, you
-                        may like it.
-                    </p>
-                </div>
-        </div>
-        
-        <div id="playtechnique-header"></div>
+      <div style="font-size: 0.9em">
+        <p>
+          This website is served with
+          <a href="https://github.com/playtechnique/andrew">Andrew</a>, a web
+          server I put together to serve web pages from flat files on the file
+          system.
+        </p>
+        <p>
+          Andrew has an RSS feed generator, a sitemap generator, automatic table
+          of contents generation. Try it out, you may like it.
+        </p>
+      </div>
+      <div id="contents">
+        <h2>Table of Contents</h2>
+        {{ .AndrewTableOfContents }}
+      </div>
     </div>
+
+    <div id="playtechnique-header"></div>
+  </div>
 </body>
