@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+  <script type="text/javascript" src="/main.js"></script>
+  <title>Discard Slog Logs In Tests</title>
+  <meta name="andrew-publish-time" content="2024-11-13 09:12:32" />
+</head>
+
+<body>
+  <nav class="navigation">
+    <a href="/"><img src="/images/logo.png" /></a>
+    <div id="links-group">
+      <a href="/" class="link">front page</a>
+      <a href="/blog/index.html" class="link">blog</a>
+      <a href="/projects/index.html" class="link">projects</a>
+    </div>
+  </nav>
+
+  <link rel="stylesheet" href="/styles.css" />
+  <div id="playtechnique-header"></div>
+  <main>
+    <article>
+      <h1>Discard Slog Logs In Tests</h1>
+      <section id="introduction">
+        <p>
+          I want to have logs emitted when I run my app, but I don't want those
+          same logs emitted when I run <code>go test</code> because they clutter
+          up the output.
+        </p>
+      </section>
+
+      <section id="solution">
+        <h2>Solution</h2>
+        <p>Set this up in your test package:</p>
+        <pre><code>
+func init() {
+    // Set this handler as the default for slog
+    slog.SetDefault(slog.New(slog.NewTextHandler(io.Discard, nil)))
+}
+        </code></pre>
+        <p>
+          This solution was inspired by a long running
+          <a href="https://github.com/golang/go/issues/62005"
+            >github issue to solve this same issue</a
+          >.
+        </p>
+      </section>
+    </article>
+  </main>
+</body>
