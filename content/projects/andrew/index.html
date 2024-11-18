@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<head>
+  <script type="text/javascript" src="/main.js"></script>
+
+  <style>
+    .whoarewe {
+      /* background: linear-gradient(#ffffff, #cad4f4, #ffffff); */
+
+      border-radius: 0vh 0vh 40vh 40vh;
+    }
+
+    .whoarewe-inner {
+      margin-right: 25%;
+      margin-left: 25%;
+      margin-bottom: 2%;
+    }
+
+    .playtechnique {
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      text-decoration: underline;
+    }
+
+    .playtechnique .big-bold {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    #links {
+      margin-right: 25%;
+      margin-left: 25%;
+    }
+  </style>
+</head>
+
+<body>
+  <link rel="stylesheet" href="/styles.css" />
+
+  <div class="container">
+    <nav class="navigation">
+      <a href="/"><img src="/images/logo.png" /></a>
+      <div id="links-group">
+        <a href="/blog/index.html" class="link">blog</a>
+        <a href="/projects/index.html" class="link">projects</a>
+        <a href="/" class="link">front page</a>
+        <a href="/rss.xml" class="link"><img src="/images/rss.png" /></a>
+      </div>
+    </nav>
+
+    <div id="links">
+      <div id="contents">
+        <h2>Posts about andrew itself</h2>
+        {{ .AndrewTableOfContents }}
+      </div>
+    </div>
+    
+    <div id="playtechnique-header"></div>
+  </div>
+</body>
