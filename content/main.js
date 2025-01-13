@@ -38,37 +38,19 @@ function renderNavigation() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    addGoogleTagToHead();
+    addTinyAnalytics();
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    addGoogleTagToHead();
-});
-
-function addGoogleTagToHead() {
+function addTinyAnalytics() {
     if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-
         // Create the script tag for gtag.js
         var gtagScript = document.createElement('script');
         gtagScript.async = true;
-        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-B7K8ZDE6MK';
+        gtagScript.src = 'https://tinylytics.app/embed/FqCn55_LssFjprzeatQ1.js';
 
         // Append the gtag.js script to the <head>
-        document.head.appendChild(gtagScript);
-
-        // Inline script to initialize gtag
-        var inlineScript = document.createElement('script');
-        inlineScript.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-B7K8ZDE6MK');
-    `;
-
-        // Append the inline script after the gtag.js script
-        document.head.appendChild(inlineScript);
+        document.body.appendChild(gtagScript);
     } else {
-        console.log('Google Analytics is not loaded in local environment.');
+        console.log('Tiny Analytics is not loaded in local environment.');
     }
 }
