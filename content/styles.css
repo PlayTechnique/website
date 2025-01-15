@@ -1,66 +1,79 @@
-
-
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 blockquote {
-	background-color: lightblue;
+  background-color: lightblue;
 }
 
-        /* Navigation styling */
-        nav.navigation {
-          display: flex;
-          justify-content: space-between; /* Logo on the left, links on the right */
-          align-items: center; /* Vertically center items */
-          padding: 10px;
-          border-bottom: 0.2em dashed #cad4f4;
-      }
+/* Navigation styling */
+nav.navigation {
+  display: flex;
+  justify-content: space-between;
+  /* Logo on the left, links on the right */
+  align-items: center;
+  /* Vertically center items */
+  padding: 10px;
+  border-bottom: 0.2em dashed #cad4f4;
+}
 
-      /* Logo styling */
-      nav.navigation img {
-          height: 80px; /* Set a height for the logo */
-          width: auto;  /* Maintain aspect ratio */
-      }
+/* Logo styling */
+nav.navigation img {
+  height: 80px;
+  /* Set a height for the logo */
+  width: auto;
+  /* Maintain aspect ratio */
+}
 
-      /* Styling the links group */
-      #links-group {
-          display: flex;
-          gap: 20px; /* Space between the links */
-          align-items: center; /* Vertically align links */
-      }
+/* Styling the links group */
+#links-group {
+  display: flex;
+  gap: 20px;
+  /* Space between the links */
+  align-items: center;
+  /* Vertically align links */
+}
 
-      /* Styling for text links */
-      #links-group .link {
-          text-decoration: none; /* Remove underline */
-          color: black; /* Text color */
-          font-size: 18px; /* Adjust font size */
-      }
+/* Styling for text links */
+#links-group .link {
+  text-decoration: none;
+  /* Remove underline */
+  color: black;
+  /* Text color */
+  font-size: 18px;
+  /* Adjust font size */
+}
 
-      /* Styling for the RSS icon */
-      #links-group .link img {
-          height: 24px; /* Set a height for the RSS icon */
-          width: auto;  /* Maintain aspect ratio */
-      }
+/* Styling for the RSS icon */
+#links-group .link img {
+  height: 24px;
+  /* Set a height for the RSS icon */
+  width: auto;
+  /* Maintain aspect ratio */
+}
 
 main {
-    width: 55vw;
-    max-width: 850px;
-    flex: 1;
-    margin: 0 auto;
-    overflow: hidden;
+  width: 55vw;
+  max-width: 850px;
+  flex: 1;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 article {
-    line-height: 2.0em;
-    width: 100%;
+  line-height: 2.0em;
+  width: 100%;
 }
 
+article h1 {
+  text-transform: capitalize;
+}
 
 .AndrewTableOfContentsWithDirectories {
   display: flex;
   flex-wrap: wrap;
-  gap: 2%; /* Adjust the gap between columns */
+  gap: 2%;
+  /* Adjust the gap between columns */
 }
 
 .AndrewTableOfContents {
@@ -72,102 +85,131 @@ article {
 
 .AndrewParentDir {
   /* color: #A9A9A9; Light grey color */
-  font-weight: lighter; /* Optional: make the text even lighter */
+  font-weight: lighter;
+  /* Optional: make the text even lighter */
 }
 
 
-  #AndrewTableOfContentsLink0 {
-    font-weight: bold;
-  }
-
-  .AndrewTableOfContentsLink {
-    line-height: 2.0em;
-  }
-
-  footer {
-    width: 70%; /* Align with the main content width */
-    margin: 2rem auto 0 auto; /* Center the footer horizontally and add some space at the top */
-    
-    position: relative;
-    
-    font-size: 0.7em;
-    text-align: center; /* Ensure content inside the footer is centered */
+#AndrewTableOfContentsLink0 {
+  font-weight: bold;
 }
 
-pre, code {
-  line-height: 1em; /* or any value that matches your intended line spacing */
-  font-size: 1em; /* Ensures font size is consistent */
+.AndrewTableOfContentsLink {
+  line-height: 2.0em;
 }
 
-side-by-side > div {
-  flex: 1 1 calc(50% - 20px); /* Calculate width considering padding/margins */
+footer {
+  width: 70%;
+  /* Align with the main content width */
+  margin: 2rem auto 0 auto;
+  /* Center the footer horizontally and add some space at the top */
+
+  position: relative;
+
+  font-size: 0.7em;
+  text-align: center;
+  /* Ensure content inside the footer is centered */
+}
+
+pre,
+code {
+  line-height: 1em;
+  /* or any value that matches your intended line spacing */
+  font-size: 1em;
+  /* Ensures font size is consistent */
+}
+
+side-by-side>div {
+  flex: 1 1 calc(50% - 20px);
+  /* Calculate width considering padding/margins */
   box-sizing: border-box;
   padding: 10px;
-  min-width: 0; /* Allows divs to shrink */
+  min-width: 0;
+  /* Allows divs to shrink */
 }
 
 .AndrewTableOfContents {
-    padding-left: 0;
-    margin-left: 0; /* Remove any left margin */
+  padding-left: 0;
+  margin-left: 0;
+  /* Remove any left margin */
 }
 
 .AndrewTableOfContents ul {
-  list-style-position: inside; /* Moves bullets/markers inline with text */
-  padding-left: 0; /* Remove any padding applied to each list item */
-  margin-left: 0; /* Remove any left margin applied to list items */
+  list-style-position: inside;
+  /* Moves bullets/markers inline with text */
+  padding-left: 0;
+  /* Remove any padding applied to each list item */
+  margin-left: 0;
+  /* Remove any left margin applied to list items */
 }
 
 .side-by-side {
-   display: flex;
-   width: 95%; /* Ensure the side-by-side container takes full width */
-   gap: 10px; /* Add space between the two columns */
- }
+  display: flex;
+  width: 95%;
+  /* Ensure the side-by-side container takes full width */
+  gap: 10px;
+  /* Add space between the two columns */
+}
 
-.side-by-side pre, 
+.side-by-side pre,
 .side-by-side code {
-  font-size: 1em; /* Base font size */
+  font-size: 1em;
+  /* Base font size */
   overflow: auto;
-  white-space: pre-wrap; /* Ensures code wraps if necessary */
-  word-wrap: break-word; /* Break long words if necessary */
+  white-space: pre-wrap;
+  /* Ensures code wraps if necessary */
+  word-wrap: break-word;
+  /* Break long words if necessary */
 }
 
 /* Responsive font size and scaling */
 @media (max-width: 768px) {
-  .side-by-side pre, 
+
+  .side-by-side pre,
   .side-by-side code {
-      font-size: 0.9em;
-      transform: scale(0.9);
-      transform-origin: top left;
+    font-size: 0.9em;
+    transform: scale(0.9);
+    transform-origin: top left;
   }
 }
 
 @media (max-width: 600px) {
-  .side-by-side pre, 
+
+  .side-by-side pre,
   .side-by-side code {
-      font-size: 0.8em;
-      transform: scale(0.8);
-      transform-origin: top left;
+    font-size: 0.8em;
+    transform: scale(0.8);
+    transform-origin: top left;
   }
 }
 
 @media (max-width: 480px) {
-  .side-by-side pre, 
+
+  .side-by-side pre,
   .side-by-side code {
-      font-size: 0.7em;
-      transform: scale(0.7);
-      transform-origin: top left;
+    font-size: 0.7em;
+    transform: scale(0.7);
+    transform-origin: top left;
   }
 }
 
 aside {
-  float: right; /* Float to the right side */
-  background-color: #f2f2f2; /* Light grey background */
-  padding: 10px; /* Add some padding inside the block */
-  margin-left: 20px; /* Add space between the aside and the main content */
-  width: 30%; /* Adjust width as needed */
-  box-sizing: border-box; /* Ensures padding doesn't affect the total width */
-  font-size: 0.8em; /* Slightly smaller font size */
-  border-radius: 8px; /* Optional: rounded corners */
+  float: right;
+  /* Float to the right side */
+  background-color: #f2f2f2;
+  /* Light grey background */
+  padding: 10px;
+  /* Add some padding inside the block */
+  margin-left: 20px;
+  /* Add space between the aside and the main content */
+  width: 30%;
+  /* Adjust width as needed */
+  box-sizing: border-box;
+  /* Ensures padding doesn't affect the total width */
+  font-size: 0.8em;
+  /* Slightly smaller font size */
+  border-radius: 8px;
+  /* Optional: rounded corners */
 }
 
 /* Clear fix for the aside, to ensure correct content flow after the aside */
