@@ -43,13 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function addTinyAnalytics() {
     if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-        // Create the script tag for gtag.js
-        var gtagScript = document.createElement('script');
-        gtagScript.async = true;
-        gtagScript.src = 'https://tinylytics.app/embed/FqCn55_LssFjprzeatQ1.js';
+        // Create the script tag for analytics
+        var analyticsScript = document.createElement('script');
+        analyticsScript.async = true;
+        analyticsScript.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
 
-        // Append the gtag.js script to the <head>
-        document.body.appendChild(gtagScript);
+        // Append the analytics.js script to the <head>
+        document.body.appendChild(analyticsScript);
     } else {
         console.log('Tiny Analytics is not loaded in local environment.');
     }
