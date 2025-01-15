@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>How Not To Trigger Site Analytics From Localhost</title>
+    <meta name="andrew-publish-time" content="2025-01-14 17:22:15" />
+</head>
+
+<body>
+    <nav class="navigation">
+        <a href="/"><img src="/images/logo.png"></a>
+        <div id="links-group">
+            <a href="/" class="link">front page</a>
+            <a href="/blog/index.html" class="link">blog</a>
+            <a href="/projects/index.html" class="link">projects</a>
+        </div>
+    </nav>
+
+    <link rel="stylesheet" href="/styles.css">
+    <div id="playtechnique-header"></div>
+    <main>
+        <article>
+            <h1>how not to trigger site analytics from localhost</h1>
+            <section id="introduction">
+                <p>
+                    I've been learning about this whole family of "web technologies" now that it looks like they're here
+                    to stay.
+                    It turns out javascript supports this niche concept of both <code>if</code> and <code>else</code>.
+                </p>
+            </section>
+            <pre><code>
+function addAnalytics() {
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        // Create a script tag for your analytics js
+        var analyticScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = 'https://example.com/analytics.js';
+
+        // Append the gtag.js script to the <head>
+        document.body.appendChild(gtagScript);
+    } else {
+        console.log('Analytics is not loaded in local environment.');
+    }
+}
+</code></pre>
+<p>There's a thousand other ways to write this, yeah, but the simple way of achieving the goal really made me happy.</p>
+        </article>
+    </main>
+</body>
