@@ -181,7 +181,10 @@ aside {
 .playtechnique {
   font-family: Arial, sans-serif;
   font-size: 24px;
-  text-decoration: underline;
+}
+
+.playtechnique a {
+  text-decoration: none;
 }
 
 .playtechnique .big-bold {
