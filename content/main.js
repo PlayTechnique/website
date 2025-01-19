@@ -8,15 +8,21 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', renderNavigation);
 
 function addCodeHighlightingToHeader(callback) {
-    document.getElementById("playtechnique-header").innerHTML = `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"/>`;
+    // Add the CSS file to the <head>
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css';
+    document.head.appendChild(link); // Append the stylesheet to the <head>
 
-    var script = document.createElement('script');
-    script.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js";
+    // Add the JavaScript file to the <body>
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
     script.onload = function () {
         if (callback) callback(); // Call callback function when script is loaded
     };
-    document.body.appendChild(script);
+    document.body.appendChild(script); // Append the script to the <body>
 }
+
 
 function renderNavigation() {
     // Common base navigation structure
