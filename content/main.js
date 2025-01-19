@@ -30,7 +30,7 @@ function renderNavigation() {
         <nav class="navigation">
             <div id="header" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
                 <a href="/"><img src="/images/dolphint.png" alt="Logo"></a>
-                <header class="playtechnique" style="text-align: center; flex-grow: 1;">
+                <header class="playtechnique" style="text-align: center; flex-grow: 1; color: #9ba7d9;">
                     <a href="/" style="font-size: 1.5em;"><span class="big-bold">play</span>technique</a>
                     <p>Friendly problem solving.</p>
                 </header>
