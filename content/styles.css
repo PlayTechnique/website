@@ -183,17 +183,16 @@ aside {
   font-size: 24px;
 }
 
-.playtechnique a {
+a {
   text-decoration: none;
 }
-
 .playtechnique .big-bold {
   font-size: 24px;
   font-weight: bold;
 }
 
-header.playtechnique a:visited {
-  color: inherit;
+header.playtechnique a {
+  color: black;
 }
 
 #links {
