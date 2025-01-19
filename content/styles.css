@@ -1,5 +1,3 @@
-
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -185,7 +183,17 @@ aside {
 
 a {
   text-decoration: none;
+  transition: transform 0.2s ease-in-out;
+  display: inline-block;
+  transform: scale(1);
+  margin: 0 2px;  /* Add some horizontal spacing */
 }
+
+a:hover {
+  transform: scale(1.1);
+  margin: 0 0.8rem;  /* Increase spacing when hovered */
+}
+
 .playtechnique .big-bold {
   font-weight: bold;
 }
