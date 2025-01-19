@@ -176,3 +176,24 @@ aside {
   display: table;
   clear: both;
 }
+
+/* nav bar styles */
+.playtechnique {
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  text-decoration: underline;
+}
+
+.playtechnique .big-bold {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+header.playtechnique a:visited {
+  color: inherit;
+}
+
+#links {
+  margin-right: 25%;
+  margin-left: 25%;
+}
