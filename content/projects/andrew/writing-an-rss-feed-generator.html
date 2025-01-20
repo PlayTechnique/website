@@ -7,15 +7,7 @@
 </head>
 
 <body>
-<nav class="navigation">
-    <a href=/><img src="/images/logo.png"></a>
-    <div id="links-group">
-        <a href="/blog/index.html" class="link">blog</a>
-        <a href="/projects/index.html" class="link">projects</a>
-        <a href="/" class="link">front page</a>
-        <a href="/rss.xml" class="link"><img src="/images/rss.png"></a>
-    </div>
-</nav>
+<div id="playtechnique-nav-bar"></div>
 
     <link rel="stylesheet" href="/styles.css">
     <div id="playtechnique-header"></div>
@@ -49,13 +41,16 @@
 </code></pre>
 In between there's a whole lot of elements called items. They can have <a href="https://www.rssboard.org/rss-specification">a lot of elements inside</a>. I kept it simple this time:
 <pre><code>
-    &lt;title&gt;%s&lt;/title&gt;\n"+
-    "\t&lt;link&gt;%s&lt;/link&gt;\n"+
-    "\t&lt;description&gt;%s&lt;/description&gt;\n"+
-    "\t&lt;generator&gt;Andrew&lt;/generator&gt;
+&lt;title&gt;%s&lt;/title&gt;\n"+
+"\t&lt;link&gt;%s&lt;/link&gt;\n"+
+"\t&lt;description&gt;%s&lt;/description&gt;\n"+
+"\t&lt;generator&gt;Andrew&lt;/generator&gt;
 </code></pre>
 
-
+Finally, end the rss element:
+<pre><code>
+&lt;/rss&gt;
+</code></pre>
                 </p>
                 <p>
                     I wish there was more to tell you, but there really isn't. Just remember: it looks jenky, but <a href="https://www.rssboard.org/rss-specification">https://www.rssboard.org/rss-specification</a> really is the spec.
@@ -65,6 +60,3 @@ In between there's a whole lot of elements called items. They can have <a href="
         </article>
     </main>
 </body>
-
-
-

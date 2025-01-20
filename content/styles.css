@@ -218,3 +218,36 @@ aside {
   display: table;
   clear: both;
 }
+
+/* nav bar styles */
+.playtechnique {
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+}
+
+a {
+  text-decoration: none;
+  transition: transform 0.2s ease-in-out;
+  display: inline-block;
+  transform: scale(1);
+  margin: 0 2px;
+  padding: 2px 4px;  /* Add padding to increase hit area */
+}
+
+a:hover {
+  transform: scale(1.1);
+  margin: 0 4px;
+}
+
+.playtechnique .big-bold {
+  font-weight: bold;
+}
+
+header.playtechnique a {
+  color: black;
+}
+
+#links {
+  margin-right: 25%;
+  margin-left: 25%;
+}
