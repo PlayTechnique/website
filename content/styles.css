@@ -31,7 +31,8 @@ nav.navigation img {
   gap: 20px;
   /* Space between the links */
   align-items: center;
-  /* Vertically align links */
+  min-width: 300px;  /* Add fixed minimum width */
+  justify-content: flex-end;  /* Align links to the right */
 }
 
 /* Styling for text links */
@@ -42,6 +43,8 @@ nav.navigation img {
   /* Text color */
   font-size: 18px;
   /* Adjust font size */
+  position: relative;
+  transform-origin: center;
 }
 
 /* Styling for the RSS icon */
@@ -230,13 +233,12 @@ a {
   transition: transform 0.2s ease-in-out;
   display: inline-block;
   transform: scale(1);
-  margin: 0 2px;
-  padding: 2px 4px;  /* Add padding to increase hit area */
+  position: relative;
+  padding: 2px 4px;  /* Add some padding for better hit area */
 }
 
 a:hover {
   transform: scale(1.1);
-  margin: 0 4px;
 }
 
 .playtechnique .big-bold {
