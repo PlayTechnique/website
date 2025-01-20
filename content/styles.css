@@ -186,12 +186,13 @@ a {
   transition: transform 0.2s ease-in-out;
   display: inline-block;
   transform: scale(1);
-  margin: 0 2px;  /* Add some horizontal spacing */
+  margin: 0 2px;
+  padding: 2px 4px;  /* Add padding to increase hit area */
 }
 
 a:hover {
   transform: scale(1.1);
-  margin: 0 0.8rem;  /* Increase spacing when hovered */
+  margin: 0 4px;
 }
 
 .playtechnique .big-bold {
