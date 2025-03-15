@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Finding a Free Port in Go</title>
+    <meta name="andrew-publish-time" content="2025-03-15 10:14:36" />
+</head>
+
+<body>
+    <div id="playtechnique-nav-bar"></div>
+    <link rel="stylesheet" href="/styles.css">
+
+    <main>
+        <article>
+            <h1>Finding a Free Port in Go</h1>
+            <section id="introduction">
+                <p>
+			I like testing Go HTTP servers by starting a new temporary web server. I usually have 10s-100s of tests, so if these
+			tests are to run in parallel then the web servers need to start on random, free ports.
+                </p>
+
+		<p>
+			I prefer keeping codebases to the standard library, so here's the snippet that tends to get reproduced in my projects.
+		</p>
+            </section>
+
+	    <section id="approach">
+		    <p>
+		    	The approach is to first bind to a random open port using the standard library's helper for that. Then retrieve the now-bound port number, close
+			the socket listening on the port and hand the port over to our web server.
+		    </p>
+		    <p>
+		    	This approach does mean there's potential for a race condition between closing the bound port and opening it in the test web server, but every
+			engineering approach has drawbacks and this one's no different.
+		    </p>
+		    <aside>
+			    If you don't want to deal with the potential for a race condition, there are other great approaches to testing http server functionality, such as
+			    the <code>httptest</code> library.
+		    </aside>
+	    </section>
+
+            <section id="implementation">
+                <p>
+<pre><code>
+import "net"
+
+func newTestServer(t *testing.T) OurCustomServer {
+	t.Helper()
+
+	listener, err := net.Listen("tcp", "localhost:0")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	freePort := listener.Addr().String()
+	listener.Close()
+
+	server := newServer(freePort)
+
+	return server
+	
+}
+</code></pre>
+                </p>
+            </section>
+
+	    <section>
+		    <p>
+		   	I like taking some time to write this sort of code out by hand; although ChatGPT can undoubtedly knock this out in seconds, taking the time
+		    	to write this down and understand it reminds me that Moving Fastest isn't one of my values. I prefer mastery of fundamentals.
+		    </p>
+		    <p>
+		    	A lot of our career is spent trying to achieve the next functionality so that $STARTUP has a chance at winning the market. It's nice sometimes
+			to take a breath and implement something simple and rock solid.
+		    </p>
+	    </section>
+        </article>
+    </main>
+</body>
+
+
+
