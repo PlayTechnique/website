@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>I Have An Answer From ChatGPT, But What Does It Mean?</title>
+    <meta name="andrew-publish-time" content="2025-03-29 09:13:32" />
+</head>
+
+<body>
+    <div id="playtechnique-nav-bar"></div>
+    <link rel="stylesheet" href="/styles.css">
+
+    <main>
+        <article>
+            <h1>I Have An AWK Answer From ChatGPT, But What Does It Mean?</h1>
+            <section id="introduction">
+                <p>
+                    Getting the right answer is great, but understanding it is better. I don't understand this awk
+                    snippet, but we will by the end of this post:
+                </p>
+                <code>netstat -anvp tcp | awk 'NR<3 || /LISTEN/'</code>
+            </section>
+
+            <section id="research">
+                <p>
+                    The command is intended for BSD userlands; netstat shows us what software is listening or sending on
+                    what ports. I only want listeners, so <code>awk</code> filters out...something. ChatGPT wasn't super
+                    clear about its reasoning.
+                    I started figuring it out by scanning <code>man awk</code>:
+                </p>
+                <dl>
+                    <dt><code>NR</code></dt>
+                    <dd>The ordinal number of the current record from the start
+                        of input. Inside a BEGIN action the value shall be
+                        zero. Inside an END action the value shall be the number
+                        of the last record processed.
+                    </dd>
+                    <dt><code>|| /LISTEN/</code></dt>
+                    <dd>OR search for the string LISTEN, a standard string in the netstat output</dd>
+                </dl>
+                <p>
+                    I don't quite understand what <code>NR<3</code> is getting at (quiet, greybeards in the back who already know). Here's my investigation:
+                    <code><pre>
+; mkdir tmp && cd tmp && touch 1 2 3 
+; ls | awk 'NR<3'
+
+1
+2
+
+; cd .. && cat Dockerfile| awk 'NR<3'
+FROM golang:1.23 AS base
+
+                    </code> 
+                </pre>
+                Awk is letting through the first couple of lines; apparently a record is a newline terminated unit of info. The awk command as a whole, then, lets through the header for the output from netstat,
+                then the actual info I was looking for. Practically, it's a touch nicer than <code> | grep LISTEN</code>, but functionally the same.
+                </p>
+
+            </section>
+
+        </article>
+    </main>
+</body> 
