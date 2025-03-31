@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Goose for the Rails Developer</title>
+    <meta name="andrew-publish-time" content="2025-03-31 13:10:27" />
+</head>
+
+<body>
+    <div id="playtechnique-nav-bar"></div>
+    <link rel="stylesheet" href="/styles.css">
+
+    <main>
+        <article>
+            <h1>Goose for the Rails Developer</h1>
+            <section id="introduction">
+                <p>
+                    <code>rails</code> has excellent support for database seeding, migration, creation, and the
+                    migrations conceptually fit into the models system nicely.
+                    Switching from the framework to standalone tools can leave you a little lost about how to proceed.
+                </p>
+                <p>Here's some ideas.</p>
+            </section>
+
+            <section id="command equivalents">
+                <p>
+                <dl>
+                    <dt>rails uses config/database.yaml for configuration</dt>
+                    <dd>
+                        <aside>I find it nice to set <code>GOOSE_MIGRATION_DIR</code> to a directory called migrations.
+                        </aside>
+                        <p>goose is configured by environment variables. There are 3. goose automatically checks the pwd
+                            for a .env file and reads it, for convenience.</p>
+                        <p>The environment variables are GOOSE_MIGRATON_DIR, GOOSE_DBSTRING and GOOSE_DRIVERS.</p>
+                        <p>GOOSE_DRIVER contains the name of a database driver (e.g. postgres); GOOSE_DBSTRING is a db
+                            connection string; GOOSE_MIGRATION_DIR is the name of the directory containing your database
+                            migrations.</p>
+                        <p>Note that setting the GOOSE_DBSTRING and then running a command like
+                            <code>goose status</code> will work correctly.</p>
+                    </dd>
+                    <dt><code>rake db:create</code></dt>
+                    <dd>This is a nice-to-have that has no equivalent in goose. I solve this by creating the database
+                        and a user in my first migration:
+                        <pre><code>
+    -- +goose Up
+    -- +goose StatementBegin
+    CREATE ROLE documentarian WITH LOGIN PASSWORD 'roflcopter';
+    CREATE DATABASE documentarian;
+    -- +goose StatementEnd
+    
+    -- +goose Down
+    -- +goose StatementBegin
+    DROP ROLE documentarian;
+    DROP DATABASE documentarian;
+    -- +goose StatementEnd
+</code></pre>
+                    </dd>
+                    <dt><code>rails generate migration NAME</code></dt>
+                    <dd>
+                        <p>The equivalent is <code>goose create NAME go|sql</code> has a couple of details. First, you
+                            can make a
+                            migration that's either a go file or a sql file.
+                        </p>
+                        <p>
+                            Go migrations give you all the flexibility of a programming language to add conditional
+                            logic to your migrations (e.g. checking for whether $MY_PROJECT_ENV is set to dev, for
+                            migrations that should only be run in the dev environment).
+                            To execute go migrations defined in go requires compiling a custom binary. The main example
+                            on github is terse, but https://github.com/pressly/goose/issues/611 will get you to the
+                            right process.
+                            Note that the migration itself is still written in sql; you just have golang there to help
+                            out.
+                        </p>
+                        <p>
+                            The use-case for go migrations in a single binary is that you have all your migrations in
+                            one file, making it simpler to e.g. migrate a database inside a container. It's a harder
+                            path to get up and running with, but much simpler once it's working.
+                        </p>
+                        <p>
+                            <code>goose create NAME sql</code> is more intuitive. You write raw sql in there.
+                        </p>
+                    </dd>
+                    <dt><code>rake db:migrate</code></dt>
+                    <dd>
+                        <p>
+                            Run migrations with the command <code>goose up</code>. If you have a custom compiled binary,
+                            this works. If you're using sql migrations, it still works!
+                        </p>
+                        <p>
+                            Note that go migrations and sql migrations can coexist in the same repository.
+                        </p>
+                    </dd>
+                    <dt><code>rake db:seed</code></dt>
+                    <dd>
+                        No built in equivalent, but here's a couple of ideas for equivalent workflows:
+                        <ol>
+                            <li>
+                                write go migrations and test for environment variables or config files that can tell you
+                                whether seed data should be applied. This is my preferred workflow.
+                            </li>
+                            <li>
+                                if you only want to use sql migrations, you could write a make task that checks for environment variables or config files to see if it's safe to apply seed data, or a shell script or something
+                            </li>
+                        </ol>
+                    </dd>
+                </dl>
+                </p>
+            </section>
+            <section id="conclusion">
+                <p>
+                    <code>rails</code> sets the gold standard for a batteries-included framework. Switching to collections of specialised tools can be a lot to take in at first; I had to spend half a day getting used to goose and
+                    a different way of seeing how database backed websites can be built, but I've been glad that I've done it. Recreating the experience of the integrated rails toolchain from other parts gives me new respect for how 
+                    good rails is.
+                </p>
+            </section>
+
+        </article>
+    </main>
+</body>
