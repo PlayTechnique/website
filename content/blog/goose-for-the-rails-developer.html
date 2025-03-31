@@ -48,12 +48,12 @@
     CREATE DATABASE documentarian;
     -- +goose StatementEnd
     
+    -- +goose NO TRANSACTION
     -- +goose Down
-    -- +goose StatementBegin
     DROP ROLE documentarian;
     DROP DATABASE documentarian;
-    -- +goose StatementEnd
 </code></pre>
+                    Note that the down part of the migration is not wrapped in a transaction. That's because I'm dropping a database.
                     </dd>
                     <dt><code>rails generate migration NAME</code></dt>
                     <dd>
