@@ -39,20 +39,13 @@
                             <code>goose status</code> will work correctly.</p>
                     </dd>
                     <dt><code>rake db:create</code></dt>
-                    <dd>This is a nice-to-have that has no equivalent in goose. I solve this by creating the database
-                        and a user in my first migration:
-                        <pre><code>
-    -- +goose Up
-    -- +goose StatementBegin
-    CREATE ROLE documentarian WITH LOGIN PASSWORD 'roflcopter';
-    CREATE DATABASE documentarian;
-    -- +goose StatementEnd
-    
-    -- +goose NO TRANSACTION
-    -- +goose Down
-    DROP ROLE documentarian;
-    DROP DATABASE documentarian;
-</code></pre>
+                    <dd><p>This is a nice-to-have that has no equivalent in goose. I tried to solve this by making the database in my first migration,
+                        but that actually gets into weird rabbit holes as you aren't allowed in postgres to make/delete databases inside transaction
+                        blocks, and if you use database connection credentials that connect to the database you want to make then you can never drop
+                        that database while connected to it.</p>
+                        <p>That means it's best to follow rails' example and use a database creation task that's separate from your migrations. It'll 
+                            look something like <code>CREATE DATABASE foo</code> (cf. https://www.postgresql.org/docs/current/sql-createdatabase.html)
+                        </p>
                     Note that the down part of the migration is not wrapped in a transaction. That's because I'm dropping a database.
                     </dd>
                     <dt><code>rails generate migration NAME</code></dt>
