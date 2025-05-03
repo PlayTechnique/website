@@ -32,7 +32,7 @@ function renderNavigation() {
                 <a href="/"><img src="/images/dolphint.png" alt="Logo"></a>
                 <header class="playtechnique" style="text-align: center; flex-grow: 1; color: #9ba7d9;">
                     <a href="/" style="font-size: 1.5em;"><span class="big-bold">play</span>technique</a>
-                    <p>Friendly problem solving.</p>
+                    <p>Friendly DevOps and Software Development Consultancy.</p>
                 </header>
                 <div id="links-group">
     `;
@@ -49,7 +49,7 @@ function renderNavigation() {
     navHTML += `
                     <a href="/blog/index.html" class="link">blog</a>
                     <a href="/projects/index.html" class="link">projects</a>
-                    <a href="/social/index.html" class="link">social links</a>
+                    <a href="/contact/index.html" class="link">contact me</a>
                     <a href="/rss.xml" class="link"><img src="/images/rss.png" alt="RSS"></a>
                 </div>
             </div>
