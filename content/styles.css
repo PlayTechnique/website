@@ -253,3 +253,13 @@ header.playtechnique a {
   margin-right: 25%;
   margin-left: 25%;
 }
+
+/* Center the eocampaign inline-container */
+#inline-container {
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  text-align: center !important;
+  float: none !important;
+}
