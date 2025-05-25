@@ -67,20 +67,36 @@ function renderNavigation() {
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    addTinyAnalytics();
-});
-
-function addTinyAnalytics() {
+function addAnalytics() {
     if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
         // Create the script tag for analytics
         var analyticsScript = document.createElement('script');
         analyticsScript.async = true;
         analyticsScript.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
-
+        
         // Append the analytics.js script to the <head>
         document.body.appendChild(analyticsScript);
     } else {
-        console.log('Tiny Analytics is not loaded in local environment.');
+        console.log('Analytics is not loaded in local environment.');
     }
 }
+
+function emailOctopusDocumentationLink() {
+    emaildiv = `
+    <p>Trying to get your team to write documention and finding it frustrating? I wrote a <b>free</b> e-book about starting a team documentation habit. </p>
+    <p>Real lessons from a career in the trenches, not AI generated nonsense.</p>
+    `
+    const octoDiv = document.getElementById("emailOctopusDocumentationLink")
+    octoDiv.innerHTML = emaildiv
+    const script = document.createElement("script");
+script.src = "https://eocampaign1.com/form/a99baade-33f7-11f0-8426-91cf9687b89a.js";
+script.async = true;
+script.setAttribute("data-form", "a99baade-33f7-11f0-8426-91cf9687b89a");
+    octoDiv.append(script)
+
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    addAnalytics();
+    emailOctopusDocumentationLink();
+});

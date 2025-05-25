@@ -263,3 +263,15 @@ header.playtechnique a {
   text-align: center !important;
   float: none !important;
 }
+
+/* adds a nice border around the documentation box, so its introductory paragraphs are visible */
+#emailOctopusDocumentationLink {
+  border: solid #cad4f4;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* The first paragraph in the link div was being pushed down by an unsightly amount. */
+#emailOctopusDocumentationLink p:first-of-type {
+  margin-top: 0;
+}
