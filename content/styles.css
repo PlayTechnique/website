@@ -196,7 +196,7 @@ side-by-side>div {
   }
 }
 
-aside {
+body > aside {
   float: right;
   /* Float to the right side */
   background-color: #f2f2f2;
@@ -254,21 +254,18 @@ header.playtechnique a {
   margin-left: 25%;
 }
 
-/* Center the eocampaign inline-container */
-#inline-container {
-  margin: 0 auto !important;
-  display: flex !important;
-  justify-content: center !important;
-  width: 100% !important;
-  text-align: center !important;
-  float: none !important;
-}
-
 /* adds a nice border around the documentation box, so its introductory paragraphs are visible */
 #emailOctopusDocumentationLink {
   border: solid #cad4f4;
   border-radius: 8px;
   padding: 8px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#emailOctopusDocumentationLink .inline-container {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* The first paragraph in the link div was being pushed down by an unsightly amount. */

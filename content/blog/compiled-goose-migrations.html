@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>compiled goose migrations</title>
+    <meta name="andrew-publish-time" content="2025-04-19 09:22:37" />
+</head>
+
+<body>
+    <div id="playtechnique-nav-bar"></div>
+    <link rel="stylesheet" href="/styles.css">
+
+    <main>
+        <article>
+            <h1>compiled goose migrations</h1>
+            <section id="introduction">
+                <p>
+                    goose supports sql migrations and go migrations. The goose docs are not explicit on how to set up go
+                    migrations, so let's do it now.
+                </p>
+                <p>
+                    Conceptually, this is what you'll do:
+                <ol>
+                    <li>
+                        Add a new migration. This will be in its own package, as that's what the goose dev recommends.
+                    </li>
+                    <li>
+                        Add a little something to <code>main</code> to execute any migrations that are present.
+                    </li>
+                </ol>
+                </p>
+            </section>
+
+            <section id="how-to">
+                <h2>Add a go migration</h2>
+                <p>
+                    Goose comes with a cli command to generate a migration. Here you go:
+                <pre><code>
+mkdir migrations && cd migrations
+goose create "migration_name" go
+</code></pre>
+                This will create a new file in the migrations directory. The file will be in the <code>migrations</code>
+                package, not because you're in a migrations directory but because that's the goose default.
+                </p>
+                <p>Inside the migration is an up and down pair of functions. Add your sql inside ExecContexts. For
+                    example, this creates a new role, database and postgres schema for a project of mine called documentarian:</p>
+                <pre><code>
+func upCreateDocumentarian(ctx context.Context, tx *sql.Tx) error {
+        // Must connect outside of Goose's managed tx because CREATE DATABASE isn't allowed in tx
+        connStr := os.Getenv("DATABASE_URL")
+        adminDB, err := sql.Open("postgres", connStr)
+        if err != nil {
+                return fmt.Errorf("admin connect failed: %w", err)
+        }
+        defer adminDB.Close()
+
+        if _, err := adminDB.ExecContext(ctx, `CREATE ROLE documentarian WITH LOGIN PASSWORD 'roflcopter';`); err != nil {
+                return fmt.Errorf("create role failed: %w", err)
+        }
+
+        if _, err := adminDB.ExecContext(ctx, `CREATE DATABASE documentarian OWNER documentarian;`); err != nil {
+                return fmt.Errorf("create database failed: %w", err)
+        }
+
+        if _, err := adminDB.ExecContext(ctx, `CREATE SCHEMA wiki;`); err != nil {
+                return fmt.Errorf("create schema failed: %w", err)
+        }
+
+        return nil
+}
+</code></pre>
+
+                </p>
+                <h2>Execute The Migrations</h2>
+                <p>
+                    You're going to be <i>compiling the migrations execution code into your binary.</i> Here's my <code>migrateDB</code> function. 
+                </p>
+                <p>
+                    Note that I gather the migrations using os.DirFS, not an embedFS. Because these are go files, they get compiled in and are always discoverable.
+                </p>
+<pre><code>
+//Be sure to import the migrations package using the underscore; it's only here for side-effects
+import _ "github.com/playtechnique/documentarian/wiki/migrations"
+
+//later on...here's my function that runs the migrations.
+func migrateDB(databaseUrl string) error {
+	ctx := context.Background()
+	db, err := sql.Open("postgres", databaseUrl)
+
+	if err != nil {
+		return err
+	}
+
+	logger.Debug("gathering migrations")
+	migrations := os.DirFS("migrations/")
+	provider, err := goose.NewProvider(database.DialectPostgres, db, migrations)
+
+	if err != nil {
+		return err
+	}
+
+    // This runs the migrations
+	results, err := provider.Up(ctx)
+	if err != nil {
+		return err
+	}
+
+	// If there are no results, it means no migrations were applied
+	if len(results) == 0 {
+		logger.Info("No migrations to apply")
+		return nil
+	}
+
+	for _, r := range results {
+		if r.Error != nil {
+			return r.Error
+		} else {
+			logger.Info("migration applied:", "result", r)
+		}
+	}
+
+	return nil
+}
+</code></pre>
+                </p>
+
+                <p>
+                    Simple.
+                </p>
+            </section>
+
+        </article>
+        <aside>
+            <div id="emailOctopusDocumentationLink"></div>
+        </aside>
+    </main>
+
+</body>

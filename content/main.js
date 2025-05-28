@@ -96,7 +96,43 @@ script.setAttribute("data-form", "a99baade-33f7-11f0-8426-91cf9687b89a");
 
 }
 
+function humanButton() {
+    button = `
+    <div className="flex w-full min-h-full justify-center items-center p-8">
+      <button className="inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow text-sm font-medium text-gray-700 hover:text-gray-900">
+        <div className="relative">
+          <BotIcon className="w-4 h-4 text-gray-500" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-5 h-5 border-2 border-red-500 rounded-full bg-transparent"></div>
+            <div className="absolute w-6 h-0.5 bg-red-500 rotate-45"></div>
+          </div>
+        </div>
+    `
+    const humanButton = document.getElementById("humanButton")
+    humanButton.innerHTML = button
+}
+
+function addHumanButtonToArticles() {
+    // Only add the button on non-front pages
+    if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+        // Find all article elements
+        const articles = document.querySelectorAll('article');
+        
+        // Add humanButton div before each article
+        articles.forEach(article => {
+            const humanButtonDiv = document.createElement('div');
+            humanButtonDiv.id = 'humanButton';
+            // Insert the div before the article
+            article.parentNode.insertBefore(humanButtonDiv, article);
+        });
+        
+        // Call the humanButton function to populate the divs
+        humanButton();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     addAnalytics();
     emailOctopusDocumentationLink();
+    addHumanButtonToArticles();
 });
