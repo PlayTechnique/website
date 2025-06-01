@@ -79,6 +79,10 @@ article h1 {
   /* Adjust the gap between columns */
 }
 
+.AndrewTableOfContentsWithDirectories h5 {
+  font-size:larger;
+}
+
 .AndrewTableOfContents {
   margin-right: 25%;
   margin-left: 25%;
@@ -263,6 +267,7 @@ header.playtechnique a {
   margin: 0 auto;
 }
 
+/* helps the left and right whitespace inside the container seem clean */ 
 #emailOctopusDocumentationLink .inline-container {
   margin-left: auto;
   margin-right: auto;
