@@ -32,7 +32,7 @@ function renderNavigation() {
                 <a href="/"><img src="/images/dolphint.png" alt="Logo"></a>
                 <header class="playtechnique" style="text-align: center; flex-grow: 1; color: #9ba7d9;">
                     <a href="/" style="font-size: 1.5em;"><span class="big-bold">play</span>technique</a>
-                    <p>Friendly DevOps and Software Development Consultancy.</p>
+                    <p>Practices and Products in DevOps, Site Reliability Engineering, and Platform Engineering.</p>
                 </header>
                 <div id="links-group">
     `;
