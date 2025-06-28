@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Circle on a Canvas: An AI Story</title>
+    <meta name="andrew-publish-time" content="2025-06-28 07:56:05" />
+    <script>
+            let radius = 20;
+
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    async function animate() {
+        const canvas = document.querySelector("canvas");
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext("2d");
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        let endY = canvas.height - radius;
+        let endX = canvas.width - 1.5 * radius;
+
+        let rightEdge = endY + radius;
+        let bottomEdge = endX + radius;
+
+        // Draw a circle navigating left to right across the canvas
+        for (let y = radius; y < endY; y += radius ) {
+
+        for (let x = 0; x < endX; x = x + radius) {
+            ctx.fillStyle = "green";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.lineWidth = 0;
+            ctx.arc(x+radius, y, radius, 0, 360, false);
+            ctx.stroke();
+
+            await sleep(500);
+        }
+    }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('circlemarch');
+            if (canvas) {
+                animate();
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div id="playtechnique-nav-bar"></div>
+    <link rel="stylesheet" href="/styles.css">
+
+    <main>
+        <article>
+            <h1>Circle on a Canvas: An AI Story</h1>
+            <section id="introduction">
+                <p>
+                    I wanted the circle to touch the right hand of the rectangle:
+                </p>
+
+                    <canvas width="150" height="150" id="circlemarch">
+                    </canvas>
+                <p>
+                    I was feeling lazy, so I asked Claude to solve the issue for me, and then I spent a fascinating hour watching it fail.
+                </p>
+            </section>
+
+            <section id="thinking">
+                <p>
+                    The problem is simple for humans to solve. The canvas is 150 pixels wide. The circle has a radius of 20 pixels, and marches to the right
+                    at a rate of 1 radius per re-draw. 150 cannot be divided equally by 20, so the circle never touches the right hand side.
+                </p>
+                <p>
+                    Why couldn't Claude see the issue? That's the problem that I've been wondering about since then. I'm just a casual user of these tools, not
+                    an AI expert, but I see a few potential reasons:
+                </p>
+                <ul>
+                    <li>
+                        The canvas element contains its own width; the code that draws on the canvas is defined elsewhere. It could be that Claude had trouble
+                        relating the width element from the canvas to the width of the circle. 
+                    </li>
+                    <li>
+                        Canvas involves spatial reasoning. Claude's generating predictive patterns, not reasoning about anything.
+                        This issue's easy for humans who can hold shapes in our minds, but Claude has to have been exposed to training data asking
+                        similar questions, it can't reason from basic geometry. Unfortunately, I think <a href="https://arxiv.org/abs/2406.04566">SpaRC and SpaRP: Spatial Reasoning Characterization and Path Generation for Understanding Spatial Reasoning Capability of Large Language Models</a>
+                        may discredit this explanation.
+                    </li>
+                </ul>
+
+                <p>
+                    I mostly think that trying to understand this issue shows me that these tools are damn hard to understand and figure out. A bit of research will
+                    get you past a lot of supposedly "hard" problems in software, like understanding machine language or most sorting algorithms or whatever, but
+                    these are genuinely hard tools to get to grips with.
+                </p>
+            </section>
+        </article>
+
+        <aside>
+            <div id="emailOctopusDocumentationLink"></div>
+        </aside>
+    </main>
+
+    <footer>
+        This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+        audience. No identifying information is gathered.
+    </footer>
+</body>
+
