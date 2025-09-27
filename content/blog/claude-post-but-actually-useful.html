@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Claude But Actually Useful</title>
+    <meta name="andrew-publish-time" content="2025-09-27 11:55:10" />
+</head>
+
+<body>
+    <div id="playtechnique-nav-bar"></div>
+    <link rel="stylesheet" href="/styles.css">
+
+    <main>
+        <article>
+            <h1>Claude But Actually Useful</h1>
+            <section id="introduction">
+                <p>
+                    I keep seeing those "I vibe coded with Claude using this one simple trick..." blog posts. They read like spam: claiming amazing results, giving no workflows, no advice, just hand-waving.
+                </p>
+                <p>
+                    I figured out how to have Claude generate a full app. I'm going to give you no code, just what I learned about the workflow. 
+                </p>
+                <p>
+                    Don't want the in-between context? <a href="#new-workflow">Here</a>'s the workflow I used. 
+                </p>
+            </section>
+
+            <section id="old-workflow">
+                <h2>Tools</h2>
+                Claude Code and Visual Studio.
+
+                <h2>Old Workflow</h2>
+
+                <p>
+                    <ul>
+                    <li>Open Claude Code in VSCode and chat with it.</li>
+                    <li>Manually review every diff, because so many of them are wrong that letting it go loose seems like a bad idea</li>
+                    </ul>
+                </p>
+                <p>
+                    I think this still has merit for small scripts. I'd still use this for assisting with writing a Production product also.
+                </p>
+                </section>
+                <section id="research">
+                <h2>Research</h2>
+                    <p>
+                        I read the docs for <a href="https://docs.claude.com/en/docs/claude-code/common-workflows#create-custom-slash-commands">Creating custom slash commands</a> and realised this was what I'm missing. The breakthrough was realizing Claude is programmable with natural language.
+                    </p>
+                    <p>
+                        I read someone's blog post about their own custom slash command which gave me the basis of the first one I used. He called it "todo". You'll see it reproduced below.
+                    </p>
+                    <p>
+                        The big change reading it gave me was realising that the LLM is programmable in natural English. It's like you're describing to it what its personality is for the next few tasks.
+                    </p>
+                </section>
+                <section id="new-workflow"></section>
+                <h2 id="new-workflow">New Workflow</h2>
+
+                <h3>ToDo doer - the first breakthrough</h3>
+                <p>
+                    Now I knew about slash commands, in an empty git repository I created .claude/commands/ and added this file:
+                </p>
+                <p>
+<pre><code>
+    # 📋 Find and implement the next incomplete task from the project todo list.
+
+## Todo context
+
+The task list is in `todo.md`. The format is:
+
+```markdown
+- `[ ]` - Not started
+- `[x]` - Completed
+- `[>]` - In progress in a peer directory/worktree
+```
+
+## Hints
+
+- Use the cli command "git diff --no-ext-diff" as the cli command for generating git diffs to stdout, do not use "git diff" directly as it will not work.
+
+## Steps
+
+- Find the next incomplete task
+  - Run `cat todo.md`
+  - Find the first `Not started` task
+
+- Implement the task
+- Think hard about the plan
+- Focus ONLY on implementing this specific task
+- Ignore all other tasks in the `todo.md` file or TODOs in the source code
+- Work through the implementation methodically and completely, addressing all aspects of the task
+- Run appropriate tests and validation to ensure the implementation works
+
+- ✅ After the implementation is complete and verified
+  - Mark the task as complete:
+  - Run `cat $(git rev-parse --show-toplevel)/todo.md`
+  - It marks the first incomplete task as `[x]`
+
+- Use the "precommit" agent to run precommit tests.
+- Use the "commit" agent to commit our changes.
+
+</code></pre>
+
+I wrote a <b>README.md</b> which described the project and all the features I knew. I asked claude to generate a `todo.md` from the README.md. I edited the todo.md until it was approximately correct, enabled edits (shift + tab) and ran /todo in claude and walked away.
+                </p>
+                <p>
+                    Claude naturally got hung on some permission issue or other, wanting to execute a tool. I wanted to stop this nonsense.
+                </p>
+                <p> After reading a bunch of the docs, I found that (a) the Bash tool in Claude was what I needed to grant permissions for and (b) the reference for the syntax structure in my settings file was weirdly hard to find. It's <a href="https://docs.claude.com/en/docs/claude-code/iam#tool-specific-permission-rules">Here</a>. The <code>:*</code> wildcard does not work how I thought it did.</code> </p>
+            
+                <h3>Emergency doer - the second breakthrough</h3>
+                After five hours of doing feature work, the app had some horrendously bad bugs like sign-in not working. I wrote a new command called emergency.md, activated by <code>/emergency</code>. It's based on todo, but operates on a single problem at a time:
+<pre><code>
+    # 📋 Solve the emergency from the emergency list
+
+## Emergency context
+
+The task list is in the '.md' file which is an argument to /emergency. If this file name is missing or the file name is present but the emergency file cannot be found, this task must fail.
+
+The format of the file is:
+
+```markdown
+- `[ ]` - Not started
+- `[x]` - Completed
+- `[>]` - In progress in a peer directory/worktree
+```
+
+Each emergency file can contain multiple emergencies.
+
+## Hints
+
+- Use the cli command "git diff --no-ext-diff" as the cli command for generating git diffs to stdout, do not use "git diff" directly as it will not work.
+
+## Steps
+
+- Find the next incomplete task
+  - Run `cat emergency.md`
+  - It returns the first `Not started` task
+
+- Implement a test that reproduces the emergency. This is not optional, the test must be written to a file in the tests directory. THIS MUST BE DONE FIRST IT IS IMPORTANT.
+  - This test must not work around the issue. For example, if the issue is a return value from an api is wrong the test must not provide a mock that gives the bad data, it must call the actual endpoint providing the bad data.
+- Implement the task
+- Think hard about the plan
+- Focus ONLY on implementing this specific task
+- Ignore all other tasks in the `emergency.md` file or TODOs in the source code
+- Work through the implementation methodically and completely, addressing all aspects of the task
+- Run appropriate tests and validation to ensure the implementation works
+
+- ✅ After the implementation is complete and verified
+  - Prompt the user to verify if the emergency is fixed.
+  - If the emergency is fixed and that fix is acknowledged by the user:
+    - Mark the task as complete:
+      - It marks the first incomplete task as `[x]`
+  - If the emergency is not fixed, either digest the user's provided description of the ongoing problem, or if the user forgets to provide this description then prompt the user for the problem and interview the user until it is well understood.
+
+- Use the "precommit" agent to run precommit tests.
+- Run all codebase tests.
+- provide a summary of the new tests you wrote, where they are and what they cover
+
+</code></pre>
+<p>
+Then I write a new version that expects to go through a directory of problems. It looks similar.
+</p>
+<h3> notifier - third big ol' breakthrough</h3>
+
+I got tired after a while of not noticing when Claude was stuck asking for permissions. I read in the settings about how you can hook into events, and one of the events is when Claude is about to prompt you. I did <code>brew install terminal-notifier</code> and then wrote this into <code>~/.claude/settings.json</code>:
+<pre><code>
+    {
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"Claude\" -message \"Claude is waiting for interaction...\""
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre>
+
+            </section>
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+                <p>
+                That's it. I started using slash commands in Claude and saw what it's producing change <i>wildly</i>.
+                </p>
+                <p>
+                    The app I've gotten in the last couple of days is...fine? It's buggy as crap and there's a lot of work needed on it, but for rapid prototyping this seems pretty okay.
+                </p>
+            </section>
+        </article>
+
+        <aside>
+            <div id="emailOctopusDocumentationLink"></div>
+        </aside>
+    </main>
+
+    <footer>
+        This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+        audience. No identifying information is gathered.
+    </footer>
+</body>
+
