@@ -36,15 +36,9 @@ jobs:
           push: true
           tags: ${{ env.LATESTDOCKERIMAGE }}
 
-      - name: what is the docker image and set it to github output
-        id: set-docker-image
-        run: |
-          echo ${{ env.DOCKERIMAGE }}
-
-  release-to-production:  
-    uses: ./.github/workflows/release_website.yaml
+  release-to-production:
+    uses: playtechnique/ansible/.github/workflows/release-playtechnique.yaml@main
     secrets:
-      DIGITAL_OCEAN_ROOT_SSH: ${{ secrets.DIGITAL_OCEAN_ROOT_SSH }}
-      DIGITAL_OCEAN_PLAYTECHNIQUE: ${{ secrets.DIGITAL_OCEAN_PLAYTECHNIQUE }}
+      GITHUB_TOKEN: ${{ github.token }}
 
 

@@ -1,3 +1,0 @@
----
-- name: Set up debian for docker
-  import_tasks: docker.yaml
