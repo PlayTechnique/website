@@ -37,7 +37,7 @@ jobs:
           tags: ${{ env.LATESTDOCKERIMAGE }}
 
   release-to-production:
-    uses: playtechnique/ansible/.github/workflows/release-playtechnique.yaml@main
+    uses: PlayTechnique/ansible/.github/workflows/release-playtechnique.yaml@main
     secrets:
       GITHUB_TOKEN: ${{ github.token }}
 
