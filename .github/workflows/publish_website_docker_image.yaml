@@ -37,8 +37,21 @@ jobs:
           tags: ${{ env.LATESTDOCKERIMAGE }}
 
   release-to-production:
-    uses: PlayTechnique/ansible/.github/workflows/release-playtechnique.yaml@main
-    secrets:
-      GITHUB_TOKEN: ${{ github.token }}
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate auth token from PT Workflow Runner app
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.PLAYTECHNIQUE_WORKFLOW_RUNNER_GITHUB_APP_ID }}
+          private-key: ${{ secrets.PLAYTECHNIQUE_WORKFLOW_RUNNER_GITHUB_APP }}
+
+      - name: Release PlayTechnique
+        run: |
+          gh workflow run --repo PlayTechnique/ansible release-playtechnique.yaml
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
 
