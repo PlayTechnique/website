@@ -47,6 +47,8 @@ jobs:
         with:
           app-id: ${{ vars.PLAYTECHNIQUE_WORKFLOW_RUNNER_GITHUB_APP_ID }}
           private-key: ${{ secrets.PLAYTECHNIQUE_WORKFLOW_RUNNER_GITHUB_APP }}
+          owner: PlayTechnique
+          repositories: ansible
 
       - name: Release PlayTechnique
         run: |
