@@ -57,7 +57,7 @@ nav.navigation img {
 
 main {
   width: 55vw;
-  max-width: 850px;
+  max-width: 75%;
   flex: 1;
   margin: 0 auto;
   overflow: hidden;
@@ -126,13 +126,21 @@ code {
   /* Ensures font size is consistent */
 }
 
-side-by-side>div {
+.side-by-side>div {
   flex: 1 1 calc(50% - 20px);
   /* Calculate width considering padding/margins */
   box-sizing: border-box;
   padding: 10px;
   min-width: 0;
   /* Allows divs to shrink */
+}
+
+/* Adds a nice border around a paragraph, just a lovely thing. */
+.styled-paragraph {
+  border: 3px solid #ccc; 
+  border-radius: 8px; 
+  margin: 5px; 
+  padding: 15px;
 }
 
 .AndrewTableOfContents {

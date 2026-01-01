@@ -49,6 +49,7 @@ function renderNavigation() {
     navHTML += `
                     <a href="/products/index.html" class="link">products</a>
                     <a href="/blog/index.html" class="link">blog</a>
+                    <a href="/quick-references/index.html" class="link">quick references</a>
                     <a href="/contact/index.html" class="link">contact me</a>
                     <a href="/rss.xml" class="link"><img src="/images/rss.png" alt="RSS"></a>
                 </div>
