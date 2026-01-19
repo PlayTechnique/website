@@ -1,0 +1,85 @@
+<!doctype html>
+
+<head>
+  <script type="text/javascript" src="/main.js"></script>
+  <title>AI Is Less Tenacious Than You</title>
+  <meta name="andrew-publish-time" content="2026-01-18 14:26:05" />
+</head>
+
+<body>
+  <div id="playtechnique-nav-bar"></div>
+  <link rel="stylesheet" href="/styles.css" />
+
+  <main>
+    <article>
+      <h1>Tenacity</h1>
+      <section id="introduction">
+        <p>
+            I saw something scary recently: AI can confidently tell me, repeatedly, for days, to give up.
+        </p>
+        <p>
+          I just spent five days reproducing a bug in the Mermaid graphing library. Unusually, I
+          can't think of a single step Claude took that actually <i>helped</i>. It kept suggesting the same half dozen
+          javascript diagram reset things and a few css reset tricks.
+        </p>
+        <p>
+          I have a lot of experience so I ignored Claude and tried simple steps like "does this work in the <a href="https://mermaid.live">mermaid live editor</a>?" and "I should simplify the setup to a standalone HTML file".  Why Claude didn't think of a simpler reproducible case I don't know. It reminds me of how it adds new functions rather than mutate existing functions; it's like your relationship with simplicity is different when you are a superintelligence that can recall all of Wikipedia.
+        </p>
+        <p>
+            I haven't seen this kind of failure in simple cases from Claude many times, but it was on display as I spent an hour or two understanding the issue, every day, for five days. Every day Claude suggested the same fixes. Every day Claude suggested that I give up.
+      </section>
+
+      <section id="tenacity">
+        <h2>Tenacity is a Learned Trait</h2>
+
+        <p>
+          It turned out that the issue is very particular about page setup; you have to load a page while not using the
+          default level of Safari's zoom. It took days to find a reproducible sequence, but
+          <a href="https://github.com/mermaid-js/mermaid/issues/7323">once understood it's pretty easy to reproduce.</a>
+        </p>
+        <p>
+          Claude, though, was behaving like it was discouraged and embarrassed of its failure to understand. I kept thinking about how this experience would be <i>terrible</i> for a more junior person because Claude was actively encouraging me to give up.
+        </p>
+        <p>
+          I stuck with the problem for days, because I've worked on long, hard problems many times before this sort of AI showed up. I remember there was no patience for bullshit on the BSD mailing lists, people could give hints or not but you always ended up hearing that the answer is in the source code, and you just need to accept that being Good at *nix administration meant putting in the effort, investigating your own issues, understanding how the tools all work. I've struggled.
+        </p>
+        <h2>Tenacity is an Earned Behaviour</h2>
+        <p>
+          I have 20 years of experience that told me that Claude wasn't helping me out, it was misleading to believe its assertions. I am sure that didn't have those instincts
+          when I was in the first few years of my career.
+        </p>
+        <p>
+          I worry that our juniors are leaning on these tools. I worry that people are assuming the AI knows better than
+          them, that they trust its output more than is warranted. I worry as I'm seeing people <a href="https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/">wasting</a> the <a href="https://pivot-to-ai.com/2025/05/20/github-wants-to-spam-open-source-projects-with-ai-slop/">time</a> of professional developers. You learn how to be strong by struggling, not by
+          being told every problem should either be solved by one tool or is impossible.
+        </p>
+        <p>
+            I also worry that I sound old, that I don't have <a href="https://tidyfirst.substack.com/p/party-of-one-for-code-review">the mental acuity of Kent Beck</a> seeing into the future, evaluating the past. I sound like <a href="https://www.goodreads.com/quotes/9964949-he-loved-the-land-no-more-than-the-bank-loved">Steinbeck noting</a> that the problem was in part that the current generation of farmers did not love the land the way the old generation did. I'm looking at maladies of the soul, but I know the tractor's not going anywhere, that it's in my interest to use the tools. I just miss being surrounded by people who loved the dirt.
+        <p>
+          I remember seeing a junior who leaned on chatgpt to write Helm; we use Helm via Skaffold, and Claude is not great
+          at undestanding what to do in Skaffold when when a helm chart doesn't expose a particular configuration knob
+          to twiddle. Our junior seemed uncomfortable when when I told him the problem he needed to be be okay with being uncomfortable while he learned the tools. He didn't understand yet that being a Software Engineer is about interacting with an ecosystem as well as a programming language.
+          </p>
+          <p>
+             I've had the frustration of asking a question online and being told to go away and do more research. I've felt how hard it is to not know, and to be sure there was an answer and that the people who I thought knew the answer wouldn't tell me.
+        </p>
+        <p>
+          I'm a team lead. I'm building a consultancy, but I'm mostly a team lead right now at a normal company. If
+          you're a lead, please keep an eye on this, please look out for your juniors and help them to work through AI's shortcomings. The tools will be better, they'll continue improving, but that won't sharpen anyone's person skills.
+        </p>
+        <p>
+          If you're a lead worried about this, I'd be happy to talk. I'm building a consultancy around exactly these problems: how teams learn, how they debug, how they stay sharp. Download my free Documentation e-book if you'd like to see how I think about things. Reach out, let's talk.
+        </p>
+      </section>
+    </article>
+
+    <aside>
+      <div id="emailOctopusDocumentationLink"></div>
+    </aside>
+  </main>
+
+  <footer>
+    This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+    audience. No identifying information is gathered.
+  </footer>
+</body>

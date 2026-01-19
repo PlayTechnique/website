@@ -1,3 +1,7 @@
+:root {
+  --color-header: #cad4f4;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -14,7 +18,7 @@ nav.navigation {
   align-items: center;
   /* Vertically center items */
   padding: 10px;
-  border-bottom: 0.2em dashed #cad4f4;
+  border-bottom: 0.2em dashed var(--color-header);
 }
 
 /* Logo styling */
@@ -56,21 +60,32 @@ nav.navigation img {
 }
 
 main {
-  width: 55vw;
-  max-width: 75%;
   flex: 1;
-  margin: 0 auto;
+
   overflow: hidden;
 }
 
 article {
+  width: 70vw;
+  max-width: 85%;
+  /*top bottom get 0 margin; left right get auto*/
+  margin-block: 0;
+  margin-inline: auto;
   line-height: 2.0em;
-  width: 100%;
+  padding-top: 5em;
+  padding-bottom: 5em;
 }
 
 article h1 {
   text-transform: capitalize;
 }
+
+article p {
+  /*color: grey;*/
+  font-weight: lighter;
+  font-size: 18px;
+}
+
 
 .AndrewTableOfContentsWithDirectories {
   display: flex;
@@ -268,7 +283,6 @@ header.playtechnique a {
 
 /* adds a nice border around the documentation box, so its introductory paragraphs are visible */
 #emailOctopusDocumentationLink {
-  border: solid #cad4f4;
   border-radius: 8px;
   padding: 8px;
   text-align: center;
