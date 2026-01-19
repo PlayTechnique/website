@@ -28,13 +28,13 @@ function renderNavigation() {
     // Common base navigation structure
     let navHTML = `
         <nav class="navigation">
-            <div id="header" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <header class="playtechnique">
                 <a href="/"><img src="/images/dolphint.png" alt="Logo"></a>
-                <header class="playtechnique" style="text-align: center; flex-grow: 1; color: #9ba7d9;">
-                    <a href="/" style="font-size: 1.5em;"><span class="big-bold">play</span>technique</a>
-                    <p>Practices and Products of a Professional Software and Infrastructure Engineer.</p>
-                </header>
-                <div id="links-group">
+
+                <span class="big-bold">play</span>technique
+                <p>Professional DevOps Engineering</p>
+            </header>
+            <div id="links-group">
     `;
 
     // Check if we're not on the front page
@@ -47,12 +47,11 @@ function renderNavigation() {
 
     // Add the closing part of the navigation
     navHTML += `
-                    <a href="/products/index.html" class="link">products</a>
-                    <a href="/blog/index.html" class="link">blog</a>
-                    <a href="/quick-references/index.html" class="link">quick references</a>
-                    <a href="/contact/index.html" class="link">contact me</a>
-                    <a href="/rss.xml" class="link"><img src="/images/rss.png" alt="RSS"></a>
-                </div>
+                <a href="/products/index.html" class="link">products</a>
+                <a href="/blog/index.html" class="link">blog</a>
+                <a href="/quick-references/index.html" class="link">quick references</a>
+                <a href="/contact/index.html" class="link">contact me</a>
+                <a href="/rss.xml" class="link"><img src="/images/rss.png" alt="RSS"></a>
             </div>
         </nav>
     `;

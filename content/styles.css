@@ -1,5 +1,7 @@
 :root {
   --color-header: #cad4f4;
+  --color-header-dark: #7797e0;
+  --content-width: 50%;
 }
 
 body {
@@ -12,13 +14,12 @@ blockquote {
 
 /* Navigation styling */
 nav.navigation {
-  display: flex;
-  justify-content: space-between;
-  /* Logo on the left, links on the right */
-  align-items: center;
   /* Vertically center items */
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   border-bottom: 0.2em dashed var(--color-header);
+  align-items: center;
 }
 
 /* Logo styling */
@@ -33,10 +34,8 @@ nav.navigation img {
 #links-group {
   display: flex;
   gap: 20px;
-  /* Space between the links */
   align-items: center;
-  min-width: 300px;  /* Add fixed minimum width */
-  justify-content: flex-end;  /* Align links to the right */
+  justify-content: center;
 }
 
 /* Styling for text links */
@@ -67,13 +66,14 @@ main {
 
 article {
   width: 70vw;
-  max-width: 85%;
+  max-width: 75%;
   /*top bottom get 0 margin; left right get auto*/
   margin-block: 0;
   margin-inline: auto;
   line-height: 2.0em;
-  padding-top: 5em;
+  padding-top: 2em;
   padding-bottom: 5em;
+  letter-spacing: 0.01em;
 }
 
 article h1 {
@@ -81,8 +81,7 @@ article h1 {
 }
 
 article p {
-  /*color: grey;*/
-  font-weight: lighter;
+  font-weight: 300;
   font-size: 18px;
 }
 
@@ -91,7 +90,6 @@ article p {
   display: flex;
   flex-wrap: wrap;
   gap: 2%;
-  /* Adjust the gap between columns */
 }
 
 .AndrewTableOfContentsWithDirectories h5 {
@@ -99,16 +97,13 @@ article p {
 }
 
 .AndrewTableOfContents {
-  margin-right: 25%;
-  margin-left: 25%;
-  white-space: nowrap;
+  width: var(--content-width);
+  margin-inline: auto;
 }
 
 
 .AndrewParentDir {
-  /* color: #A9A9A9; Light grey color */
   font-weight: lighter;
-  /* Optional: make the text even lighter */
 }
 
 
@@ -133,7 +128,7 @@ footer {
   /* Ensure content inside the footer is centered */
 }
 
-pre,
+pre:not(.mermaid),
 code {
   line-height: 1em;
   /* or any value that matches your intended line spacing */
@@ -152,17 +147,12 @@ code {
 
 /* Adds a nice border around a paragraph, just a lovely thing. */
 .styled-paragraph {
-  border: 3px solid #ccc; 
-  border-radius: 8px; 
-  margin: 5px; 
+  border: 3px solid #ccc;
+  border-radius: 8px;
+  margin: 5px;
   padding: 15px;
 }
 
-.AndrewTableOfContents {
-  padding-left: 0;
-  margin-left: 0;
-  /* Remove any left margin */
-}
 
 .AndrewTableOfContents ul {
   list-style-position: inside;
@@ -272,13 +262,8 @@ a:hover {
   font-weight: bold;
 }
 
-header.playtechnique a {
-  color: black;
-}
-
-#links {
-  margin-right: 25%;
-  margin-left: 25%;
+header.playtechnique {
+  color: var(--color-header-dark);
 }
 
 /* adds a nice border around the documentation box, so its introductory paragraphs are visible */
@@ -298,4 +283,27 @@ header.playtechnique a {
 /* The first paragraph in the link div was being pushed down by an unsightly amount. */
 #emailOctopusDocumentationLink p:first-of-type {
   margin-top: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid rgb(140 140 140);
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+caption {
+  caption-side: bottom;
+  padding: 10px;
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 6px;
+}
+
+td {
+  text-align: center;
 }
