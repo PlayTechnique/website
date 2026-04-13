@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Call hljs.highlightAll(); after highlight.js has loaded
         hljs.highlightAll();
     });
+    addMermaid();
 });
 
 document.addEventListener('DOMContentLoaded', renderNavigation);
@@ -23,37 +24,46 @@ function addCodeHighlightingToHeader(callback) {
     document.body.appendChild(script); // Append the script to the <body>
 }
 
+function addMermaid() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
+    script.onload = function () {
+        mermaid.initialize({flowchart:
+            {
+                wrappingWidth: 290
+            }});
+        mermaid.run();
+    };
+    document.body.appendChild(script);
+}
 
 function renderNavigation() {
     // Common base navigation structure
     let navHTML = `
         <nav class="navigation">
-            <header class="playtechnique">
-                <a href="/"><img src="/images/dolphint.png" alt="Logo"></a>
-
-                <span class="big-bold">play</span>technique
-                <p>Professional DevOps Engineering</p>
-            </header>
+            <a href="/" class="brand-link">
+                <img src="/images/dolphint.png" alt="Logo">
+                <span class="brand-name"><span class="big-bold">play</span>technique</span>
+                <span class="tagline">Professional DevOps Consultancy</span>
+            </a>
             <div id="links-group">
     `;
 
-    // Check if we're not on the front page
-    if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
-        // Add sub-page-specific link
-        navHTML += `
-                <a href="/" class="link">front page</a>
-        `;
-    }
-
     // Add the closing part of the navigation
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    if (!isHomePage) {
+        navHTML += `<a href="/" class="button">Home</a>`;
+    }
     navHTML += `
-                <a href="/products/index.html" class="link">products</a>
-                <a href="/blog/index.html" class="link">blog</a>
-                <a href="/quick-references/index.html" class="link">quick references</a>
-                <a href="/contact/index.html" class="link">contact me</a>
-                <a href="/rss.xml" class="link"><img src="/images/rss.png" alt="RSS"></a>
+                <a href="/contact/index.html" class="button">Book 30 Minutes</a>
+                <a href="/blog/index.html" class="button">Tech Blog</a>
+                <a href="/public-speaking/index.html" class="button">Public Speaking</a>
+    `;
+
+    navHTML += `
             </div>
         </nav>
+        <section id="preamble">Reliability is built by habits, not hope.</section>
     `;
 
     // Inject the navHTML into the container
@@ -83,8 +93,7 @@ function addAnalytics() {
 
 function emailOctopusDocumentationLink() {
     emaildiv = `
-    <p>Trying to get your team to write documention and finding it frustrating? I wrote a <b>free</b> e-book about starting a team documentation habit. </p>
-    <p>Real lessons from a career in the trenches, not AI generated nonsense.</p>
+    <p>I wrote a free e-book about changing your team's documentation culture from the inside. This embodies my approach of building the habits that make systems work.</p>
     `
     const octoDiv = document.getElementById("emailOctopusDocumentationLink")
     octoDiv.innerHTML = emaildiv

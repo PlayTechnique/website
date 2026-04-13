@@ -1,53 +1,101 @@
 :root {
   --color-header: #cad4f4;
-  --color-header-dark: #7797e0;
+  --color-header-dark: #414656;
+  --color-text: #2A2F44;
+  --color-compliment: #4A5FA0;
+  --color-contrast: #F4EACA;
+
   --content-width: 50%;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--color-text);
 }
 
-blockquote {
-  background-color: lightblue;
+figure {
+  background-color: var(--color-contrast);
+  padding: 1em;
+  border-radius: 8px;
+  margin-inline: 0;
+}
+
+figure blockquote {
+  margin: 0;
+}
+
+figure blockquote p {
+  font-weight: 600;
+}
+
+section#preamble {
+  padding: 0.4em;
+  background-color: var(--color-header);
+  text-align: center;
+  font-size: 1.5em;
 }
 
 /* Navigation styling */
 nav.navigation {
-  /* Vertically center items */
   display: flex;
-  flex-direction: column;
-  padding: 10px;
-  border-bottom: 0.2em dashed var(--color-header);
+  flex-direction: row;
   align-items: center;
+  padding: 10px 20px;
+  gap: 1em;
 }
 
-/* Logo styling */
-nav.navigation img {
-  height: 80px;
-  /* Set a height for the logo */
+.brand-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  text-decoration: none;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.brand-link img {
+  height: 40px;
   width: auto;
-  /* Maintain aspect ratio */
+}
+
+.brand-name {
+  font-size: 1.4em;
+  color: var(--color-compliment);
+}
+
+.tagline {
+  font-size: 0.85em;
+  color: var(--color-compliment);
 }
 
 /* Styling the links group */
 #links-group {
   display: flex;
-  gap: 20px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-left: auto;
 }
 
 /* Styling for text links */
-#links-group .link {
+#links-group .button {
   text-decoration: none;
   /* Remove underline */
-  color: black;
+  color: var(--color-text);
   /* Text color */
-  font-size: 18px;
-  /* Adjust font size */
-  position: relative;
-  transform-origin: center;
+  font-size: 1.2em;
+
+  margin: 0.3em;
+    filter: drop-shadow(#301934 0.1em 0.1em 0.1em);
+
+}
+
+#links-group .button:nth-child(odd) {
+  background-color: var(--color-header);
+}
+
+#links-group .button:nth-child(even) {
+  background-color: var(--color-contrast);
 }
 
 /* Styling for the RSS icon */
@@ -71,13 +119,27 @@ article {
   margin-block: 0;
   margin-inline: auto;
   line-height: 2.0em;
-  padding-top: 2em;
-  padding-bottom: 5em;
+  padding-top: 1em;
+  padding-bottom: 2em;
   letter-spacing: 0.01em;
+  text-decoration-color: var(--color-text);
 }
 
 article h1 {
   text-transform: capitalize;
+}
+
+#pain-point {
+  max-width: 100ch;
+  margin-inline: auto;
+  font-size: 1.3em;
+  margin-bottom: 0.3em;
+}
+
+#about {
+  font-size: 0.9em;
+  margin-top: 0;
+  line-height: 1.4em;
 }
 
 article p {
@@ -94,6 +156,26 @@ article p {
 
 .AndrewTableOfContentsWithDirectories h5 {
   font-size:larger;
+}
+
+.rss-callout {
+  width: var(--content-width);
+  margin-inline: auto;
+  margin-bottom: 0.5em;
+}
+
+.rss-callout a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 1em;
+  color: var(--color-compliment);
+  font-weight: 600;
+}
+
+.rss-callout img {
+  height: 20px;
+  width: auto;
 }
 
 .AndrewTableOfContents {
@@ -147,7 +229,7 @@ code {
 
 /* Adds a nice border around a paragraph, just a lovely thing. */
 .styled-paragraph {
-  border: 3px solid #ccc;
+  border: 3px solid --;
   border-radius: 8px;
   margin: 5px;
   padding: 15px;
@@ -216,7 +298,7 @@ code {
 body > aside {
   float: right;
   /* Float to the right side */
-  background-color: #f2f2f2;
+  background-color: var(--color-contrast);
   /* Light grey background */
   padding: 10px;
   /* Add some padding inside the block */
@@ -240,9 +322,8 @@ body > aside {
 }
 
 /* nav bar styles */
-.playtechnique {
-  font-family: Arial, sans-serif;
-  font-size: 24px;
+.brand-name .big-bold {
+  font-weight: bold;
 }
 
 a {
@@ -258,20 +339,37 @@ a:hover {
   transform: scale(1.02);
 }
 
-.playtechnique .big-bold {
+a.button {
+  background-color: var(--color-compliment);
+  color: var(--color-contrast);
+  padding: 0.5em 1.5em;
+  border-radius: 8px;
   font-weight: bold;
 }
 
-header.playtechnique {
-  color: var(--color-header-dark);
+.cta-box {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 0.5em 1.2em;
+  max-width: 80%;
+  margin: 0.75em auto;
+  text-align: center;
 }
+
+.cta-box h3 {
+  margin-top: 0;
+}
+
 
 /* adds a nice border around the documentation box, so its introductory paragraphs are visible */
 #emailOctopusDocumentationLink {
+  background-color: var(--color-header);
+  border-left: 4px solid var(--color-compliment);
   border-radius: 8px;
-  padding: 8px;
+  padding: 1em 1.5em;
   text-align: center;
-  margin: 0 auto;
+  margin: 1em auto;
+  max-width: 80%;
 }
 
 /* helps the left and right whitespace inside the container seem clean */ 
