@@ -92,15 +92,11 @@ function addAnalytics() {
 }
 
 function emailOctopusDocumentationLink() {
-    emaildiv = `
-    <p>I wrote a free e-book about changing your team's documentation culture from the inside. This embodies my approach of building the habits that make systems work.</p>
-    `
     const octoDiv = document.getElementById("emailOctopusDocumentationLink")
-    octoDiv.innerHTML = emaildiv
     const script = document.createElement("script");
-script.src = "https://eocampaign1.com/form/a99baade-33f7-11f0-8426-91cf9687b89a.js";
+script.src = "https://eomail5.com/form/68ad9912-4952-11f1-9ee0-035341c752a0.js";
 script.async = true;
-script.setAttribute("data-form", "a99baade-33f7-11f0-8426-91cf9687b89a");
+script.setAttribute("data-form", '68ad9912-4952-11f1-9ee0-035341c752a0');
     octoDiv.append(script)
 
 }
