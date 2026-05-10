@@ -20,13 +20,16 @@ figure {
   margin-inline: 0;
 }
 
-#excerpt blockquote {
+.contrast-background {
   background-color: var(--color-contrast);
   border-left: 6px solid var(--color-compliment);
   border-radius: 8px;
   padding: 1em 1.5em;
-  margin-inline: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#excerpt blockquote {
+  margin-inline: 0;
 }
 
 #excerpt blockquote h1 {
@@ -385,6 +388,19 @@ a.button {
 #emailOctopusDocumentationLink .inline-container {
   margin-left: auto;
   margin-right: auto;
+}
+
+#coaching {
+  margin-top: 2em;
+}
+
+#books .AndrewTableOfContents {
+  margin-inline: 0;
+}
+
+#books #emailOctopusDocumentationLink .inline-container {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 table {

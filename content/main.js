@@ -55,7 +55,8 @@ function renderNavigation() {
         navHTML += `<a href="/" class="button">Home</a>`;
     }
     navHTML += `
-                <a href="/contact/index.html" class="button">Book 30 Minutes</a>
+                <a href="/contact/index.html" class="button">Free 30 Minutes</a>
+                <a href="/products/index.html" class="button">Products</a>
                 <a href="/blog/index.html" class="button">Tech Blog</a>
                 <a href="/public-speaking/index.html" class="button">Public Speaking</a>
     `;
