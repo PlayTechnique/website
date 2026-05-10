@@ -20,6 +20,20 @@ figure {
   margin-inline: 0;
 }
 
+#excerpt blockquote {
+  background-color: var(--color-contrast);
+  border-left: 6px solid var(--color-compliment);
+  border-radius: 8px;
+  padding: 1em 1.5em;
+  margin-inline: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#excerpt blockquote h1 {
+  font-size: 1.4em;
+  margin-top: 0.2em;
+}
+
 figure blockquote {
   margin: 0;
 }

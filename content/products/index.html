@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <head>
   <script type="text/javascript" src="/main.js"></script>
+  <script async type="text/javascript" src="https://js.stripe.com/v3/buy-button.js"></script>
 </head>
 
 <body>
@@ -10,14 +11,34 @@
   <div id="playtechnique-nav-bar"></div>
   <div id="playtechnique-header"></div>
   <main>
-  <article>
-    {{ .AndrewTableOfContentsWithDirectories }}
-    <div id="emailOctopusDocumentationLink"></div>
+    <article>
+      <section id="coaching">
+        <h2>Coaching and Skill Development</h2>
 
-  </article>
+        <p>
+          I'd love for us to meet and chat about what skills you'd like to improve in, get an idea for what's in your
+          head.
+          <a href="/content/index.html">Book a 30 minute conversation together</a> and let's talk about what's going on
+          for you.
+        </p>
 
+        <center>
+          <h3>Ready to commit to improving yourself?</h3>
+          <stripe-buy-button
+            buy-button-id="buy_btn_1TVaDvHxmDrzBBEgsl3bVt8e"
+            publishable-key="pk_live_51TIvXMHxmDrzBBEgN9sGW4APr28GT7wHolP0DKPpUY7Xlqwp6lrZ7lnF9NINe9pWQxQOAWsIOB9yVv7oxroaAdVR00dBYHiJwI"
+          >
+          </stripe-buy-button>
+        </center>
+      </section>
+      <section>
+        <h2>Books</h2>
+      {{ .AndrewTableOfContents }}
+      <div id="emailOctopusDocumentationLink"></div>
+    </article>
   </main>
-      <footer>
-        This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.
-      </footer>
+  <footer>
+    This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+    audience. No identifying information is gathered.
+  </footer>
 </body>
