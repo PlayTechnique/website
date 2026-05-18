@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<head>
+    <script type="text/javascript" src="/main.js"></script>
+    <title>Azure's MFA warning links free-tier users to a page they can't use</title>
+    <meta name="andrew-publish-time" content="2026-05-18 17:51:03" />
+</head>
+
+<body>
+    <div id="playtechnique-nav-bar"></div>
+    <link rel="stylesheet" href="/styles.css">
+
+    <main>
+        <article>
+            <h1>Azure's MFA warning links free-tier users to a page they can't use</h1>
+            <section id="introduction">
+                <p>
+                    You're excited: time to get back to your old Azure subscription to learn a thing or two. You head over to https://portal.azure.com to log in.
+                </p>
+                <p> You create the free tier account six months ago, got distracted; now when you log in you see an interstitial page warning you that you need MFA and that's a policy that's set up via Conditional Access.</p>
+                <p>
+                    <ul>
+                        <li>
+                        You follow the link to https://entra.microsoftonline.com and don't obviously see a "Conditional Access" app.
+                        </li>
+                        <li>
+                            So, you search and find the Conditional Access app, but the option to create a new policy is greyed out.
+                        </li>
+                        <li>
+                            Now what?
+                        </li>
+                    </ul>
+                </p>
+            </section>
+
+            <section id="solution-tastes-sour">
+                <h2>Solution Is Simple</h2>
+                <p>
+                    <strong>The answer here is simple. Log out and log back in and you'll be prompted for MFA. Tada.</strong>
+                </p>
+                <h2>Why is this the solution?</h2>
+                <p>
+                    <a href="https://learn.microsoft.com/en-us/entra/identity/authentication/concept-mandatory-multifactor-authentication?tabs=dotnet#prepare-for-mandatory-mfa-enforcement">The MFA announcement doc</a>, or its <a href="https://learn.microsoft.com/en-us/entra/identity/authentication/concept-mandatory-multifactor-authentication?tabs=dotnet#faqs">FAQ</a>, both tell us that there are accounts with the Conditional Access Application and accounts without it. The accounts without it are the Free tier accounts, the kind you would like to use to learn about Entra without messing up your day-job's accounts. These accounts use <a href="https://learn.microsoft.com/en-us/entra/fundamentals/security-defaults">Entra Security Defaults</a>, a set of policies that Microsoft curates, and enforcement of these policies is handled by Microsoft themselves.
+                </p>
+                <p> Because Microsoft is handling the policy themselves, once you are warned the policy has been applied to your account then you log out and log back in and you have the solution.</p>
+                <p>
+                    Why can't Microsoft update Azure so that the warning bubbles and info statements contain links which are free-tier appropriate for their free-tier customers, such as professionals learning the platform? There's a million similar questions I have about Azure; that's where <a href="./i-want-to-love-azure-but-they-make-it-hard.html">I Want to Love Azure but They Make it Hard</a> came from. There's a <a href="https://isolveproblems.substack.com/p/how-microsoft-vaporized-a-trillion">recent 5 part blog post series</a> all about the issues internal to Azure:
+                    <blockquote>
+                       <p>I sat quietly at the back while a man was walking the room through a big porting plan of their current stack to the Overlake accelerator. As I listened, it was not immediately clear what that series of boxes with Windows user-mode and kernel components had to do with that plan.</p>
+
+                        <p>After a few minutes, I risked a question: Are you planning to port those Windows features to Overlake? The answer was yes, or at least they were looking into it. The dev manager showed some doubt, and the man replied that they could at least “ask a couple of junior devs to look into it.”</p>
+                    </blockquote>
+                    
+                </p>
+                <p>
+                    The gist of the articles is that there's a huge brain drain of senior engineers at Microsoft due to attrition in the Azure division. My experience is that attrition is related to corporate politics more than anything else: when teams that are meant to support each other are playing against each other then people get tired very quickly.
+                </p>
+                <p>
+                    That's why the focus of my own consultancy is on teaching, whether that's through mentorship about how to build team, how to get the people around you on the same page as you or new skillsets. If you've attended one of my conference talks, you'll have heard me talk about history and the larger community that we all belong to, so you feel grounded in your career and choices. Confident people can see the larger communication problem and try to resolve it.
+                </p>
+            </section>
+        </article>
+
+        <aside>
+            <div id="emailOctopusDocumentationLink"></div>
+        </aside>
+    </main>
+
+    <footer>
+        This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+        audience. No identifying information is gathered.
+    </footer>
+</body>
+
