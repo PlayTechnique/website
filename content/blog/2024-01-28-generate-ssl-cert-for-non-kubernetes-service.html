@@ -1,30 +1,22 @@
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>Generate ssl certs with cert-manager</title>
-    <meta name="andrew-publish-time" content="2024-01-28" </head>
-</head>
+{{ .AndrewPartialFile.head title="Generate ssl certs with cert-manager" andrewpublishtime="2024-01-24"}}
 
 <body>
-    <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css" />
 
-<div id="playtechnique-nav-bar"></div>
+  <div id="playtechnique-nav-bar"></div>
 
-    <div id="playtechnique-header"></div>
-    <main>
-        <article>
-            <h1>Generate ssl certs with kubernetes cert-manager</h1>
-            <p>
-                I use cert-manager in kubernetes for ssl certs. I wanted a new ssl cert for a service not hosted in
-                kubernetes. I
-                read the cert-manager docs, and it looked like there was no reason I could just request a new cert for
-                an arbitrary
-                hostname.
-            </p>
+  <div id="playtechnique-header"></div>
+  <main>
+    <article>
+      <h1>Generate ssl certs with kubernetes cert-manager</h1>
+      <p>
+        I use cert-manager in kubernetes for ssl certs. I wanted a new ssl cert for a service not hosted in kubernetes.
+        I read the cert-manager docs, and it looked like there was no reason I could just request a new cert for an
+        arbitrary hostname.
+      </p>
 
-            <p>
-                Here's the yaml:
-            </p>
-            <pre>
+      <p>Here's the yaml:</p>
+      <pre>
     <code class="yaml">
     ---
     kind: Namespace
@@ -56,15 +48,12 @@
         - key encipherment
 </code>
     </pre>
-            <p>
-                I got the "usages" from an already existent cert.
-            </p>
+      <p>I got the "usages" from an already existent cert.</p>
 
-            <p>
-                After a couple of minutes this made a new TLS secret in the goshdarnit namespace. There was a key and a
-                value.
-            </p>
-            <pre>
+      <p>
+        After a couple of minutes this made a new TLS secret in the goshdarnit namespace. There was a key and a value.
+      </p>
+      <pre>
     <code class="bash">
     #!/bin/bash
 
@@ -72,12 +61,11 @@
     kubectl get secret goshdarnit-tls -n goshdarnit -o jsonpath="{.data.tls\.key}" | base64 -d > tls.key
     </code>
 </pre>
-            <p>
-                All done; I just had to upload the ssl cert to the server and use it.
-            </p>
-        </article>
-    </main>
-      <footer>
-        This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.
-      </footer>
+      <p>All done; I just had to upload the ssl cert to the server and use it.</p>
+    </article>
+  </main>
+  <footer>
+    This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+    audience. No identifying information is gathered.
+  </footer>
 </body>

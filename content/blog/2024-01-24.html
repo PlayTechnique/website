@@ -1,64 +1,63 @@
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <meta name="andrew-publish-time" content="2024-01-24" />
-    <title>Wrapping P4Merge and P4Diff For The Cli</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
+{{ .AndrewPartialFile.head title="Wrapping P4Merge and P4Diff For The Cli" andrewpublishtime="2024-01-24" }}
 
 <body>
-    <div id="playtechnique-header"></div>
+  <div id="playtechnique-header"></div>
 
-<div id="playtechnique-nav-bar"></div>
-    <main>
-        <article>
-            <h1>wrapping p4merge and p4diff for the cli</h1>
-            <p id="intro">
-                I love using <code>p4merge</code> and <code>p4diff</code> with git as my visual debugger; the scrolling
-                presentation is just a little smoother than <code>kdiff</code>, Apple's <code>merge</code> tool or the
-                stuff
-                integrated into the various IDEs.
-            </p>
+  <div id="playtechnique-nav-bar"></div>
+  <main>
+    <article>
+      <h1>wrapping p4merge and p4diff for the cli</h1>
+      <p id="intro">
+        I love using <code>p4merge</code> and <code>p4diff</code> with git as my visual debugger; the scrolling
+        presentation is just a little smoother than <code>kdiff</code>, Apple's <code>merge</code> tool or the stuff
+        integrated into the various IDEs.
+      </p>
 
-<p>
-                Here's side-by-side scrolling:</p>
-                <img src="images/p4merge-scroll.gif" alt="a dual pane editor with 2 copies of the same document open, one on left and one on right, with a paragraph
+      <p>Here's side-by-side scrolling:</p>
+      <img
+        src="images/p4merge-scroll.gif"
+        alt="a dual pane editor with 2 copies of the same document open, one on left and one on right, with a paragraph
           different. Scrolling shows the two documents stay aligned, but when the different paragraph is reached it moves
           independently, so the common context above and below is aligned but the difference is obvious. The different
-          paragraph is highlighted in green.">
+          paragraph is highlighted in green."
+      />
 
-                <p>Here's dual-file editing:</p>
-                <img src="images/p4merge-file-editing.gif" alt="The same document displayed twice in p4merge, in a left and right pane. I click an edit button which is
+      <p>Here's dual-file editing:</p>
+      <img
+        src="images/p4merge-file-editing.gif"
+        alt="The same document displayed twice in p4merge, in a left and right pane. I click an edit button which is
          colour coded to be specific to the right pane and a third pane opens on the bottom, and it's editable. As I add
          update the text in the editor, the right pane also receives the update and p4merge highlights the difference.
         Then I click a separate edit button that is colour-coded to be specific to the left pane, which opens in the same
         editor pane and as I update it the left pane is live-edited to show the difference. The difference between both
-        documents that I introduced are saved to the file system.">
+        documents that I introduced are saved to the file system."
+      />
 
-            <p>
-                The official docs tell you that if you want to integrate it with the command line then you have to write
-                that integration yourself. It's annoying, but I wrote a bad version several years ago. I've since tweaked it a couple of times.
-                Here's the two wrapper scripts I use.
-            </p>
-<div class="side-by-side">
-    <div>
-        <h3>p4diff</h3>
-        <pre><code>
+      <p>
+        The official docs tell you that if you want to integrate it with the command line then you have to write that
+        integration yourself. It's annoying, but I wrote a bad version several years ago. I've since tweaked it a couple
+        of times. Here's the two wrapper scripts I use.
+      </p>
+      <div class="side-by-side">
+        <div>
+          <h3>p4diff</h3>
+          <pre><code>
 #!/bin/sh
 [ $# -eq 7 ] && /usr/local/bin/p4merge "$2" "$PWD/$5" 
         </code></pre>
-    </div>
-    <div>
-        <h3>p4merge</h3>
-        <pre><code>
+        </div>
+        <div>
+          <h3>p4merge</h3>
+          <pre><code>
 #!/bin/sh
 /Applications/p4merge.app/Contents/MacOS/p4merge $*
         </code></pre>
-    </div>
-</div>
-
-        </article>
-    </main>
-      <footer>
-        This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.
-      </footer>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer>
+    This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+    audience. No identifying information is gathered.
+  </footer>
 </body>
