@@ -1,17 +1,12 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>Goose for the Rails Developer</title>
-    <meta name="andrew-publish-time" content="2025-03-31 13:10:27" />
-</head>
-
+{{ .AndrewPartialFile.head title="Goose for the Rails Developer" andrewpublishtime="2025-03-31 13:10:27"}}
 <body>
     <div id="playtechnique-nav-bar"></div>
     <link rel="stylesheet" href="/styles.css">
 
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <h1>Goose for the Rails Developer</h1>
             <section id="introduction">
                 <p>
@@ -108,6 +103,7 @@
             </section>
 
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.

@@ -1,17 +1,12 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>I Have An Answer From ChatGPT, But What Does It Mean?</title>
-    <meta name="andrew-publish-time" content="2025-03-29 09:13:32" />
-</head>
-
+{{ .AndrewPartialFile.head title="I Have An Answer From ChatGPT, But What Does It Mean?" andrewpublishtime="2025-03-29 09:13:32"}}
 <body>
     <div id="playtechnique-nav-bar"></div>
     <link rel="stylesheet" href="/styles.css">
 
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <h1>I Have An AWK Answer From ChatGPT, But What Does It Mean?</h1>
             <section id="introduction">
                 <p>
@@ -59,6 +54,7 @@ FROM golang:1.23 AS base
             </section>
 
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.

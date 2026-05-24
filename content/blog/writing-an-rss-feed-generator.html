@@ -1,11 +1,5 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>Writing An RSS Feed Generator</title>
-    <meta name="andrew-publish-time" content="2024-10-11 07:06:51" />
-</head>
-
+{{ .AndrewPartialFile.head title="Writing An RSS Feed Generator" andrewpublishtime="2024-10-11 07:06:51"}}
 <body>
 <div id="playtechnique-nav-bar"></div>
 
@@ -13,6 +7,7 @@
     <div id="playtechnique-header"></div>
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <h1>Writing An RSS Feed Generator</h1>
             <section id="introduction">
                 <p>
@@ -58,6 +53,7 @@ Finally, end the rss element:
             </section>
 
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.

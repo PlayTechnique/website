@@ -1,11 +1,5 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>testing panics in go</title>
-    <meta name="andrew-publish-time" content="2024-04-20" />
-</head>
-
+{{ .AndrewPartialFile.head title="testing panics in go" andrewpublishtime="2024-04-20"}}
 <body>
 <div id="playtechnique-nav-bar"></div>
 
@@ -13,6 +7,7 @@
     <div id="playtechnique-header"></div>
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <section id="introduction">
                 <h1>You want to call a panic in a piece of code and have the test not fail?</h1>
                 <p>In a deferred function, call <code>recover()</code>. If it has a return value that is not nil, it <i>succeeded and caught the panic</i>
@@ -104,6 +99,7 @@ ok      panicker        0.123s
         </p>
             </section>
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.

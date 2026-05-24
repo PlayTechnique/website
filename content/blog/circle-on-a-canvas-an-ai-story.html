@@ -1,60 +1,12 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>Circle on a Canvas: An AI Story</title>
-    <meta name="andrew-publish-time" content="2025-06-28 07:56:05" />
-    <script>
-            let radius = 20;
-
-    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-    async function animate() {
-        const canvas = document.querySelector("canvas");
-        if (!canvas) return;
-        
-        const ctx = canvas.getContext("2d");
-        
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        let endY = canvas.height - radius;
-        let endX = canvas.width - 1.5 * radius;
-
-        let rightEdge = endY + radius;
-        let bottomEdge = endX + radius;
-
-        // Draw a circle navigating left to right across the canvas
-        for (let y = radius; y < endY; y += radius ) {
-
-        for (let x = 0; x < endX; x = x + radius) {
-            ctx.fillStyle = "green";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.beginPath();
-            ctx.lineWidth = 0;
-            ctx.arc(x+radius, y, radius, 0, 360, false);
-            ctx.stroke();
-
-            await sleep(500);
-        }
-    }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('circlemarch');
-            if (canvas) {
-                animate();
-            }
-        });
-    </script>
-</head>
-
+{{ .AndrewPartialFile.head title="Circle on a Canvas: An AI Story" andrewpublishtime="2025-06-28 07:56:05"}}
 <body>
     <div id="playtechnique-nav-bar"></div>
     <link rel="stylesheet" href="/styles.css">
 
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <h1>Circle on a Canvas: An AI Story</h1>
             <section id="introduction">
                 <p>
@@ -97,11 +49,8 @@
                 </p>
             </section>
         </article>
-
-        <aside>
-            <div id="emailOctopusDocumentationLink"></div>
-        </aside>
-    </main>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
+</main>
 
     <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my

@@ -1,11 +1,5 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>How Do You Get To Carnegie Hall?</title>
-    <meta name="andrew-publish-time" content="2024-09-05 10:00:01" 
-</head>
-
+{{ .AndrewPartialFile.head title="How Do You Get To Carnegie Hall?" andrewpublishtime="2024-09-05 10:00:01"}}
 <body>
 <div id="playtechnique-nav-bar"></div>
 
@@ -13,6 +7,7 @@
     <div id="playtechnique-header"></div>
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <h1>Intro: How Do You Get To Carnegie Hall?</h1>
             <section id="practice">
                 <p>
@@ -55,6 +50,7 @@
             {{ .AndrewTableOfContents }}
 
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.

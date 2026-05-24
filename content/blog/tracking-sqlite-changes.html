@@ -1,11 +1,5 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>Tracking Sqlite Changes</title>
-    <meta name="andrew-publish-time" content="2024-10-03 06:42:12" />
-</head>
-
+{{ .AndrewPartialFile.head title="Tracking Sqlite Changes" andrewpublishtime="2024-10-03 06:42:12"}}
 <body>
 <div id="playtechnique-nav-bar"></div>
 
@@ -13,6 +7,7 @@
     <div id="playtechnique-header"></div>
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <h1>Tracking Sqlite Changes</h1>
             <section id="introduction">
                 <p>
@@ -113,6 +108,7 @@ sqlite> select * from _inputs_history;
                 </p>
             </section>
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.

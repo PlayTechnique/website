@@ -1,11 +1,5 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>fstest mapfs file does not exist error</title>
-    <meta name="andrew-publish-time" content="2024-03-27"/>
-</head>
-
+{{ .AndrewPartialFile.head title="fstest mapfs file does not exist error" andrewpublishtime="2024-03-27"}}
 <body>
 <div id="playtechnique-nav-bar"></div>
 
@@ -13,6 +7,7 @@
     <div id="playtechnique-header"></div>
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <section id="introduction">
                 <h1>The problem</h1>
                 <p>
@@ -94,6 +89,7 @@ file, err := fsys.Open(name)</pre>
             </section>
 
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.

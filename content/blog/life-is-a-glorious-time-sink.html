@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>Andrew is a glorious time sink</title>
-    <meta name="andrew-publish-time" content="2024-08-21"/>
-</head>
 
+{{ .AndrewPartialFile.head title="Andrew is a glorious time sink" andrewpublishtime="2024-08-21"}}
 <body>
 <div id="playtechnique-nav-bar"></div>
 
@@ -12,6 +7,7 @@
 <div id="playtechnique-header"></div>
 <main>
 <article>
+    <aside>{{ .AndrewPartialFile.newsletter }}</aside>
     <section id="introduction">
         <p>
             I started Andrew because I don't know html, css or javascript. I thought writing an old school, frameworkless, website was the way to go to solve this. 
@@ -81,3 +77,10 @@ but the go http server's excellent and it was actually super easy, barely an inc
             So many projects! Life is a glorious time sink!
         </p>
         </section>
+</article>
+		<aside>{{ .AndrewPartialFile.rss }}</aside>
+</main>
+  <footer>
+    This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.
+  </footer>
+</body>

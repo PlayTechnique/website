@@ -1,11 +1,5 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>andrew is actually a web server</title>
-    <meta name="andrew-publish-time" content="2024-03-16" />
-</head>
-
+{{ .AndrewPartialFile.head title="andrew is actually a web server" andrewpublishtime="2024-03-16"}}
 <body>
 <div id="playtechnique-nav-bar"></div>
 
@@ -13,6 +7,7 @@
     <div id="playtechnique-header"></div>
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <section id="introduction">
                 <p>
                     I said Andrew's a partial site generator. It's actually a web server first; the generator flag will
@@ -34,6 +29,7 @@
             </section>
 
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.

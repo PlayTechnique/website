@@ -1,11 +1,5 @@
-<!DOCTYPE html>
 
-<head>
-    <script type="text/javascript" src="/main.js"></script>
-    <title>How Not To Trigger Site Analytics From Localhost</title>
-    <meta name="andrew-publish-time" content="2025-01-14 17:22:15" />
-</head>
-
+{{ .AndrewPartialFile.head title="How Not To Trigger Site Analytics From Localhost" andrewpublishtime="2025-01-14 17:22:15"}}
 <body>
     <nav class="navigation">
         <a href="/"><img src="/images/logo.png"></a>
@@ -20,6 +14,7 @@
     <div id="playtechnique-header"></div>
     <main>
         <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
             <h1>how not to trigger site analytics from localhost</h1>
             <section id="introduction">
                 <p>
@@ -45,6 +40,7 @@ function addAnalytics() {
 </code></pre>
 <p>There's a thousand other ways to write this, yeah, but the simple way of achieving the goal really made me happy.</p>
         </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
     </main>
       <footer>
         This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.
