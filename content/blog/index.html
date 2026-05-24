@@ -1,20 +1,19 @@
 <head>
-    <script type="text/javascript" src="/main.js"></script>
+  <script type="text/javascript" src="/main.js"></script>
 </head>
 
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css" />
 
 <body>
-<div id="playtechnique-nav-bar"></div>
+  <div id="playtechnique-nav-bar"></div>
 
-    <main>
-        <div id="playtechnique-header"></div>
-        <div class="rss-callout">
-            <a href="/rss.xml"><img src="/images/rss.png" alt="RSS"> Subscribe via RSS</a>
-        </div>
-        {{ .AndrewTableOfContents }}
-    </main>
-      <footer>
-        This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.
-      </footer>
+  <main>
+    <div id="playtechnique-header"></div>
+    {{ .AndrewPartialFile.newsletter }} {{ .AndrewPartialFile.rss }} {{ .AndrewTableOfContents }} {{
+    .AndrewPartialFile.rss }}
+  </main>
+  <footer>
+    This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+    audience. No identifying information is gathered.
+  </footer>
 </body>

@@ -177,9 +177,8 @@ article p {
 }
 
 .rss-callout {
-  width: var(--content-width);
-  margin-inline: auto;
   margin-bottom: 0.5em;
+  text-align: center;
 }
 
 .rss-callout a {
@@ -388,6 +387,22 @@ a.button {
 #emailOctopusDocumentationLink .inline-container {
   margin-left: auto;
   margin-right: auto;
+}
+
+.newsletter-blog {
+  background-color: var(--color-contrast);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1em 1.5em;
+  margin-inline: auto;
+  width: 75%;
+  max-width: 52.5vw;
+  font-size: 18px;
+  line-height: 2.0em;
+}
+
+.newsletter-blog .inline-container[data-form] {
+  max-width: 100% !important;
 }
 
 #coaching {
