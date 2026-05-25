@@ -1,0 +1,5 @@
+button[aria-pressed="true"] {
+  background: #cad4f4;
+  color: #4A5FA0;
+  font-weight: 600;
+}
