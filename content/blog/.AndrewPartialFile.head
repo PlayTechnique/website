@@ -5,4 +5,15 @@
   <title>{{ .title }}</title>
   <meta name="andrew-publish-time" content="{{ .andrewpublishtime }}" />
   <link rel="stylesheet" href="/styles.css" />
+
+
+  <style>
+    .vd-del {
+      background: #f7dada;
+      text-decoration: line-through;
+    }
+    .vd-add {
+      background: #d8ecd4;
+    }
+  </style>
 </head>
