@@ -42,7 +42,7 @@ function renderNavigation() {
     let navHTML = `
         <nav class="navigation">
             <a href="/" class="brand-link">
-                <img src="/images/dolphint.png" alt="Logo">
+                <img src="/images/dolphint.png" alt="Logo" width="40" height="40">
                 <span class="brand-name"><span class="big-bold">play</span>technique</span>
                 <span class="tagline">Professional DevOps Consultancy</span>
             </a>
