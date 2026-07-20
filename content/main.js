@@ -18,6 +18,7 @@ function addCodeHighlightingToHeader(callback) {
     // Add the JavaScript file to the <body>
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+    script.defer = true
     script.onload = function () {
         if (callback) callback(); // Call callback function when script is loaded
     };
@@ -44,7 +45,7 @@ function renderNavigation() {
             <a href="/" class="brand-link">
                 <img src="/images/dolphint.png" alt="Logo" width="40" height="40">
                 <span class="brand-name"><span class="big-bold">play</span>technique</span>
-                <span class="tagline">Professional DevOps Consultancy</span>
+                <span class="tagline">Professional DevOps Consultant</span>
             </a>
             <div id="links-group">
     `;

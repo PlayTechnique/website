@@ -8,6 +8,8 @@
   --color-contrast: #F4EACA;
 
   --content-width: 50%;
+
+  --blockquote-indent: 2.5em;
 }
 
 body {
@@ -45,6 +47,21 @@ figure blockquote {
 
 figure blockquote p {
   font-weight: 600;
+}
+
+blockquote {
+  margin-inline: var(--blockquote-indent);
+  font-size: 1.1em;
+}
+
+/* The attribution paragraph is to go underneath a blockquote and contain attribution info
+e.g. 
+<p class="attribution">- Gwendolyn James, incredible writer</p>
+*/
+p.attribution {
+  margin-inline: var(--blockquote-indent);
+  font-weight: 400;
+  font-size: 0.9em;
 }
 
 section#preamble {
