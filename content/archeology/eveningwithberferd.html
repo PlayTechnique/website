@@ -1,0 +1,205 @@
+{{ .AndrewPartialFile.head title="An Evening With Berferd" andrewpublishtime="2026-02-01"}}
+
+<body>
+  {{ .AndrewPartialFile.navigation }}
+  <article>
+    <h1>An Evening With Berferd - FTP</h1>
+    <p>
+      Hey there -
+    </p>
+    <p>
+      welcome to my newsletter! I expose great whitepapers from history, I explain small details so the big ideas are
+      approachable, and I highlight the human elements to remind us that these are real papers by real people. By
+      focusing on details we get confidence in the bigger picture of what was going on when the paper was written.
+    </p>
+    <p>
+      This is the same approach I take in my teaching and mentoring: master the details, and you'll find the big picture
+      clarifies itself.
+    </p>
+
+    <p>
+      This first whitepaper is called
+      <a href="https://cheswick.com/ches/papers/berferd.pdf">An Evening with Berferd</a>
+      , written in 1991 by one of the inventors of the packet filtering firewall,
+      <a href="https://en.wikipedia.org/wiki/William_Cheswick">Bill Cheswick</a>
+      . It's the story of Bill trapping a cracker who got past his recently invented Internet Gateway.
+    </p>
+
+    <blockquote>
+      On 7 January 1991 a cracker, believing he had discovered the famous sendmail DEBUG hole in our Internet gateway
+      machine, attempted to obtain a copy of our password file. I sent him one.
+    </blockquote>
+    <p class="attribution">
+      An Evening With Berferd, Bill Cheswick, 1991
+    </p>
+
+    <p>
+      There is richness in the details in this paper that shows us what the tech world was like in 1991. For example,
+      the "famous sendmail DEBUG hole" is something familiar to Bill and his colleagues in 1991; it was a bug exploited
+      by
+      <a href="https://en.wikipedia.org/wiki/Morris_worm">The Morris Worm</a>
+      , which was a cultural event in the late 80s. It was a self-reproducing piece of code that tried half a dozen
+      debug features or code bugs to gain unauthorised access to systems. The Morris Worm is well worthy of a writeup of
+      its own in the future.
+    </p>
+    <p>
+      The DEBUG hole was simple to exploit, because it wasn't a secret. A contemporary mailing list post shows this:
+    </p>
+    <blockquote>
+      I've known about it for a long time. I thought it was common knowledge and that the Internet was just a darned
+      polite place. (I think it _was_ common knowledge among the people who like to diddle the sendmail source.)
+    </blockquote>
+    <p class="attribution">
+      Paul Vixie, https://blog.appcanary.com/2016/tale-of-two-worms.html
+    </p>
+
+    <p>
+      I reproduced the sendmail debug hole in a containerised environment; you can too using
+      <a href="https://github.com/wvu/ye-olde-bsd/tree/master">Ye Olde BSD</a>
+      , a project I'm currently reimplementing.
+    </p>
+
+    <h2 id="putting-etcpasswd-in-an-ftp-directory"> Putting /etc/passwd in an FTP directory?</h2>
+    <blockquote>"Sometimes system administrators put their real password file in the FTP directory."</blockquote>
+    <p class="attribution">
+      - Bill Cheswick, An Evening with Berferd, 1991
+    </p>
+    <p>
+      "An Evening with Berferd" is the story of how Cheswick in 1991 isolated an attacker in a honeypot using a tool
+      called chroot, a tool that's a direct ancestor of every container you use today.
+    </p>
+    <p>
+      Bill was a systems administrator just as the CSFNet and the ARPANET were being combined and talked about as this
+      new thing, the "internet". He worked at Bell Labs, famous among other things for Unix, as a researcher who wanted
+      to know what it meant that he was connecting systems to a large network.
+    </p>
+    <p>
+      The paper details how his systems were attacked, but Bill assumes familiarity with a series of vulnerabilities
+      that were common knowledge in the small internet community of 1990 but aren't known today. One detail is that sys
+      admins put their real password file into their FTP directory. What on earth was that about?
+    </p>
+    <h2>How FTPd Was Set Up in 1990</h2>
+    <p>
+      A contemporary linux journal article from 1995 about
+      <a href="https://web.archive.org/web/20120619024437/https://www.linuxjournal.com/article/1069">
+        how to set up FTPd
+      </a>
+      sheds light; it's a consequence of how FTPd was configured using a lightweight file-system based isolation tool
+      called
+      <a href="https://en.wikipedia.org/wiki/Chroot#History">chroot</a>
+      , which is the same tool Cheswick uses to build file system level isolation from his primary OS in his honeypot.
+      Let me give you a quick chroot primer.
+    </p>
+    <h3 id="quick-chroot-primer">Quick Chroot Primer</h3>
+    <p>
+      Legend has it, Bill Joy invented chroot to make compiling new OS patches more reliable. chroot changes the root
+      directory of your filesystem for a process launched within chroot. chroot
+      <em>only</em>
+      changes your file system root, so you have a new file system tree. In this example, you see my shell is in my home
+      directory, but when the command chroot is executed against the directory chroot_dir then the shell thinks that
+      /home/gwyn/chroot_dir is actually the root directory:
+    </p>
+    <pre>
+    <code>% pwd 
+/home/gwyn 
+% chroot chroot_dir 
+..some output redacted...
+$ pwd /
+    </code>
+  </pre>
+    <p>
+      I removed a lot of OS messaging above for clarity; you see, inside this new file system structure, there's no
+      shell, no cli tools, none of that unless you copy them in somehow. You solve this in containers by using a base
+      image and a Dockerfile. With chroot, I wrote a shell script to copy dependencies into the chroot. Here's the
+      example you need to see:
+    </p>
+    <p>
+      Outside the chroot, my OS knows how to look up my UID and GID:
+    </p>
+    <pre><code>$ ls -l chroot_dir 
+total 10 
+drwxr-xr-x 2 gwyn gwyn 4 May 4 03:51 bin 
+drwxr-xr-x 2 gwyn gwyn 7 May 4 03:51 lib 
+drwxr-xr-x 2 gwyn gwyn 3 May 4 03:51 libexec
+</code></pre>
+
+    <p>
+      Inside the chroot, I have to copy in the files that contain that info, otherwise UID and GID lookups fail:
+    </p>
+    <pre><code>$ chroot chroot_dir 
+$ ls -l 
+total 10 
+drwxr-xr-x 2 1001 1001 4 May 4 09:51 bin 
+drwxr-xr-x 2 1001 1001 7 May 4 09:51 lib 
+drwxr-xr-x 2 1001 1001 3 May 4 09:51 libexec
+</code></pre>
+    <h2 id="back-to-ftp">Back to FTP</h2>
+    <p>
+      Because unix users in the early 90s were used to UID and GID lookups succeeding, and because FTPd was run using
+      chroot, unix systems administrators would copy the UID and GID lookup files into the chroot. Those files were
+      /etc/group and /etc/passwd, and
+      <i>this is why systems administrators were copying their /etc/passwd file into their FTP directories</i>
+      : it was to work around the limitations of chroot.
+    </p>
+    <p>
+      Now, every article I have found about setting up FTP mentions clearly "don't leave your encrypted password strings
+      in the passwd file", but not many of them notice something more unpleasant:
+      <i>
+        it's convenient to have your UID and GID map to something you know, but if someone else breaks in to your FTP
+        server then you're giving them the usernames of people on your network.
+      </i>
+    </p>
+    <p>
+      The internet was small and trusting, composed of academics and researchers, not a place where commercial ventures
+      were taking root yet. There was a big wakeup call in the late 1980s when
+      <a href="https://en.wikipedia.org/wiki/Morris_worm">The Morris Worm</a>
+      blasted through thousands of systems, but by 1991 no major second or third worm was released.
+    </p>
+
+    <p>
+      Cheswick is conscientious, actively building a logging system to see what more invisible threats might be
+      happening. For the rest of the nascent network, though, the researchers and teachers get hit by a human
+      behavioural problem, namely that
+      <a href="https://web.archive.org/web/20210613053537/https://hms.harvard.edu/news/ambiguous-threats">research</a>
+      shows that humans tend to downplay ambiguous threats, we don't focus on problems that might or might not recur.
+    </p>
+    <p>
+      The remote login tools that were in use in 1990 were incredibly insecure (Kirk McKusick claimed that Bill Joy
+      wrote them in an afternoon to debug something). Knowing someone's username was a big lift for getting around an
+      internal network. It's easy today to see enabling that kind of security leak as naive; but remember, the world
+      back then was not the world of today. For example, one of the smtpd holes that the attacker used against Bill
+      Cheswick was sending an email with a debug string in the subject line, which dumped the sender into a root prompt.
+      The debug string was intentionally there, but nobody thought of networks as a hostile environment.
+    </p>
+    <p>
+      If you're interested in the smtpd bug from the 1990s, I'd love to hear from you. I reproduced it in a container
+      that's running a CPU emulator to run 4.4 BSD, I'd happily show you! Just
+      <a href="/contact/index.html">Shoot me an email</a>
+      or
+      <a href="/products/index.html">book a mentoring session.</a>
+    </p>
+    <h2 id="diligence-habit-and-understanding">Diligence, Habit, and Understanding</h2>
+    <p>
+      Focusing on small details, a debug entry in sendmail, or the idea that people put their passwords into their
+      download folders to make usernames appear in a system lookup, the overall paper is easier to read. These details
+      show us that not understanding consequences, not being thoughtful about how the details hold together, is a
+      pernicious problem that's been with us for decades.
+    </p>
+    <p>
+      We're in a new tooling revolution, large language models are powerful and may eventually be better than humans at
+      writing code and doing a good, diligent job. That day is not today, not this year, probably not in the next couple
+      of years. Right now, the problem is that they're just smart enough to give us footguns but not smart enough to
+      tell us. The solution today is for us to understand our fundamentals, to have an idea when a system design smell
+      or a code smell is happening, so we can course-correct the tool.
+    </p>
+    <p>
+      The focus in my career has been fundamentals, details, diligence, and habit. We want systems reliability to be the
+      outcome of something outside our control, but truthfully reliability is the result of habits, good habits that are
+      informed by a clear understanding of the principles of our tools. If you find yourself not confident that you can
+      build reliable systems,
+      <a href="/products/index.html">book a mentoring session</a>
+      and we'll work on that together.
+    </p>
+    <a href="index.html">Read Another?</a>
+  </article>
+</body>
