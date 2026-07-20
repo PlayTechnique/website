@@ -1,0 +1,186 @@
+
+{{ .AndrewPartialFile.head title="Two Runs One Instruction" andrewpublishtime="2025-09-28 09:09:12"}}
+<body>
+    {{ .AndrewPartialFile.navigation }}
+    <link rel="stylesheet" href="/styles.css">
+
+    <main>
+        <article>
+            <aside>{{ .AndrewPartialFile.newsletter }}</aside>
+            <h1>Two Runs One Instruction</h1>
+            <section id="introduction">
+                <p>
+                  
+                </p>
+            </section>
+
+            <section id="original-raw-output">
+              
+              
+              <h1>Original, raw output</h1>
+              <div class="side-by-side">
+                        <div class="styled-paragraph">
+                            <h3>Review of emergency.md Command</h3>
+
+                            <h4>Issues Identified:</h4>
+                            <ol>
+                                <li><strong>Token Waste & Repeated Execution Prevention (Guideline 1 & 3)</strong>
+                                    <ul>
+                                        <li>Line 8-10: Good addition of state management to prevent repeated runs</li>
+                                        <li>However, the 5-minute cooldown may be too rigid - should check for actual code changes instead</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Unclear Parameter Handling</strong>
+                                    <ul>
+                                        <li>Line 5: States task must fail if file missing, but doesn't specify how to handle this gracefully</li>
+                                        <li>Line 29: References cat emergency.md but should use the provided argument parameter</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Test-First Approach Issues</strong>
+                                    <ul>
+                                        <li>Lines 32-33: Good emphasis on writing tests first</li>
+                                        <li>However, the instruction about "not working around the issue" needs clarification</li>
+                                        <li>Should specify test file naming conventions and location structure</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Workflow Ambiguity</strong>
+                                    <ul>
+                                        <li>Line 48: References "precommit" agent but doesn't specify if this is a Claude Code agent or external tool</li>
+                                        <li>Lines 42-46: User verification step creates unnecessary back-and-forth</li>
+                                    </ul>
+                                </li>
+                                <li><strong>SvelteKit 5 Integration Missing (Guideline 4)</strong>
+                                    <ul>
+                                        <li>No specific guidance for SvelteKit 5 testing patterns</li>
+                                        <li>Should leverage SvelteKit's built-in testing capabilities</li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <h4>Specific Recommendations:</h4>
+                            <ol>
+                                <li><strong>Improve State Management:</strong>
+                                    <ul>
+                                        <li>Check git status and only proceed if there are uncommitted changes OR if emergency file has been modified since last run</li>
+                                        <li>Use git log timestamp of emergency file to determine if it's been updated</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Fix Parameter Handling:</strong>
+                                    <ul>
+                                        <li>Replace line 29 reference to hardcoded filename with proper argument usage</li>
+                                        <li>Add explicit error handling for missing emergency file parameter</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Enhance Test Strategy:</strong>
+                                    <ul>
+                                        <li>Specify that tests should use SvelteKit's @testing-library/svelte if UI components are involved</li>
+                                        <li>Clarify that integration tests should hit actual endpoints using SvelteKit's test utilities</li>
+                                        <li>Add naming convention: emergency-[task-name].test.ts</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Streamline Workflow:</strong>
+                                    <ul>
+                                        <li>Remove user verification step (line 42-46) and instead automatically mark complete if tests pass</li>
+                                        <li>Replace "precommit agent" reference with specific Claude Code command or bash execution</li>
+                                        <li>Add automatic git commit after successful completion</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Reduce Token Usage:</strong>
+                                    <ul>
+                                        <li>Combine similar operations (test creation + implementation) into single planning phase</li>
+                                        <li>Remove redundant validation steps if tests are comprehensive</li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <p>The command has good structure but needs refinement to reduce token waste, improve SvelteKit 5 integration, and eliminate ambiguous workflow steps.</p>
+                        </div>
+                        <div class="styled-paragraph">
+                            <h3>Review of emergency.md Command</h3>
+
+                            <p>After analyzing the emergency.md command file, here are my specific recommendations for improvement:</p>
+
+                            <h4>1. Preventing Repeated Command Runs</h4>
+                            <p><strong>Current Issue:</strong> The command has basic state management but could be more robust.</p>
+                            <p><strong>Improvements:</strong></p>
+                            <ul>
+                                <li>Add explicit git commit hash tracking to prevent running on same state</li>
+                                <li>Check if emergency file has been modified since last run</li>
+                                <li>Add file modification timestamp checking for the emergency file itself</li>
+                            </ul>
+
+                            <h4>2. Improving Prompting for Claude Sonnet LLM</h4>
+                            <p><strong>Current Issues:</strong></p>
+                            <ul>
+                                <li>Vague instruction "Think hard about the plan" - not actionable</li>
+                                <li>Missing specific guidance on SvelteKit 5 patterns</li>
+                                <li>No clear success criteria definition</li>
+                            </ul>
+                            <p><strong>Improvements:</strong></p>
+                            <ul>
+                                <li>Replace vague instructions with specific action items</li>
+                                <li>Add explicit requirement to use SvelteKit 5 best practices</li>
+                                <li>Define clear completion criteria before starting implementation</li>
+                                <li>Add instruction to leverage SvelteKit's built-in testing patterns</li>
+                            </ul>
+
+                            <h4>3. Token Waste Reduction</h4>
+                            <p><strong>Current Issues:</strong></p>
+                            <ul>
+                                <li>Redundant file reading (cat emergency.md when file content could be cached)</li>
+                                <li>Verbose explanatory text that could be condensed</li>
+                                <li>Missing early exit conditions</li>
+                            </ul>
+                            <p><strong>Improvements:</strong></p>
+                            <ul>
+                                <li>Read emergency file once and cache content during command execution</li>
+                                <li>Consolidate the test implementation and task implementation steps</li>
+                                <li>Add early validation to fail fast if emergency file is malformed</li>
+                                <li>Remove redundant explanations in favor of concise action items</li>
+                            </ul>
+
+                            <h4>4. SvelteKit 5 Specific Improvements</h4>
+                            <p><strong>Current Issues:</strong></p>
+                            <ul>
+                                <li>Generic test directory assumption (tests/) - SvelteKit 5 uses different conventions</li>
+                                <li>No mention of SvelteKit-specific testing patterns or tools</li>
+                                <li>Missing integration with SvelteKit's development workflow</li>
+                            </ul>
+                            <p><strong>Improvements:</strong></p>
+                            <ul>
+                                <li>Update test path to follow SvelteKit 5 conventions (src/lib/, src/routes/, or tests/ depending on test type)</li>
+                                <li>Add instruction to use Vitest (SvelteKit 5's default test runner) specific patterns</li>
+                                <li>Include guidance for testing SvelteKit routes, components, and server-side functionality</li>
+                                <li>Add instruction to leverage SvelteKit's $app modules for testing navigation and stores</li>
+                            </ul>
+
+                            <h4>5. Additional Command Syntax Improvements</h4>
+                            <p><strong>Recommended Changes:</strong></p>
+                            <ul>
+                                <li>Add state management section with explicit git hash and file timestamp checking</li>
+                                <li>Replace "Think hard about the plan" with "Create specific implementation plan with clear acceptance criteria"</li>
+                                <li>Consolidate test writing and implementation steps to reduce redundancy</li>
+                                <li>Add early validation for emergency file format before proceeding</li>
+                                <li>Update test directory references to be SvelteKit 5 compatible</li>
+                                <li>Add explicit instruction to use Vitest testing patterns when applicable</li>
+                                <li>Include guidance for testing SvelteKit-specific functionality (routes, components, stores)</li>
+                            </ul>
+
+                            <h4>Summary</h4>
+                            <p>The emergency command is well-structured but could benefit from more specific guidance, better state management to prevent repeated runs, and SvelteKit 5-specific instructions. The main improvements focus on making instructions more actionable, reducing token waste through better organization, and leveraging SvelteKit 5's conventions and strengths.</p>
+
+                        </div>
+                    </div>
+
+
+            </section>
+        </article>
+        		<aside>{{ .AndrewPartialFile.rss }}</aside>
+</main>
+
+    <footer>
+        This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
+        audience. No identifying information is gathered.
+    </footer>
+</body>
+

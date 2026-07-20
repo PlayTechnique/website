@@ -1,4 +1,5 @@
-<nav class="navigation">
+  <link rel="stylesheet" href="/styles.css" />
+  <nav class="navigation">
     <a href="/" class="brand-link">
         <img src="/images/dolphint.png" alt="Logo" width="40" height="40">
         <span class="brand-name"><span class="big-bold">play</span>technique</span>
@@ -7,6 +8,7 @@
     <div id="links-group">
         <a href="/about.html" class="button">About</a>
         <a href="/contact/index.html" class="button">Contact Me</a>
+        <a href="/products/mentorship.html" class="button">Mentoring</a>
         <a href="/books.html" class="button">Free DevOps E-book</a>
         <a href="/blog/index.html" class="button">Tech Blog</a>
         <a href="/public-speaking/index.html" class="button">Public Speaking</a>
