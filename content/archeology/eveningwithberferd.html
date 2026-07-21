@@ -8,23 +8,20 @@
       Hey there -
     </p>
     <p>
-      welcome to my newsletter! I expose great whitepapers from history, I explain small details so the big ideas are
-      approachable, and I highlight the human elements to remind us that these are real papers by real people. By
-      focusing on details we get confidence in the bigger picture of what was going on when the paper was written.
+      welcome to my newsletter! I love learning from great whitepapers, so every month-ish I write about one.
     </p>
     <p>
-      This is the same approach I take in my
-      <a href="/products/mentorship.html">teaching and mentoring</a>
-      : master the details, and you'll find the big picture clarifies itself.
+      I explain small details, get them out of the way so that the big ideas are approachable, and I highlight the human
+      elements to remind us that these are real papers by real people. By focusing on details we get confidence in the
+      bigger picture of what was going on when the paper was written.
+    </p>
+    <p>
+      If you like what you read here, consider my
+      <a href="/products/mentorship.html">teaching and mentoring.</a> I love helping people master the details, so the
+      big picture clarifies itself.
     </p>
 
-    <p>
-      This first whitepaper is called
-      <a href="https://cheswick.com/ches/papers/berferd.pdf">An Evening with Berferd</a>
-      , written in 1991 by one of the inventors of the packet filtering firewall,
-      <a href="https://en.wikipedia.org/wiki/William_Cheswick">Bill Cheswick</a>
-      . It's the story of Bill trapping a cracker who got past his recently invented Internet Gateway.
-    </p>
+    <h2>What's This Berferd About?</h2>
 
     <blockquote>
       On 7 January 1991 a cracker, believing he had discovered the famous sendmail DEBUG hole in our Internet gateway
@@ -33,31 +30,46 @@
     <p class="attribution">
       An Evening With Berferd, Bill Cheswick, 1991
     </p>
-
     <p>
-      There is richness in the details in this paper that shows us what the tech world was like in 1991. For example,
-      the "famous sendmail DEBUG hole" is something familiar to Bill and his colleagues in 1991; it was a bug exploited
-      by
-      <a href="https://en.wikipedia.org/wiki/Morris_worm">The Morris Worm</a>
-      , which was a cultural event in the late 80s. It was a self-reproducing piece of code that tried half a dozen
-      debug features or code bugs to gain unauthorised access to systems. The Morris Worm is well worthy of a writeup of
-      its own in the future.
+      This first whitepaper is called
+      <a href="https://cheswick.com/ches/papers/berferd.pdf">An Evening with Berferd,</a> written in 1991 by one of the
+      inventors of the packet filtering firewall,
+      <a href="https://en.wikipedia.org/wiki/William_Cheswick">Bill Cheswick.</a> It's the story of Bill trapping a
+      cracker who got past his recently invened Internet Gateway. Berferd, it is explained, is a name that Bill assigns
+      to a cracker who is trying to break in.
+    </p>
+    <p>
+      There is richness in the details in this paper, showing us what the tech world was like in 1991. For example, the
+      "famous sendmail DEBUG hole" is something familiar to Bill and his colleagues in 1991; it was a bug exploited by
+      <a href="https://en.wikipedia.org/wiki/Morris_worm">The Morris Worm,</a>
+      which was a cultural event in the late 80s. It was a self-reproducing piece of code that tried half a dozen debug
+      features or code bugs to gain unauthorised access to systems.
     </p>
     <p>
       The DEBUG hole was simple to exploit, because it wasn't a secret. A contemporary mailing list post shows this:
     </p>
     <blockquote>
-      I've known about it for a long time. I thought it was common knowledge and that the Internet was just a darned
-      polite place. (I think it _was_ common knowledge among the people who like to diddle the sendmail source.)
+      <p>
+        The programmer who designed the network's electronic mail program, instructions controlling the flow of
+        electronic messages among thousands of computers around the country, deliberately left a secret 'back door' so
+        that he close the 'door' he originally put in place to allow him to make adjustments to the program.
+      </p>
+      <p>
+        It remained open for several years, until Robert T. Morris Jr., a graduate computer student at Cornell
+        University, discovered it and used it to let loose the 'virus' program that ultimately paralyzed more than 6,000
+        computers last Wednesday and Thursday.
+      </p>
     </blockquote>
     <p class="attribution">
-      Paul Vixie, https://blog.appcanary.com/2016/tale-of-two-worms.html
+      John Markoff,
+      <a href="https://www.nytimes.com/1988/11/07/us/computer-invasion-back-door-ajar.html"
+        >Computer Invasion: 'Back Door' Ajar</a
+      >, 1988
     </p>
 
     <p>
       I reproduced the sendmail debug hole in a containerised environment; you can too using
-      <a href="https://github.com/wvu/ye-olde-bsd/tree/master">Ye Olde BSD</a>
-      , a project I'm currently reimplementing.
+      <a href="https://github.com/wvu/ye-olde-bsd/tree/master">Ye Olde BSD,</a> a project I'm currently reimplementing.
     </p>
 
     <h2 id="putting-etcpasswd-in-an-ftp-directory"> Putting /etc/passwd in an FTP directory?</h2>
@@ -66,18 +78,14 @@
       - Bill Cheswick, An Evening with Berferd, 1991
     </p>
     <p>
-      "An Evening with Berferd" is the story of how Cheswick in 1991 isolated an attacker in a honeypot using a tool
-      called chroot, a tool that's a direct ancestor of every container you use today.
-    </p>
-    <p>
-      Bill was a systems administrator just as the CSFNet and the ARPANET were being combined and talked about as this
+      Bill was a systems administrator just as the CSNet and the ARPANET were being combined and talked about as this
       new thing, the "internet". He worked at Bell Labs, famous among other things for Unix, as a researcher who wanted
       to know what it meant that he was connecting systems to a large network.
     </p>
     <p>
-      The paper details how his systems were attacked, but Bill assumes familiarity with a series of vulnerabilities
-      that were common knowledge in the small internet community of 1990 but aren't known today. One detail is that sys
-      admins put their real password file into their FTP directory. What on earth was that about?
+      In the paper, Bill tells us he wrote a listener script that sent breakins to a log file. He noticed Berferd coming
+      in through FTP, and then tells us that sys admins put their real password file into their FTP directory. What on
+      earth was that about?
     </p>
     <h2>How FTPd Was Set Up in 1990</h2>
     <p>
@@ -87,9 +95,8 @@
       </a>
       sheds light; it's a consequence of how FTPd was configured using a lightweight file-system based isolation tool
       called
-      <a href="https://en.wikipedia.org/wiki/Chroot#History">chroot</a>
-      , which is the same tool Cheswick uses to build file system level isolation from his primary OS in his honeypot.
-      Let me give you a quick chroot primer.
+      <a href="https://en.wikipedia.org/wiki/Chroot#History">chroot</a>, which is the same tool Cheswick uses to build
+      file system level isolation from his primary OS in his honeypot. Let me give you a quick chroot primer.
     </p>
     <h3 id="quick-chroot-primer">Quick Chroot Primer</h3>
     <p>
@@ -173,11 +180,8 @@ drwxr-xr-x 2 1001 1001 3 May 4 09:51 libexec
       The debug string was intentionally there, but nobody thought of networks as a hostile environment.
     </p>
     <p>
-      If you're interested in the smtpd bug from the 1990s, I'd love to hear from you. I reproduced it in a container
-      that's running a CPU emulator to run 4.4 BSD, I'd happily show you! Just
-      <a href="/contact/index.html">Shoot me an email</a>
-      or
-      <a href="/products/index.html">book a mentoring session.</a>
+      If you're interested in the smtpd bug from the 1990s, I reproduced it <a href="">Ye Olde BSD</a>. Not confident
+      with containers? <a href="/products/mentorship.html">Book a mentoring session.</a>
     </p>
     <h2 id="diligence-habit-and-understanding">Diligence, Habit, and Understanding</h2>
     <p>
@@ -198,7 +202,7 @@ drwxr-xr-x 2 1001 1001 3 May 4 09:51 libexec
       outcome of something outside our control, but truthfully reliability is the result of habits, good habits that are
       informed by a clear understanding of the principles of our tools. If you find yourself not confident that you can
       build reliable systems,
-      <a href="/products/index.html">book a mentoring session</a>
+      <a href="/products/mentorship.html">book a mentoring session</a>
       and we'll work on that together.
     </p>
     <a href="index.html">Read Another?</a>
