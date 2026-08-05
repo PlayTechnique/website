@@ -1,0 +1,10 @@
+nav.TableOfContents {
+    width: 70vw;
+    max-width: 75%;
+    margin-block: 0;
+    margin-inline: auto;
+    line-height: 2.0em;
+    padding: 1em;
+    background: var(--color-header);
+    border-radius: 25px;
+}
