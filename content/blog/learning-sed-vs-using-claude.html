@@ -1,0 +1,185 @@
+{{ .AndrewPartialFile.head title="Learning sed vs using Claude" andrewpublishtime="2026-08-10 12:29:00" }}
+<body>
+  {{ .AndrewPartialFile.navigation }}
+  <main>
+    <aside>{{ .AndrewPartialFile.newsletter }}</aside>
+    <article>
+      <h1>Learning Sed vs Using Claude</h1>
+      <section id="introduction">
+        <p>
+          I have a favourite linux sys-admin job interview question: you're logged in to a system and it turns out that
+          it doesn't have <code>ls</code> installed. What're five ways to find the contents of the current directory and
+          everything below it? It forces my interviewee to think flexibly about linux. Answers at the bottom of this
+          post...
+        </p>
+        <p>
+          The older I get, the more I admire thinking flexibly. I use the toolchain that unix gave us all as an
+          inheritance: text streams, filters, a programmable shell. So, I thought I'd ask myself what the tradeoffs are
+          of learning those tools vs learning one of the modern LLM tools. Here's the challenge.
+        </p>
+        <p>
+          <code
+            >andrew.RssInfo{Title: "PlayTechnique", Dir: "does-not-exist", Description: "Learning to play
+            better."}</code
+          >
+        </p>
+        <p>
+          This line of code appears a dozen times in my codebase. I changed the Dir parameter from
+          <code>string</code> to <code>[]string</code>.
+        </p>
+        <p>
+          I have two refactoring options: shell or claude.
+        </p>
+      </section>
+
+      <section id="quick-approach">
+        <p>
+          Our modern shells are programable environments for one-off commands and simple loops.
+        </p>
+        <p>
+          Knowing how to tackle a refactoring across a single file means that you have to know the right tools. Here's a
+          few options:
+        </p>
+        <ol>
+          <h2>Shell</h2>
+          <li>
+            A filter program. There are many text filter programs due to unix's history as a text editing and layout
+            toolchain: <b>sed</b> is the most appropriate here, as the <b>s</b>tream <b>ed</b>itor allows us to edit the
+            file line by line but without needing to open an interactive editor session.
+          </li>
+          <li>
+            An interactive text editor such as vi or emacs that is notorious for a steep learning curve followed by
+            years of admiration for how well it's designed, or something more user friendly like vs code.
+          </li>
+          <li>
+            The major scripting languages (perl/ruby/python) all support some method of firing a one-off command that
+            can perform this edit.
+          </li>
+        </ol>
+        <h2>Claude</h2>
+        <ol>
+          <li>A one-off prompt of the `claude -p` style.</li>
+          <li>A slash-command defined for either this codebase or defined in your ~/.claude directory.</li>
+        </ol>
+      </section>
+      <section id="implementation">
+        <h2>sed implementation</h2>
+        <p>
+          When I'm implementing sed, I start with a plan, then by getting the matches right. Planning first is a
+          programming practice: if you start fixing a problem by opening a text editor, you're in the wrong game. Start
+          by thinking. I need each instance of
+          <code>Dir: "string"</code> to become <code>Dir: []string{"string"}</code>.
+        </p>
+        <p>
+          This requires knowing (a) How do I match a line containing the string <code>Dir:</code>, (b) how do I insert a
+          little text before that matched string and after it? (c) a few sed flags. I refine from less specific to more
+          specific. Here's the start (I've made it clear where my match begins and ends; I'm also redacting a lot of
+          output, because I want the example to be clear):
+        </p>
+        <pre><code>
+        ; sed -n 's/Dir:\(.*\)"/BEGINMATCH \1 ENDMATCH/p' rss_feed_test.go
+        rssInfo := andrew.RssInfo{Title: "PlayTechnique", BEGINMATCH ".", Description: "Learning to play better. ENDMATCH}
+      </code>
+      </pre>
+        <p>
+          From here, it's more or less a game, refining the syntax used and the pattern itself, training my mind a
+          little more how to see patterns in text. The key insight I needed to have is that '.' matches every character,
+          whereas '[^"]' matches every character except a quote.
+        </p>
+        <pre><code>
+        ; sed -n 's/Dir: "\([^"]*"\)/Dir: []string{"\1}/p' rss_feed_test.go
+        rssInfo := andrew.RssInfo{Title: "PlayTechnique", Dir: []string{"."}, Description: "Learning to play better."}
+      </code></pre>
+        <p>
+          There's some arcane syntax in there if you've not seen it before. To figure out one detail of capturing
+          groups, I had to check <code>man regex</code>. Took about six minutes to get right.
+        </p>
+        <p>
+          The regex syntax needs a little learning and effort. There's no shortcut, but the upside is that the same
+          regex language is implemented in a lot of cli tools and in languages, because the syntax goes all the way back
+          to the original UNIX. Ken Thompson didn't invent regular expressions, but he was one of a few early
+          programmers to actually use them in tools and programs.
+        </p>
+        <h2>claude implementation</h2>
+        <pre><code>
+          claude -p "In the file rss_feed_test.go, please update the argument to Dir in the RssInfo constructor to be an array of strings with the current value as the only member" --allowedTools "Read,Edit,Write,Bash"
+Updated all four `RssInfo` literals in `rss_feed_test.go` (lines 37, 92, 113, 128) to pass `Dir` as a `[]string` containing the previous value.
+
+Note: `RssInfo.Dir` is still declared as a `string` in the package, so `rss_feed_test.go` won't compile until that field's type is changed too — let me know if you want me to make that change.
+        </code></pre>
+        <p>
+          Much simpler, yes! But even in a simple task like this, Claude wanted to be sure it said something whacky, so
+          it told me that RssInfo.Dir is of type string when the type is []string. Oh, Claude, never change.
+        </p>
+      </section>
+      <section id="conclusion">
+        <p>
+          The Claude implementation is obviously much simpler as it's natural language. It cost a handful of tokens. I
+          didn't learn anything, and I was actually misled by my tool, but it was fast, a few seconds to write and 5-10
+          to execute.
+        </p>
+        <p>
+          The cost of getting convenience without needing to learn the tooling is $20/month. There are cheaper ways to
+          have harnesses, but that's what I pay for Claude Code.
+        </p>
+        <p>
+          The sed implementation is obviously more complex. It took time and thought to get right. It taught me things,
+          reminding me of details in regular expression matching, reminding me of the delightful section in "The C
+          Programming Language" in which I read about how a character doesn't need to be written with one literal
+          character (above, '\(' is a single character).
+        </p>
+        <p>
+          The sed implementation will cross-pollinate to my other code writing, because the regular expression syntax is
+          common to a lot of tools. The process made me read some documentation, think about how tokens are delineated,
+          the kind of stuff that helps you write code.
+        </p>
+        <p>
+          If the goal is getting to the result, the claude implementation wins for most people. To some kinds of
+          employer or entrepreneur, Claude's got to seem like a miracle.
+        </p>
+        <p>
+          To me, the goal is practicing the debugging of small problems, developing mental fortitude. I've spent late
+          nights debugging production and restoring service. I've been the person who diagnosed the problems in a
+          vibe-coded app because the "developer" didn't understand how to be stumped by a problem and investigate it,
+          he'd turned his brain off. So I don't mind the bit of friction, I don't mind practicing my tools, and I love
+          the command line, so it all
+          <em>feels</em> useful and powerful to me.
+        </p>
+        <p>
+          The goal's also, for me, having fun. Command line editing and learning new things is rewarding; getting better
+          at my craft is rewarding. Being confident that I can get into production and debug it is rewarding.
+        </p>
+        <p>
+          Oh, and for completeness' sake, here's 5 ways to recurse a tree without using <code>ls</code>:
+        </p>
+        <ol>
+          <li><code>tree</code> is obvious,</li>
+          <li><code>find .</code> is also pretty obvious but I love find and want to hear that people know it,</li>
+          <li>
+            <code>tar cvf /dev/null .</code> is a bit more devious and establishes a pattern you can reuse with rsync or
+            some other tool that has file recursion as a core of it,
+          </li>
+          <li>
+            <code>cp -Rl . /tmp</code> is a bit cheaty because it creates hard links that'll need cleaning up, so it
+            only works if your setup is correct,
+          </li>
+          <li><code>rsync -rvn . /tmp/nonexistent/</code> is more in the spirit of things,</li>
+          <li>
+            and of course you could always just ask ruby or another language:
+            <code>ruby -e 'puts Dir.glob("**/*")'</code>
+          </li>
+        </ol>
+      </section>
+    </article>
+
+    <aside>
+      <aside>{{ .AndrewPartialFile.rss }}</aside>
+    </aside>
+  </main>
+
+  <footer>
+    This site uses
+    <a href="https://simpleanalytics.com">SimpleAnalytics</a>
+    to gather anonymous statistics about my audience. No identifying information is gathered.
+  </footer>
+</body>
