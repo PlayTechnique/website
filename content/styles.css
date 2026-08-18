@@ -2,6 +2,7 @@
 
 :root {
   --color-header: #cad4f4;
+  --color-background: #eaeefa;
   --color-header-dark: #414656;
   --color-text: #2A2F44;
   --color-compliment: #4A5FA0;
@@ -52,6 +53,9 @@ figure blockquote p {
 blockquote {
   margin-inline: var(--blockquote-indent);
   font-size: 1.1em;
+  background: var(--color-background);
+  border-radius: 16px;
+  padding: 0.8em;
 }
 
 blockquote:before {
