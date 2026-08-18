@@ -1,4 +1,5 @@
-{{ .AndrewPartialFile.head title="The Unix Time-Sharing System" andrewpublishtime="2026-08-17 09:41:08" description="Drum disk timing, comfiles and the origin of unix." }}
+{{ .AndrewPartialFile.head title="The Unix Time-Sharing System" andrewpublishtime="2026-08-17 09:41:08" description="Providing context to understand the paper 'The Unix Time-Sharing System', including drum disk timing,
+comfiles, and the origin of unix." }}
 <body>
   {{ .AndrewPartialFile.navigation }}
   <main>
@@ -9,113 +10,87 @@
       </p>
       <p>
         The feature in this month's newsletter is
-        <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/cacm.pdf">The Unix Time-Sharing System</a>, by
-        Dennis Ritchie and Ken Thompson. This newsletter's goal is to uncover real details about Unix' early history; to
-        get more confident using these tools, I offer one-on-one teaching about linux, infrastructure tools, scripting,
-        design and more. Check <a href="/products/mentorship.html">Mentorship</a> for more.
+        <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/cacm.pdf">The Unix Time-Sharing System</a>, by Dennis Ritchie and Ken Thompson. This newsletter's goal is to uncover real details about Unix' early
+        history; to get more confident using these tools, I offer one-on-one teaching about linux, infrastructure tools, scripting, design and more. Check <a href="/products/mentorship.html">Mentorship</a> for more.
       </p>
 
       <section id="background">
         <h2>Background</h2>
-        <blockquote>
-          Linux, the design came from a great mind, and that great mind was not mine, I mean you have to give credit for
-          the design of Linux to Kernighan and Ritchie and Thompson.
-        </blockquote>
+        <blockquote>Linux, the design came from a great mind, and that great mind was not mine, I mean you have to give credit for the design of Linux to Kernighan and Ritchie and Thompson.</blockquote>
         <p class="attribution">
           Linus Torvalds, <a href="https://www.youtube.com/watch?v=MShbP3OpASA#t=2288">informal interview, 2011</a>
         </p>
 
         <blockquote>
-          The first version was written when one of us (Thompson), dissatisfied with the available computer facilities,
-          discovered a little-used PDP-7 and set out to create a more hospitable environment. This (essentially
-          personal) effort was sufficiently successful to gain the interest of the other author and several colleagues.
+          The first version was written when one of us (Thompson), dissatisfied with the available computer facilities, discovered a little-used PDP-7 and set out to create a more hospitable environment. This
+          (essentially personal) effort was sufficiently successful to gain the interest of the other author and several colleagues.
         </blockquote>
         <p class="attribution">
           Dennis Ritchie, The Unix Time-Sharing System
         </p>
 
         <p>
-          Unix was initially written by Ken Thompson. His employer, AT&T, pulled out of an Operating System project
-          called Multics. For most of us, when our employer leaves a project they give us a new assignment: Bell Labs
-          worked differently. It was mostly a think tank for self-directed research; the researchers were left alone to
-          follow their own interests
+          Unix was initially written by Ken Thompson. His employer, AT&T, pulled out of an Operating System project called Multics. For most of us, when our employer leaves a project they give us a new assignment: Bell
+          Labs worked differently. It was mostly a think tank for self-directed research; the researchers were left alone to follow their own interests
           <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a
           >.
         </p>
         <p>
-          Ken, now at a loose end, decided he knew what interested him: he had access to a GE-645 computer that was
-          bought for Multics work but was now idle. It had drum disks and he wanted to optimise disk throughput. Nobody
-          had solved this before. In his own words:
+          Ken, now at a loose end, decided he knew what interested him: he had access to a GE-645 computer that was bought for Multics work but was now idle. It had drum disks and he wanted to optimise disk throughput.
+          Nobody had solved this before. In his own words:
         </p>
 
         <blockquote>
-          The peripherals were great...it had a set of disks that were faster than anything that I could imagine, and I
-          wanted to write drum seeking algorithms, I wanted to get throughput on drums because everything I knew in the
-          computer center or in Multics couldn't deal with drums well...Basically they would say "read" and wait for the
-          read to come back, but what you want to do is simultaneous overlapped reads. Basically it was fun, but that's
-          my life, that's my whole being.
+          The peripherals were great...it had a set of disks that were faster than anything that I could imagine, and I wanted to write drum seeking algorithms, I wanted to get throughput on drums because everything I
+          knew in the computer center or in Multics couldn't deal with drums well...Basically they would say "read" and wait for the read to come back, but what you want to do is simultaneous overlapped reads. Basically
+          it was fun, but that's my life, that's my whole being.
         </blockquote>
         <p class="attribution">
           Ken Thompson, <a href="https://www.youtube.com/watch?v=8E2cCqAS9AM">Turing Award Interview</a>
         </p>
         <p>
-          He lost access to the machine when he was ready to start interactive terminal sessions using his new disk
-          layout and accessing scheme. To replace it, he found the "little-used PDP-7" and used it to continue his disk
-          layout research. He realises that he's almost got a full operating system and needs about 3 weeks to finish
-          it. Again, in his own words:
+          He lost access to the machine when he was ready to start interactive terminal sessions using his new disk layout and accessing scheme. To replace it, he found the "little-used PDP-7" and used it to continue his
+          disk layout research. He realises that he's almost got a full operating system and needs about 3 weeks to finish it. Again, in his own words:
         </p>
 
         <blockquote>
-          It had a file system. It had a disc driver. It had I/O peripherals. It had, you know, it had everything except
-          the ability to maintain itself. So I needed a compiler, editor, an assembler, a loader, and user protection to
-          run multiple users.
+          It had a file system. It had a disc driver. It had I/O peripherals. It had, you know, it had everything except the ability to maintain itself. So I needed a compiler, editor, an assembler, a loader, and user
+          protection to run multiple users.
         </blockquote>
         <p>
-          Ken's wife coincidentally took a 3 week vacation with their child, and so Ken finished up the remaining few
-          tidbits.
+          Ken's wife coincidentally took a 3 week vacation with their child, and so Ken finished up the remaining few tidbits.
         </p>
         <p>
-          Just to ensure you know who you're dealing with, yes, Ken Thompson wrote a compiler and an editor and an
-          assembler and a loader and user protection in 3 weeks, written in assembly.
+          Just to ensure you know who you're dealing with, yes, Ken Thompson wrote a compiler and an editor and an assembler and a loader and user protection in 3 weeks, written in assembly.
         </p>
       </section>
       <section id="thoughts">
         <h2>The File Opening Revolution</h2>
         <p>
-          There're about ten thousand small historical details worth commenting on in this paper, but I wanted to cover
-          a really weird one that won't draw your attention unless you know what you're seeing. You see, Multics had
-          what's known as a single-level store. Here's the quote:
+          There're about ten thousand small historical details worth commenting on in this paper, but I wanted to cover a really weird one that won't draw your attention unless you know what you're seeing. You see,
+          Multics had what's known as a single-level store. Here's the quote:
         </p>
         <blockquote>
-          The purpose of an open or create system call is to turn the path name given by the user into an i-number by
-          searching the explicitly or implicitly named directories. Once a file is open, its device, i-number, and
-          read/write pointer are stored in a system table indexed by the file descriptor returned by the open or create.
-          Thus, during a subsequent call to read or write the file, the descriptor may be easily related to the informa-
-          tion necessary to access the file.
+          The purpose of an open or create system call is to turn the path name given by the user into an i-number by searching the explicitly or implicitly named directories. Once a file is open, its device, i-number,
+          and read/write pointer are stored in a system table indexed by the file descriptor returned by the open or create. Thus, during a subsequent call to read or write the file, the descriptor may be easily related
+          to the informa- tion necessary to access the file.
         </blockquote>
 
         <p class="attribution">
           Dennis Ritchie & Ken Thompson, The Unix Time-Sharing System
         </p>
         <p>
-          We live in a world where this is such a mundane statement. Open...opens a file. What was contemporary at the
-          time? Fortunately, Ken Thompson told us:
+          We live in a world where this is such a mundane statement. Open...opens a file. What was contemporary at the time? Fortunately, Ken Thompson told us:
         </p>
         <blockquote>
-          Multics was a virtual memory system with page faults, and it didn't differentiate between data and programs.
-          You'd jump to a segment as it was faulted in, whether it was faulted in as data or instructions. There were no
-          files to read or write — nothing you could remote — which I thought was a bad idea. This huge virtual memory
-          space was the unifying concept behind Multics and it had to be tried in an era when everyone was looking for
-          the grand unification theory of programming, but I thought it was a big mistake. I wanted to separate data
-          from programs, because data and instructions are very different. When you're reading a file, you're almost
-          always certain that the data will be read sequentially, and you're not surprised when you fault a and read a +
-          1. Moreover, it's much harder to excise instructions from caches than to excise data. So I added the exec
-          system call that says “invoke this thing as a program,” whereas in Multics you would fault in an instruction
-          and jump to it.
+          Multics was a virtual memory system with page faults, and it didn't differentiate between data and programs. You'd jump to a segment as it was faulted in, whether it was faulted in as data or instructions.
+          There were no files to read or write — nothing you could remote — which I thought was a bad idea. This huge virtual memory space was the unifying concept behind Multics and it had to be tried in an era when
+          everyone was looking for the grand unification theory of programming, but I thought it was a big mistake. I wanted to separate data from programs, because data and instructions are very different. When you're
+          reading a file, you're almost always certain that the data will be read sequentially, and you're not surprised when you fault a and read a + 1. Moreover, it's much harder to excise instructions from caches than
+          to excise data. So I added the exec system call that says “invoke this thing as a program,” whereas in Multics you would fault in an instruction and jump to it.
         </blockquote>
         <p class="attribution">
-          Ken Thompson, <a href="https://cse.unl.edu/~witty/class/csce351/howto/ken_thompson.pdf">Unix And Beyond</a>,
-          1999
+          Ken Thompson, <a href="https://cse.unl.edu/~witty/class/csce351/howto/ken_thompson.pdf">Unix And Beyond</a>, 1999
         </p>
         <p>
           Ken stumbled upon something that's still hitting us hard today,
@@ -128,24 +103,19 @@
           Here's another delightful quote that hides a deeper secret:
         </p>
         <blockquote>
-          Thus, when the shell is executed as a command with a given input file, as in: sh &lt;comfile the commands in
-          comfile will be executed until the end of comfile is reached; then the instance of the shell invoked by sh
-          will terminate.
+          Thus, when the shell is executed as a command with a given input file, as in: sh &lt;comfile the commands in comfile will be executed until the end of comfile is reached; then the instance of the shell invoked
+          by sh will terminate.
         </blockquote>
         <p class="attribution">
           Dennis Ritchie & Ken Thompson, The Unix Time-Sharing System
         </p>
         <p>
-          So what's a <em>comfile</em>? Clearly it's a shell script, yeah? So why're they called comfiles? It's short
-          for "command files". Dennis and Ken's collaborator and team lead Doug McIlroy actually shines a light on where
-          this name comes from, and incidentally tells all of the BSD-loving audience where the
-          <em>rc.local</em> convention comes from:
+          So what's a <em>comfile</em>? Clearly it's a shell script, yeah? So why're they called comfiles? It's short for "command files". Dennis and Ken's collaborator and team lead Doug McIlroy actually shines a light
+          on where this name comes from, and incidentally tells all of the BSD-loving audience where the <em>rc.local</em> convention comes from:
         </p>
         <blockquote>
-          The shell read commands from the same standard input as did programs that it invoked. Thus commands and data
-          were interleaved in command files, or "runcoms," now usually called shell scripts. [A] Runcom [is] a program
-          that could run a short script of commands in the background, was the closest thing MIT's CTSS had to a
-          callable shell. A vestige of the name survives in the boot script, /etc/rc.
+          The shell read commands from the same standard input as did programs that it invoked. Thus commands and data were interleaved in command files, or "runcoms," now usually called shell scripts. [A] Runcom [is] a
+          program that could run a short script of commands in the background, was the closest thing MIT's CTSS had to a callable shell. A vestige of the name survives in the boot script, /etc/rc.
         </blockquote>
         <p class="attribution">
           Doug McIlroy, <a href="https://www.cs.dartmouth.edu/~doug/reader.pdf"><em>A Research Unix Reader</em></a>
@@ -154,42 +124,33 @@
       <section id="conclusion">
         <h2>Conclusions</h2>
         <p>
-          For most of us who don't know the history of Unix, it can be too easy to assume it was a quick success. The
-          paper opens up telling us, "Since PDP-11 Unix became operational in February, 1971, over 600 installations
-          have been put into service." The version of the paper I'm linking to was published in 1977. That's 6 years of
-          Ken and Dennis' life.
+          For most of us who don't know the history of Unix, it can be too easy to assume it was a quick success. The paper opens up telling us, "Since PDP-11 Unix became operational in February, 1971, over 600
+          installations have been put into service." The version of the paper I'm linking to was published in 1977. That's 6 years of Ken and Dennis' life.
         </p>
         <p>
-          Six years of discipline: keeping to a small number of system calls, inventing a programming language and
-          refining and refining it, six years of identifying healthy patterns and moving Unix to be both what the
+          Six years of discipline: keeping to a small number of system calls, inventing a programming language and refining and refining it, six years of identifying healthy patterns and moving Unix to be both what the
           inventors wanted and to deliver value to other people.
         </p>
         <p>
-          This is the kind of discipline that I teach: I help you learn how to learn the technical skills you need. You
-          bring me the thing you're stuck on, a build pipeline you don't trust or a language you keep bouncing off, and
-          we work it until you understand it well. Unix history has lessons to teach us, and I like sharing those for
-          free, but self-improvement needs focus and hard work.
+          This is the kind of discipline that I teach: I help you learn how to learn the technical skills you need. You bring me the thing you're stuck on, a build pipeline you don't trust or a language you keep bouncing
+          off, and we work it until you understand it well. Unix history has lessons to teach us, and I like sharing those for free, but self-improvement needs focus and hard work.
         </p>
         <p>
           You should go read
-          <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/cacm.pdf">The Unix Time-Sharing System</a>.
-          It's like a love letter from your community's past to you, today. If you want someone in your corner while you
-          work on your own six-year challenge, sign up for <a href="/products/mentorship.html">mentorship</a> and let's
-          get after it.
+          <a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/cacm.pdf">The Unix Time-Sharing System</a>. It's like a love letter from your community's past to you, today. If you want someone in your corner
+          while you work on your own six-year challenge, sign up for <a href="/products/mentorship.html">mentorship</a> and let's get after it.
         </p>
         <p>
           Gwendolyn James
         </p>
         <p>
-          P.S. Thanks for your attention today. Please do forward this on to other people you know who love this kind of
-          geek-history. These letters are here to help encourage, inform, and inspire, and I'd love to see the list
-          continue to grow.
+          P.S. Thanks for your attention today. Please do forward this on to other people you know who love this kind of geek-history. These letters are here to help encourage, inform, and inspire, and I'd love to see
+          the list continue to grow.
         </p>
       </section>
       <p class="footnote">
-        [1] For more on this fascinating workplace, see either the book "The Idea Factory" by Jon Gertner, or the essay
-        "You and Your Research" by Richard Hamming. You should definitely read Richard's essay, it's the best thing ever
-        written about deciding what you personally work on, but it's nice to have a reason.
+        [1] For more on this fascinating workplace, see either the book "The Idea Factory" by Jon Gertner, or the essay "You and Your Research" by Richard Hamming. You should definitely read Richard's essay, it's the
+        best thing ever written about deciding what you personally work on, but it's nice to have a reason.
         <a href="#fnref1" title="return to text">&#8617;</a>
       </p>
     </article>
