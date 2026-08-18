@@ -4,6 +4,9 @@
   <script defer type="text/javascript" src="/main.js"></script>
   <title>{{ .title }}</title>
   <meta name="andrew-publish-time" content="{{ .andrewpublishtime }}" />
+  <meta name="og:title" content="{{ .title }}" />
+  <meta name="og:description" content="{{ .description }}" />
+  <meta name="og:site_name" content="PlayTechnique.io" />
   <link rel="stylesheet" href="/styles.css" />
 
 

@@ -54,6 +54,11 @@ blockquote {
   font-size: 1.1em;
 }
 
+blockquote:before {
+  content: "\201C";
+    color: #ccc;
+font-size: 2em;
+}
 /* The attribution paragraph is to go underneath a blockquote and contain attribution info
 e.g. 
 <p class="attribution">- Gwendolyn James, incredible writer</p>
