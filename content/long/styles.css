@@ -10,9 +10,9 @@ nav.TableOfContents {
 }
 
 div#octopus {
-      display: flex;
-  justify-content: center;
-
-  border-radius: 16px;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	
+	border-radius: 16px;
+	align-items: center;
 }
