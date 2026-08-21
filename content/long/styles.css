@@ -8,3 +8,11 @@ nav.TableOfContents {
     background: var(--color-header);
     border-radius: 25px;
 }
+
+div#octopus {
+      display: flex;
+  justify-content: center;
+
+  border-radius: 16px;
+    align-items: center;
+}
