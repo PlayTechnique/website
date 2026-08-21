@@ -6,7 +6,7 @@
   --color-header-dark: #414656;
   --color-text: #2A2F44;
   --color-compliment: #4A5FA0;
-  --color-contrast: #F4EACA;
+  --color-contrast: #f9f1d9;
 
   --content-width: 50%;
 
@@ -28,6 +28,7 @@ figure {
 .contrast-background {
   background-color: var(--color-contrast);
   border-left: 6px solid var(--color-compliment);
+  border-right: 6px solid var(--color-compliment);
   border-radius: 8px;
   padding: 1em 1.5em;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -124,31 +125,20 @@ nav.navigation {
 
 /* Styling for text links */
 #links-group .button {
-  text-decoration: none;
   /* Remove underline */
-  color: var(--color-text);
-  /* Text color */
+  text-decoration: none;
+  color: var(--color-text); 
   font-size: 1.2em;
 
   margin: 0.3em;
-    filter: drop-shadow(#301934 0.1em 0.1em 0.1em);
+  filter: drop-shadow(#301934 0.1em 0.1em 0.1em);
+  background-color: var(--color-background);
 
 }
 
-#links-group .button:nth-child(odd) {
-  background-color: var(--color-header);
-}
-
-#links-group .button:nth-child(even) {
-  background-color: var(--color-contrast);
-}
-
-/* Styling for the RSS icon */
-#links-group .link img {
-  height: 24px;
-  /* Set a height for the RSS icon */
-  width: auto;
-  /* Maintain aspect ratio */
+#links-group .light-button {
+  margin: 1em;
+  
 }
 
 main {

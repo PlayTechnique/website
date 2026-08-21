@@ -14,13 +14,22 @@
 
   <main>
     <article>
-      <p>
-        Shoot me a message, or video chat a little about how we'll achieve your Infrastructure and DevOps goals
-        together.
-      </p>
+      <section id="who-am-i">
+        <h1>About Me</h1>
+        <p>
+          I have 20 years of experience working in infrastructure of every shape and size, from a self-hosted setup at a particle accelerator with self-hosted secure infrastructure through small startups in the cloud and big companies with a classic data center, cloud, Kubernetes, all of them. I've even worked with rocket engineers.
+        </p>
+        <p>
+          I have taught dozens of devops and software engineers as both a team member, a team lead and a hired mentor. I'll help you silence any nagging self-doubt, or help you stay focused on a project that pushes you hard.
+        </p>
+
+        <p>
+          I work flexibly with engineers in any timezone. Take the next step to improving your career and learning cool stuff; I'd love to <a href="/products/mentorship.html">help you to improve.</a>
+        </p>
+      </section>
       <div id="contact-page-container">
         <section id="contact-form">
-          <h2>Send Me a Message</h2>
+          <h2>What's on your mind?</h2>
           <form action="https://formspree.io/f/xvzygoya" method="POST">
             <label>
               Your email:
@@ -33,74 +42,13 @@
             <button type="submit" class="button">Send</button>
           </form>
         </section>
-
-        <section id="bookable-link">
-          <h2>Vidcall With Me</h2>
-
-          <!-- Cal inline embed code begins -->
-          <div style="width: 100%; height: 100%; overflow: scroll" id="my-cal-inline-quick-chat"></div>
-          <script type="text/javascript">
-            (function (C, A, L) {
-              let p = function (a, ar) {
-                a.q.push(ar);
-              };
-              let d = C.document;
-              C.Cal =
-                C.Cal ||
-                function () {
-                  let cal = C.Cal;
-                  let ar = arguments;
-                  if (!cal.loaded) {
-                    cal.ns = {};
-                    cal.q = cal.q || [];
-                    d.head.appendChild(d.createElement("script")).src = A;
-                    cal.loaded = true;
-                  }
-                  if (ar[0] === L) {
-                    const api = function () {
-                      p(api, arguments);
-                    };
-                    const namespace = ar[1];
-                    api.q = api.q || [];
-                    if (typeof namespace === "string") {
-                      cal.ns[namespace] = cal.ns[namespace] || api;
-                      p(cal.ns[namespace], ar);
-                      p(cal, ["initNamespace", namespace]);
-                    } else p(cal, ar);
-                    return;
-                  }
-                  p(cal, ar);
-                };
-            })(window, "https://app.cal.com/embed/embed.js", "init");
-            Cal("init", "quick-chat", { origin: "https://app.cal.com" });
-
-            Cal.ns["quick-chat"]("inline", {
-              elementOrSelector: "#my-cal-inline-quick-chat",
-              config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-              calLink: "playtechnique/quick-chat",
-            });
-
-            Cal.ns["quick-chat"]("ui", {
-              cssVarsPerTheme: { light: { "cal-brand": "#2297f5" } },
-              hideEventTypeDetails: false,
-              layout: "month_view",
-            });
-          </script>
-          <!-- Cal inline embed code ends -->
-        </section>
       </div>
 
       <section id="source-code">
         <h2>See a Little Source</h2>
-        <li>
-          <a href="https://github.com/playtechnique/">playtechnique github</a> - for production releases of personal
-          projects.
-        </li>
+        <li><a href="https://github.com/playtechnique/">playtechnique github</a> - for production releases of personal projects.</li>
       </section>
     </article>
   </main>
-  <footer>
-    This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my
-    audience. No identifying information is gathered.
-  </footer>
+  <footer>This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.</footer>
 </body>
