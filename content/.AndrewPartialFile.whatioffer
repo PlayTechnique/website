@@ -1,6 +1,5 @@
-<article>
-  <section id="what-i-offer">
-  <h1 style="font-size: 1.5rem; font-weight: 500; margin: 0.5em 0;">Why Mentoring?</h1>
+<section id="what-i-offer">
+  <h2>Why Mentoring?</h2>
 
     <p>
       It feels good to have ten thousand ideas. You only make progress on the ones you work until they're done.
@@ -19,4 +18,3 @@
       That's what I do. You tell me what you're building. We write it down. I come back and ask about it. As you're learning to stay on track, you've also got an infrastructure and software engineer in the room with you, helping you learn how to learn effectively. I don't hand you the answer; an LLM can do that, and you'll forget it. What you get is a friendly, experienced person helping you learn and stay on track, until you can do it without me.
     </p>
   </section>
-</article>
