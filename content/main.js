@@ -104,7 +104,6 @@ script.setAttribute("data-form", '68ad9912-4952-11f1-9ee0-035341c752a0');
 
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
     addAnalytics();
     emailOctopusDocumentationLink();
