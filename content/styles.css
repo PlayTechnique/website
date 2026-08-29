@@ -124,21 +124,16 @@ nav.navigation {
 }
 
 /* Styling for text links */
-#links-group .button {
-  /* Remove underline */
-  text-decoration: none;
-  color: var(--color-text); 
-  font-size: 1.2em;
-
-  margin: 0.3em;
-  filter: drop-shadow(#301934 0.1em 0.1em 0.1em);
-  background-color: var(--color-background);
+a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;         /* pushes the line off descenders */
+    padding: 2px 4px;  /* Add some padding for better hit area */
 
 }
 
-#links-group .light-button {
-  margin: 1em;
-  
+a:focus-visible {
+  text-decoration-color: currentColor;   /* line darkens on hover */
 }
 
 main {
@@ -361,34 +356,12 @@ body > aside {
   font-weight: bold;
 }
 
-a {
-  text-decoration: none;
-  transition: transform 0.2s ease-in-out;
-  display: inline-block;
-  transform: scale(1);
-  position: relative;
-  padding: 2px 4px;  /* Add some padding for better hit area */
-}
-
-a:hover {
-  transform: scale(1.02);
-}
-
-a.button {
-  background-color: var(--color-compliment);
-  color: var(--color-contrast);
-  padding: 0.5em 1.5em;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
 .cta-box {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   padding: 0.5em 1.2em;
   max-width: 80%;
   margin: 0.75em auto;
-  text-align: center;
 }
 
 .cta-box h3 {
@@ -547,4 +520,90 @@ td {
   #contact-page-container > section {
     flex: 1 1 auto;
   }
+}
+
+/* Homepage speaking credit: talk still beside the blurb. */
+.speaking-box {
+  display: flex;
+  align-items: center;
+  gap: 1.2em;
+  flex-wrap: wrap;
+}
+
+.speaking-box p {
+  /* Basis is what decides the wrap point, so keep it well under the space
+     left beside a 300px image inside a .cta-box. */
+  flex: 1 1 13em;
+  margin: 0;
+}
+
+.speaking-box .speaking-still {
+  display: block;
+  flex: 0 0 auto;
+  /* Button resets: this was an <a> before the popover rewrite. */
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  line-height: 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.15s ease;
+}
+
+.speaking-box .speaking-still:hover,
+.speaking-box .speaking-still:focus-visible {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+}
+
+.speaking-box .speaking-still img {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Full-size image overlay. Opening, closing, Esc and click-outside are all
+   native popover behaviour - there is no JavaScript behind this. */
+#talk-photo {
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: 92vw;
+  max-height: 92vh;
+  overflow: visible;
+}
+
+#talk-photo::backdrop {
+  /* --color-text, dimmed. Hardcoded: custom properties only reach
+     ::backdrop in recent browsers. */
+  background: rgba(42, 47, 68, 0.82);
+}
+
+#talk-photo img {
+  display: block;
+  max-width: 92vw;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+#talk-photo button {
+  position: absolute;
+  top: -0.75em;
+  right: -0.75em;
+  width: 2em;
+  height: 2em;
+  font-size: 1.1em;
+  line-height: 1;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  color: var(--color-text);
+  background: var(--color-contrast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }

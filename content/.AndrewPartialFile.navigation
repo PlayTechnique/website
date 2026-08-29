@@ -1,4 +1,42 @@
-<link rel="stylesheet" href="/styles.css" />
+<style>
+/* Button styles with integrated pulse animation */
+#links-group .button {
+  /* Remove underline */
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 1.2em;
+
+  margin: 0.3em;
+  filter: drop-shadow(#301934 0.1em 0.1em 0.1em);
+  background-color: #f9f1d9;
+  border: 2px solid;
+  padding: 0.3em 0.8em;
+  border-radius: 6px;
+  animation: pulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  0% { border-color: #f4d76e; }
+  50% { border-color: #d4a5f4; }
+  100% { border-color: #9b7fc4; }
+}
+
+#links-group .light-button {
+  margin: 1em;
+}
+
+a.button {
+  background-color: var(--color-compliment);
+  color: var(--color-contrast);
+  padding: 0.5em 1.5em;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+a:hover {
+  transform: scale(1.02);
+}
+</style>
 <nav class="navigation">
     <a href="/" class="brand-link">
         <span class="brand-name"><span class="big-bold">play</span>technique</span>
