@@ -74,6 +74,10 @@ p.attribution {
   font-size: 0.9em;
 }
 
+section#what-i-offer {
+  scroll-margin-top: 1em;
+}
+
 section#preamble {
   padding: 0.4em;
   background-color: var(--color-header);
@@ -433,13 +437,8 @@ td {
 }
 
 .buy-button-container {
-  display: inline-block;
-  border: 1px solid #000;
-  border-radius: 2px;
-  padding: 1.5em 2em;
-  margin: 1em 0;
-  box-shadow: 0 0 0 1px #000, 0 2px 6px rgba(0, 0, 0, 0.12);
-  background-color: #fffdf7;
+  display: block;
+  margin: 1rem 0;
 }
 
 #contact-form form {
