@@ -1,33 +1,30 @@
 <!doctype html>
 
-<head>
-  <script defer type="text/javascript" src="/main.js"></script>
-</head>
-
+{{ .AndrewPartialFile.head title="PlayTechnique Consulting"}}
 <body>
   {{ .AndrewPartialFile.navigation }}
   <main>
     <article>
       <div class="cta-box">
-        <h3>Learn with Me!</h3>
         <p>
-          I offer <a href="/products/mentorship.html">1:1 teaching and mentorship,</a> to help you build <a href="blog/ai-doesnt-lighten-the-burden-of-mastery.html">mastery</a> so you work and have fun with confidence.
+          An experienced DevOps engineer offering training, teaching and mentorship for indviduals and teams. See <a href="/products/why-mentoring.html">Why Mentoring?</a> to learn more, or <a href="/products/mentorship.html">mentorship</a> to buy.
         </p>
+      </div>
+      <div class="cta-box">
         <p>
-          You can start your learning journey for free, just go read a <a href="/long/">newsletter.</a>
+          Start your learning journey for free! My <a href="/long/">newsletters</a> focus on understanding classic white papers.
         </p>
-
-        <blockquote>Gwyn is an incredible engineer: she's someone who really transforms teams. For years people have been pestering her to offer mentoring sessions, and she's finally said yes!</blockquote>
-        <p class="attribution">
-          John Arundel, author of "The Love of Go" and "Cloud Native Devops with Kubernetes"
-        </p>
-
-        <blockquote>Gwyn, you have changed the way that I work and what I know I can achieve</blockquote>
-        <p class="attribution">
-          Michael R., satisfied engineer
-        </p>
+      </div>
+      <div class="cta-box speaking-box">
+        <button class="speaking-still" popovertarget="talk-photo">
+          <img src="/images/gwendolyn-james-thumbnail.png" srcset="/images/gwendolyn-james-thumbnail.png 384w, /images/gwendolyn-james-2x.png 768w" sizes="(max-width: 600px) 90vw, 300px" width="384" height="216" alt="Gwendolyn James presenting DevOps In A Rocket Factory at DevOpsDays Rockies 2025" />
+        </button>
+        <div id="talk-photo" popover>
+          <img src="/images/gwendolyn-james-full.png" loading="lazy" alt="Gwendolyn James presenting DevOps In A Rocket Factory at DevOpsDays Rockies 2025" />
+          <button popovertarget="talk-photo" popovertargetaction="hide" aria-label="Close image">&times;</button>
+        </div>
         <p>
-          Not sure how this works? You can <a href="/contact">contact me</a> or <a href="/products/mentorship.html">dive right in with your first session</a>
+          I speak at conferences about DevOps culture and practice. Watch <a href="/public-speaking/index.html">DevOps In A Rocket Factory</a>, delivered at DevOpsDays Rockies 2025.
         </p>
       </div>
       <div id="emailOctopusDocumentationLink"></div>
