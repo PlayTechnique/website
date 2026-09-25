@@ -421,9 +421,12 @@ table {
   letter-spacing: 1px;
 }
 
+table.curriculum {
+  margin: 2em;
+}
 caption {
-  caption-side: bottom;
   padding: 10px;
+  background-color: var(--color-background);
 }
 
 th,

@@ -1,0 +1,99 @@
+{{ .AndrewPartialFile.head title="Sample Curriculum" andrewpublishtime="2026-03-01" }}
+<body>
+  {{ .AndrewPartialFile.navigation }}
+  <h1>Curriculum Ideas</h1>
+  <p>
+    Struggling to come up with a project idea? No problem! These are a few ideas for goals we can set and how we'll get there. As we learn, you'll generate ideas of your own to pursue, no problem.
+  </p>
+  <table class="curriculum">
+    <caption>
+      Infrastructure and Configuration as Code
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Learning Goal</th>
+        <th scope="col">Project</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Deploy a Virtual Machine with Terraform</th>
+        <td>Learn how to research your cloud's Terraform providers, and how build out systems, relating the web-based UI to Terraform's concepts.</td>
+      </tr>
+      <tr>
+        <th scope="row">Configure your Virtual Machine using Ansible</th>
+        <td>Configuring programatically means you can build a thousand of the same system, quickly</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="curriculum">
+    <caption>
+      Linux Project Based Learning Ideas
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Learning Goal</th>
+        <th scope="col">Project</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Shell Pipelines</th>
+        <td>pipelines and the strengths of viewing data as text streams vs a data structure. Write simple shell aliases and customise your terminal workflow</td>
+      </tr>
+      <tr>
+        <th scope="row">Scripting</th>
+        <td>Write shell scripts that operate on text streams, files, and output captured from commands, learning control structures and good script hygiene.</td>
+      </tr>
+      <tr>
+        <th scope="row">Processes and how they use the kernel</th>
+        <td>Build a chroot jail, using various system tools to see what breaks and fixing the issues</td>
+      </tr>
+      <tr>
+        <th scope="row">Interacting with the Web from the CLI</th>
+        <td>Using curl, we'll interact with web APIs and parse the data</td>
+      </tr>
+      <tr>
+        <th scope="row">Interacting with the Web using Go</th>
+        <td>enough go to retrieve data from web APIs and parse it</td>
+      </tr>
+      <tr>
+        <th scope="row">Containerisation Basics</th>
+        <td>Use docker (popular, commercial) or podman (less frequently seen, but open source) to build containers</td>
+      </tr>
+      <tr>
+        <th scope="row">Container Implementation Details</th>
+        <td>Review the fundamental primitives exposed by the kernel to make a container, and build one without docker or podman</td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+  <table class="curriculum">
+    <caption>
+      Continuous Integration and Delivery with Build Systems
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Learning Goal</th>
+        <th scope="project">Project</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Github Actions Binary Release</th>
+        <td>Set up github actions to build, test and release QA binaries and tags for releasing official builds</td>
+      </tr>
+      <tr>
+        <th scope="row">Jenkins Setup</th>
+        <td>Set up a self-hosted build server, and learn how to interact with it through the UI and programmatically</td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+
+  <p>
+    <a href="/contact/index.html">Get in touch</a> and let's chat about what you'd like to learn. We'll talk until the right path is clear.
+  </p>
+  {{ .AndrewPartialFile.footer }}
+</body>
