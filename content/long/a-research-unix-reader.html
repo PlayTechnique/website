@@ -1,0 +1,185 @@
+{{ .AndrewPartialFile.head title="A Research Unix Reader" andrewpublishtime="2026-09-29 15:32:09" }}
+<body>
+  {{ .AndrewPartialFile.navigation }}
+  <main id="content">
+    <aside>{{ .AndrewPartialFile.newsletter }}</aside>
+    <article>
+      <h1>A Research Unix Reader</h1>
+      <p>
+        Hey there -
+      </p>
+      <p>
+        This month, we'll focus on <a href="https://www.cs.dartmouth.edu/~doug/reader.pdf">"A Research Unix Reader"</a> by Doug McIlroy. If anything in this paper stands out to you, hit reply to this email and let me know!
+      </p>
+      <p>
+        This is a fascinating document. The content is a review by Doug McIlroy, a member of the Unix team at Bell Labs, of the various iterations of the Unix manual.
+      </p>
+      <p>
+        There's a story that's revealed in the document: functionality is repeatedly introduced that delivers value but is somehow deficient, but the imperfections don't stop the team from shipping. Sometimes fixes are introduced over time, sometimes issues linger. Time and again the paper describes this push and pull, often with simpler solutions emerging.
+      </p>
+
+      <section>
+        <h2 id="overview">A High Level Overview</h2>
+        <p>
+          Doug starts with a review of the personnel involved in writing the Unix kernel and userland. He moves on to describing how the <em>man</em> pages were introduced, an informal timeline of major events, an overview of changes to cli commands and the programming environment in Unix.
+        </p>
+        <p>
+          He describes the problem domains that Unix was applied to, an overview of how Unix systems communicated with each other, security features and finally some strange oddities in the system.
+        </p>
+        <p>
+          Simple enough. So where's the story?
+        </p>
+      </section>
+
+      <section>
+        <h2 id="people">The People Saw What Was Sticky And Fixed It</h2>
+        <blockquote>Mike Lesk, with a prescient market instinct, made text formatting accessible to the masses with the generic macros -ms, which were to <code>troff</code> what a compiler is to assembly language</blockquote>
+        <blockquote>By the time of v4 the role of [support] provider to the by then sizable clientele within Bell Labs had been assumed by <i>Berk (Berkley A.) Tague</i> and his UNIX Support Group</blockquote>
+
+        <p>
+          The people using Unix were part of its evolution. Mike Lesk didn't write <code>troff</code>; Berk didn't write the kernel. They're in the history because they noticed friction and fixed it with a higher level of abstraction, some generic macros or removing day to day support from the implementors.
+        </p>
+        <p>
+          Mike recognised that <code>troff</code> was hard to write, but everyone loved the documents it produced, so Mike introduced a higher level of abstraction: importable macros that did the heavy lifting on behalf of the users. troff was imperfect, but it was shipped because it was useful.
+        </p>
+        <p>
+          Berk recognised that there was a support bottleneck for Unix. Doug McIlroy tells us in this paper, <q>During the system's first two years one literally had to work beside the originators to learn it</q>, and that was before widespread adoption in AT&T.
+        </p>
+        <p>
+          Berk didn't let it slide; he stepped up. The specifics of the UNIX support group are a tangent to this paper, but his team had to catch up substantially on Unix features and experience because the people they were helping were already familiar with the system. It took time for the UNIX support group to catch up, but Berk saw an opportunity to support the UNIX team and dove in, fearlessly.
+        </p>
+        <p>
+          This is the kind of opportunity available to most of us in our careers. We won't write Unix, but we can see a need for glue code to make complex tools approachable. Deployment pipelines can tame Kubernetes for our software engineers; a simple script can wrap complex tooling with sensible default options.
+        </p>
+
+        <p>
+          At my last job, I saw a hole for software support for manufacturing; I worked with world class rocket engineers, but they weren't people who understood software ecosystems. I dove in, read books and articles, found the systems that large factories use and wrote whitepapers to win budget for them.
+        </p>
+
+        <p>
+          My team lead encouraged me, a lot like Doug McIlroy encouraged his department. As I found the right way forwards, Directors and members of other teams started noticing and supported me, a lot like Lesk and Tague supported Unix. It was tiring, I felt out of my element, but having people in my corner meant I had resources to keep momentum.
+        </p>
+      </section>
+      <section>
+        <h2 id="commands">Commands Were Shipped When They Were Useful, Not Perfect</h2>
+
+        <blockquote>
+          The war-horse utility <code>cp</code> and its close relative <code>mv</code> originally worked on lists of pairs. Such lists, however, could not be generated by the shell's * convention. All too often mistyped lists clobbered precious files...
+          <p>
+            What seems natural in hindsight was not clear cut at the time: the final conventions arose only after long discussions...
+          </p>
+        </blockquote>
+        <blockquote>A bug note in <code>join(1)</code> declares, "The [field-specification] conventions of <i>join, sort, comm, uniq, look</i> and <i>awk</i> are wildly incongruous." Although these programs are often used together, they remain, like American weights and measures, sturdily eccentric.</blockquote>
+        <p>
+          The details in the commands section are full of anecdotes like the two above: problems existed, often revealing themselves through usage, as Unix' userland tooling evolved. A useful idea was tried out; using the idea revealed warts; sometimes the warts were resolvable, sometimes they persisted.
+        </p>
+
+        <p>
+          A common issue for all engineers is overdesigning a solution. The example from <code>cp</code> and <code>mv</code> shows us a beautiful idea: be able to deal with large lists, all at once. Danger showed up as unbalanced lists clobbered useful files.
+        </p>
+        <p>
+          The solution was to simplify the tools, force them into a constraint that removed the danger. There is an abundance of lessons we can see in this. I like the idea that I shouldn't try and get my solutions perfect up-front, I should try an idea and let experience guide me. If something's hard, maybe simplify the tool.
+        </p>
+        <p>
+          One of my richest learning experiences was pressure from a team lead at an earlier company. I was underperforming; his solution was handing me more projects and work, up the pressure.
+        </p>
+        <p>
+          I didn't realise it at the time, but I was paralysing myself by what I justified as "best engineering practice" but what I see now was really fear of building the wrong solutions, of looking foolish to my team.
+        </p>
+        <p>
+          My memory of my lead was that he was relentless, more pressure every week.
+        </p>
+        <p>
+          I remember clearly when I realised that <em>enough is enough</em>. I decided <em>a bad idea with poor implementation beats a perfect idea with no implementation</em>, and I started hammering out pipelines, deployments, software. I wasn't untalented, I had a lot of engineering knowledge, but I hadn't internalised that I needed to deliver.
+        </p>
+        <p>
+          I'd never understood that momentum is addictive; I delivered and delivered and caught up on my backlog. I delivered and delivered and outpaced my lead's requests.
+        </p>
+        <p>
+          What happened to my fear? Well, I didn't get the solutions entirely right! But I hadn't realised how often what I thought was risky was the wrong judgment call. It's by implementation and real world usage that the real shortcomings showed up.
+        </p>
+        <p>
+          As for my teammates judging me, I anticipated wrongly there, too. They reconfigured the systems that I set up, fixed my implementations' blind spots. They weren't upset, they were stoked that I was stepping up.
+        </p>
+        <p>
+          Build the confidence to release things that don't quite work. You don't actually know what problems will show up in your implementation. Having someone in your corner who can give a little accountability here can be just what you need to get past this kind of paralysis. If that sounds helpful for you, check out my <a href="/products/mentorship.html">mentorship offering</a>, and let me know.
+        </p>
+      </section>
+      <section>
+        <h2 id="programming">The Story Is In the Programming Interface</h2>
+        <blockquote>The shell read commands from the same standard input as did programs that it invoked...It was impossible to pipe into a shell script because the standard input was already dedicated to the script.</blockquote>
+        <blockquote>
+          A shell notation for composing programs into pipelines...took almost a page to describe (v3). The syntax was reformed when, to avoid the embarrassment of describing it in a big public talk, Thompson proposed the appealing infix <em>|</em>. Thus naturalized, pipelines became describable in just four sentences in v4...
+          <p>
+            Pipes ultimately affected our outlook on program design far more profoundly than had the original idea of redirectable standard input and output...users of UNIX systems are probably more at home with parallel computing – as structured by pipes – than is almost any other user community.
+          </p>
+        </blockquote>
+        <p>
+          Here's the original pipe syntax, as documented in "The Evolution of the UNIX Time-Sharing System":
+        </p>
+        <code> sort input >pr>opr> </code>
+        <p>
+          By all reports, the team immediately loved pipes but weren't sold on the syntax. They didn't wait for perfection, though, they released it! It was an external pressure, a talk that needed to flow, that got Thompson to invent the syntax we love today:
+        </p>
+        <code> sort | pr | opr </code>
+        <p>
+          The shell using standard input shows us that we can't anticipate all problems. In v1 of Research Unix, there were no pipes, so there was no deficiency in the Thompson shell, the original Unix shell program. By v3, pipelines come along and now shell scripts couldn't be pipelined by the Thompson shell.
+        </p>
+        <p>
+          This was never fixed in the Thompson shell, which was the default shell for the next several versions of Unix; the paper tells us it was the Bourne shell in v7 that finally fixed the issue.
+        </p>
+        <p>
+          This and the pipe syntax being poor in the original implementation shows me that knowingly shipping a version with shortcomings means I'm still shipping. It requires self-confidence, a trust that a good idea will survive a bad implementation until the right path is found.
+        </p>
+        <p>
+          The Unix team knew that shipping means picking which problems to live with; they didn't let completionist perfection paralyse the implementation. In the famous words of Steve Jobs, real artists ship.
+        </p>
+        <p>
+          I've written hundreds of build and deployment implementations for different teams and companies. I've written plenty that have warts, such as timing problems or unexpected fragility. They built software, they worked 95% of the time flawlessly; sometimes that's good enough for a year or two, it's a judgment call.
+        </p>
+        <p>
+          In my job at Oracle, I remember our senior architect yelling at me derisively, telling me I was wasting my time writing backup tooling. His point was that the implementation was fragile, because the internal blob store semantics were pretty opaque.
+        </p>
+        <p>
+          It hurt my ego to hear him call out the weakness; a month or so later our build server died, and my fragile backup tooling had managed to take a backup a couple of weeks earlier. The server predated me by at least 3 years; mine was the only backup anyone had ever taken.
+        </p>
+        <p>
+          I look back and wonder at the timing. My judgment as a DevOps engineer has always been that backups seem optional until 1 second after a disaster, at which point everyone will tell you they're critical. A bad backup job that works sometimes is far better than no backup job.
+        </p>
+        <p>
+          AI tooling is worth reflecting on in light of this. Initial implementation is cheap now; it can be tempting to sit on that implementation, refining it with Claude until it's perfect. But obsessing over the details often results in models chasing their own tail.
+        </p>
+
+        <p>
+          Engineering judgment isn't built that way. Experience comes from <em>doing</em>, from shipping. Don't be paralysed; get after it.
+        </p>
+      </section>
+      <section>
+        <h2 id="conclusion">Conclusion</h2>
+        <p>
+          These are just a few of the lessons in this incredible paper, and how they relate to my own experience as a devops engineer, a Principal Engineer and a team lead.
+        </p>
+        <p>
+          There are so many gems for Unix history buffs in this paper. The implementation of the first /proc file system is described on Unix before it reached Plan9; the first programming language available on PDP-11 Unix was the desk calculator and on and on.
+        </p>
+        <p>
+          You should read <a href="https://www.cs.dartmouth.edu/~doug/reader.pdf">"A Research Unix Reader"</a>. It's a world class overview of a small community of experts implementing, delivering, and having fun. We can all use the inspiration to not get stuck in analysis paralysis.
+        </p>
+        <p>
+          I learned how to get unstuck from a team lead handing me problems until I started shipping. If you want someone in your corner who'll help you learn new tools while focusing on shipping your projects, <a href="/products/mentorship.html">book a mentoring session</a>.
+        </p>
+      </section>
+      <footer>
+        <p>
+          - Gwendolyn James
+        </p>
+        <p>
+          P.S. Thanks for your attention today. Please do forward this on to other people you know who love this kind of geek-history. These letters are here to help encourage, inform, and inspire, and I'd love to see the list continue to grow.
+        </p>
+      </footer>
+      <aside>{{ .AndrewPartialFile.rss }}</aside>
+    </article>
+  </main>
+
+  <footer>This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.</footer>
+</body>

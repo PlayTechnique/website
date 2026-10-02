@@ -47,7 +47,7 @@ figure blockquote {
   margin: 0;
 }
 
-figure blockquote p {
+figure blockquote p q.styled {
   font-weight: 600;
 }
 
@@ -57,6 +57,11 @@ blockquote {
   background: var(--color-background);
   border-radius: 16px;
   padding: 0.8em;
+}
+
+q.styled {
+  font-size: 1.1em;
+  background: var(--color-background);
 }
 
 blockquote:before {
