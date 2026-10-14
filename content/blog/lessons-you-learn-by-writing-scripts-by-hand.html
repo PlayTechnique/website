@@ -1,0 +1,127 @@
+{{ .AndrewPartialFile.head title="Lessons You Learn by Writing Scripts by Hand" andrewpublishtime="2026-10-13 08:45:20" }}
+<body>
+  {{ .AndrewPartialFile.navigation }}
+  <main>
+    <aside>{{ .AndrewPartialFile.newsletter }}</aside>
+    <article>
+      <h1>Lessons You Learn by Writing Shell Scripts by Hand</h1>
+      <section id="introduction">
+        <p>
+          I've seen social media personalities claim LLMs mean you can stop learning shell scripting. I believe in learning and loving the details of your tools. Here are two small lessons I learned by writing shell scripts.
+        </p>
+      </section>
+
+      <section>
+        <h2>You Have To Check Your Errors</h2>
+        <p>
+          When I began shell scripting, I assumed a failed command would halt a shell script. It doesn't:
+        </p>
+        <figure>
+          <figcaption>The script: <code>a-failing-command-does-not-stop-your-script.sh</code></figcaption>
+          <pre><code>#!/bin/sh
+ls /does-not-exist
+echo "This line is reached after the failed command"
+</code></pre>
+        </figure>
+        <figure>
+          <figcaption>Running it</figcaption>
+          <pre><code>$ ./a-failing-command-does-not-stop-your-script.sh
+ls: /does-not-exist: No such file or directory
+This line is reached after the failed command 
+</code></pre>
+        </figure>
+        <p>
+          If you follow the bad advice of not learning shell scripting, you won't learn that proceeding after a failed command is expected behaviour, not a bug.
+        </p>
+        <p>
+          You'll probably get error handling from an LLM by default. If you don't know that <code>set -e</code> is checking a process' exit status, then you won't know when you should embed <code>set +e</code> to turn the check off, or why you might run <code>ls /does-not-exist || true</code>, and I think that's heartbreaking. These behaviours are our history.
+        </p>
+        <strong>You check your errors because nobody is holding your hand in the shell. You explicitly handle your own errors. You learn this by experience, and experience shows you the strengths of the approach.</strong>
+      </section>
+      <section>
+        <h2>Different Kernels Parse a Shebang Differently</h2>
+        <p>
+          Linux is a member of the family of Unix-compatible operating systems. Every Unix-compatible operating system has a Bourne-compatible shell, sed, awk and a host of other tools. Some behave differently on different operating systems, the kernel behaves differently, and by usage you learn that.
+        </p>
+        <p>
+          In this example I'll run a script first on macOS, then on Alpine Linux:
+        </p>
+        <figure>
+          <figcaption>The script: <code>kernels-parse-shebangs-differently.sh</code></figcaption>
+          <pre><code>#!/bin/sh -e -o pipefail
+
+echo ">>> hello, world!"
+</code></pre>
+        </figure>
+        <figure>
+          <figcaption>macOS</figcaption>
+          <pre><code>mac$ ./kernels-parse-shebangs-differently.sh
+>>> hello, world!
+</code></pre>
+        </figure>
+        <figure>
+          <figcaption>Alpine Linux</figcaption>
+          <pre><code>alpine$ ./kernels-parse-shebangs-differently.sh
+/bin/sh: illegal option -
+</code></pre>
+        </figure>
+        <p>
+          This runs on macOS and fails on Linux because macOS' XNU kernel parses a shebang line differently to Linux. MacOS passes the shebang arguments as separate strings, Linux passes the arguments as a single string. From the docs:
+        </p>
+        <blockquote>On Linux, the entire string following the interpreter name is passed as a single argument to the interpreter, and this string can include white space.</blockquote>
+        <p class="attribution">
+          from <a href="https://man7.org/linux/man-pages/man2/execve.2.html">the Linux execve man page</a>
+        </p>
+
+        <p>
+          XNU parses all of the arguments separately and hands them to the interpreter separately, as we intuitively would expect.
+        </p>
+        <blockquote>If any optional args are specified, they become the first (second, ...) argument to the interpreter. The name of the originally execve()'d file becomes the subsequent argument; otherwise, the name of the originally execve()'d file is the first argument</blockquote>
+        <p class="attribution">
+          from <a href="https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/execve.2.html">the Apple execve man page</a>.
+        </p>
+
+        <p>
+          These differences are there because Unix-like OSes implement POSIX, a standard that doesn't specify a lot of details, and underspecifies what it does describe. That gives OS implementors flexibility, but means you and I have details to learn.
+        </p>
+        <p>
+          I'm confident that a short LLM-generated script will work correctly on your laptop. It might work on your target OS for production, but when it doesn't the errors are terse. You might be able to paste in the error, but you're less likely to get curious about what causes the difference.
+        </p>
+
+        <strong>You learn details of your operating system by experimenting, being confused and reading docs. That's how you build your mental model. Curiosity guides you.</strong>
+
+        <p>
+          In this case, why don't the OSes treat a shebang similarly? Strangely, because the Unix wars of the 1980s predate POSIX, the standard that Unix-like operating systems implement. Enough Unix-es existed before standardisation that some behaviours could not reasonably be standardised.
+        </p>
+      </section>
+      <section>
+        <h2>Summary</h2>
+        <p>
+          Don't cheat yourself of the joy of learning how this stuff works. The small details add up to a larger picture; good habits mean an error in Production is an opportunity to learn more; learning develops into mastery.
+        </p>
+        <p>
+          Do know, I'm not trying to say this is the best possible way Unix-like operating systems could have evolved. By noticing these inconsistent details, though, you come to appreciate that the engineers were human beings, learning in real time, experimenting.
+        </p>
+        <p>
+          I find this encouraging: if the legends made a bit of a mess, maybe it's okay for my own experimentation to be messy.
+        </p>
+        <p>
+          Not confident you know how to map out a learning plan? Reach out on <a href="/contact/index.html">my contact form</a> and I'll help you. No sales pressure or anything, I just want to help.
+        </p>
+        <p>
+          Want to learn more about Unix in general? Check out my free <a href="/long/">Newsletters</a>. <a href="/long/an-evening-with-berferd.html">An Evening with Berferd</a> covers a weird detail in an excellent whitepaper, and you'll learn about <code>chroot</code>, an isolation primitive that's a precursor to containers.
+        </p>
+      </section>
+    </article>
+
+    <aside>
+      <aside>{{ .AndrewPartialFile.rss }}</aside>
+    </aside>
+  </main>
+
+  <footer>
+    This site uses
+    <a href="https://simpleanalytics.com">SimpleAnalytics</a>
+    to gather anonymous statistics about my audience. No identifying information is gathered.
+  </footer>
+</body>
