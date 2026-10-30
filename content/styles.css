@@ -494,6 +494,11 @@ td {
   max-width: 600px;
 }
 
+#mentorship,
+#booking-with-me {
+  max-width: 550px;
+}
+
 /* Contact page side-by-side layout */
 #contact-page-container {
   display: flex;
