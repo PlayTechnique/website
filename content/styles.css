@@ -495,8 +495,38 @@ td {
 }
 
 #mentorship,
-#booking-with-me {
+#booking-with-me,
+#what-i-offer,
+#how-it-works,
+#bio {
+  width: 70vw;
+  max-width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 2em;
+}
+
+#mentorship {
   max-width: 550px;
+}
+
+#booking-with-me {
+  max-width: 90%;
+}
+
+#mentorship p,
+#booking-with-me p,
+#what-i-offer p,
+#how-it-works p,
+#bio p {
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 2.0em;
+}
+
+#booking-with-me h1 {
+  text-align: center;
+  text-transform: capitalize;
 }
 
 /* Contact page side-by-side layout */
