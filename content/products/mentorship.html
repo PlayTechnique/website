@@ -12,75 +12,94 @@
   {{ .AndrewPartialFile.navigation }}
   <div id="playtechnique-header"></div>
   <main>
-    <article>
-      <section id="mentorship">
-        <h1>Buy Mentoring Sessions</h1>
-        <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-        <div class="buy-button-container">
-          <stripe-buy-button buy-button-id="buy_btn_1TVaDvHxmDrzBBEgsl3bVt8e" publishable-key="pk_live_51TIvXMHxmDrzBBEgN9sGW4APr28GT7wHolP0DKPpUY7Xlqwp6lrZ7lnF9NINe9pWQxQOAWsIOB9yVv7oxroaAdVR00dBYHiJwI"></stripe-buy-button>
+    <section id="mentorship">
+      <h1>Buy Mentoring Sessions</h1>
+      <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+      <div class="buy-button-container">
+        <stripe-buy-button buy-button-id="buy_btn_1TVaDvHxmDrzBBEgsl3bVt8e" publishable-key="pk_live_51TIvXMHxmDrzBBEgN9sGW4APr28GT7wHolP0DKPpUY7Xlqwp6lrZ7lnF9NINe9pWQxQOAWsIOB9yVv7oxroaAdVR00dBYHiJwI"></stripe-buy-button>
+      </div>
+      <div class="buy-button-container">
+        <stripe-buy-button buy-button-id="buy_btn_1TvPHjHxmDrzBBEgGKgpEpJ8" publishable-key="pk_live_51TIvXMHxmDrzBBEgN9sGW4APr28GT7wHolP0DKPpUY7Xlqwp6lrZ7lnF9NINe9pWQxQOAWsIOB9yVv7oxroaAdVR00dBYHiJwI"></stripe-buy-button>
+      </div>
+      <div class="buy-button-container">
+        <stripe-buy-button buy-button-id="buy_btn_1TvPIEHxmDrzBBEg8bLK3dHQ" publishable-key="pk_live_51TIvXMHxmDrzBBEgN9sGW4APr28GT7wHolP0DKPpUY7Xlqwp6lrZ7lnF9NINe9pWQxQOAWsIOB9yVv7oxroaAdVR00dBYHiJwI"></stripe-buy-button>
+      </div>
+      <p>
+        I want you to be delighted with this service. If this isn't working for you, I offer a full money back guarantee.
+      </p>
+    </section>
+    <section id="booking-with-me">
+      <h1>Book Your Session</h1>
+      <div style="display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; margin: 2rem 0; align-items: flex-start;">
+        <div style="flex: 1; min-width: 400px; max-width: 600px;">
+          <div style="min-height: 8em;">
+            <h2 style="margin-top: 0">Your Free Intro Conversation</h2>
+          </div>
+          <div style="height: 800px; position: relative">
+            <iframe src="https://calendar.zoho.uk/zc/view/slot-booking/0801123f309bea5f5e32fd2c727e442d0000d0616c809069894402b134b326a329e66aeeb8f900664188aac726ff7061478047ef4320b1e43af1fd3d8b9615a70792ac" title="Appointment Booking" frameborder="0" style="width: 100%; height: 100%; border: 1px solid black" width="100%" height="100%"></iframe>
+          </div>
         </div>
-        <div class="buy-button-container">
-          <stripe-buy-button buy-button-id="buy_btn_1TvPHjHxmDrzBBEgGKgpEpJ8" publishable-key="pk_live_51TIvXMHxmDrzBBEgN9sGW4APr28GT7wHolP0DKPpUY7Xlqwp6lrZ7lnF9NINe9pWQxQOAWsIOB9yVv7oxroaAdVR00dBYHiJwI"></stripe-buy-button>
+        <div style="width: 1px; background: linear-gradient(to bottom, transparent 0%, #ccc 10%, #ccc 90%, transparent 100%); align-self: stretch; flex-shrink: 0"></div>
+        <div style="flex: 1; min-width: 400px; max-width: 600px;">
+          <div style="min-height: 8em;">
+            <h2 style="margin-top: 0">Paid Session</h2>
+            <p>
+              Each paid session is 1 hour long. If you haven't bought a pack of hours ahead of time, we'll take care of that together in the first few minutes.
+            </p>
+          </div>
+          <div style="height: 800px; position: relative">
+            <iframe src="https://calendar.zoho.uk/zc/view/slot-booking/0801123ff98feb5cd6d1c4e519b3c8f700007f82a8a80a49cf2346286fad6510252cad2382c46a1e86841af26d3e20aca865020418378b4be6d91c3782b6dc16821bc1" title="Appointment Booking" frameborder="0" style="width: 100%; height: 100%; border: 1px solid black" height="100%" width="100%"></iframe>
+          </div>
         </div>
-        <div class="buy-button-container">
-          <stripe-buy-button buy-button-id="buy_btn_1TvPIEHxmDrzBBEg8bLK3dHQ" publishable-key="pk_live_51TIvXMHxmDrzBBEgN9sGW4APr28GT7wHolP0DKPpUY7Xlqwp6lrZ7lnF9NINe9pWQxQOAWsIOB9yVv7oxroaAdVR00dBYHiJwI"></stripe-buy-button>
-        </div>
-        <p>
-          I want you to be delighted with this service. If this isn't working for you, I offer a full money back guarantee.
-        </p>
-      </section>
-      <section id="booking-with-me">
-        <h1>Book a Conversation</h1>
-        <script src="https://embed.ycb.me" async="true" data-domain="playtechnique" data-displaymode="auto"></script>
-      </section>
+      </div>
+    </section>
 
-      {{ .AndrewPartialFile.whatioffer }}
-      <section id="how-it-works">
-        <h2>How it Works</h2>
-        <blockquote>reliability is the result of habits, good habits that are informed by a clear understanding of the principles of our tools.</blockquote>
-        <p class="attribution">
-          <a href="/long/eveningwithberferd.html">An Evening with Berferd newsletter</a>
-        </p>
-        <p>
-          We'll work together over video chat.
-        </p>
-        <p>
-          Before your first session, we'll meet for thirty minutes. We'll talk about your project, understand what goals you're working towards and get them right-sized so you know what you can achieve in a week. If you don't have a project in mind, no problem, I have a <a href="sample-curriculum.html">sample curriculum</a> we can work from.
-        </p>
-        <p>
-          We'll meet for an hour. I'll remind you of your goal, and we'll work on it together, learning and solving problems.
-        </p>
-        <p>
-          Then it's your time until we meet again, with a twist: we'll agree on a way for you to keep in touch in between sessions, a way that works for you. It'll be a light touch, so you know you're staying on track with your goal or to help you identify what's blocking you. Then we'll meet again, one or two weeks later.
-        </p>
-        <p>
-          Questions? <a href="/contact/index.html">Send them my way</a>
-        </p>
-        <p>
-          Feeling unsure? <a href="/contact/index.html">Get in touch</a> and ask to chat. We'll talk until your idea of whether this is the right path is clearer.
-        </p>
-        <p>
-          If you are unsatisfied, if this isn't working for you, I offer a full money back guarantee.
-        </p>
-      </section>
+    {{ .AndrewPartialFile.whatioffer }}
+    <section id="how-it-works">
+      <h2>How it Works</h2>
+      <blockquote>reliability is the result of habits, good habits that are informed by a clear understanding of the principles of our tools.</blockquote>
+      <p class="attribution">
+        <a href="/long/eveningwithberferd.html">An Evening with Berferd newsletter</a>
+      </p>
+      <p>
+        We'll work together over video chat.
+      </p>
+      <p>
+        Before your first session, we'll meet for thirty minutes. We'll talk about your project, understand what goals you're working towards and get them right-sized so you know what you can achieve in a week. If you don't have a project in mind, no problem, I have a <a href="sample-curriculum.html">sample curriculum</a> we can work from.
+      </p>
+      <p>
+        We'll meet for an hour. I'll remind you of your goal, and we'll work on it together, learning and solving problems.
+      </p>
+      <p>
+        Then it's your time until we meet again, with a twist: we'll agree on a way for you to keep in touch in between sessions, a way that works for you. It'll be a light touch, so you know you're staying on track with your goal or to help you identify what's blocking you. Then we'll meet again, one or two weeks later.
+      </p>
+      <p>
+        Questions? <a href="/contact/index.html">Send them my way</a>
+      </p>
+      <p>
+        Feeling unsure? <a href="/contact/index.html">Get in touch</a> and ask to chat. We'll talk until your idea of whether this is the right path is clearer.
+      </p>
+      <p>
+        If you are unsatisfied, if this isn't working for you, I offer a full money back guarantee.
+      </p>
+    </section>
 
-      <section id="bio">
-        <h2>Bio</h2>
-        <p>
-          I'm Gwendolyn James. I've been working professionally with linux and infrastructure since 2004, from small startups self-hosting on hand-built systems to Fortune 500 companies such as Oracle and Workday, from Megabytes to Petabytes. I was a self-taught Principal Engineer at a rocket engine factory, where I built and designed production and its deployments as a solo infrastructure engineer. I didn't want to be paged nights and weekends: it was two years before we had our first infrastructure-related issue.
-        </p>
-        <p>
-          Through all this, my passion has been helping my peers grow into excellent, self-disciplined engineers.
-        </p>
-        <p>
-          I work in classic data centre infrastructure, I work in cloud infrastructure; I work on build systems and write build jobs; I work in Kubernetes and with Terraform; I write shell scripts, go programs, python.
-        </p>
-        <p>
-          Michael, who I worked with, was newly Staff at a company without a real agreement about what staff meant. His lead couldn't say what was supposed to be different now. We met every two weeks. I helped him learn Staff Engineer level discipline and habits, and also showed him new tools along the way.
-        </p>
-        <blockquote>Gwyn, you have changed the way that I work and what I know I can achieve. — Michael R., Staff Engineer</blockquote>
-      </section>
-    </article>
+    <section id="bio">
+      <h2>Bio</h2>
+      <p>
+        I'm Gwendolyn James. I've been working professionally with linux and infrastructure since 2004, from small startups self-hosting on hand-built systems to Fortune 500 companies such as Oracle and Workday, from Megabytes to Petabytes. I was a self-taught Principal Engineer at a rocket engine factory, where I built and designed production and its deployments as a solo infrastructure engineer. I didn't want to be paged nights and weekends: it was two years before we had our first infrastructure-related issue.
+      </p>
+      <p>
+        Through all this, my passion has been helping my peers grow into excellent, self-disciplined engineers.
+      </p>
+      <p>
+        I work in classic data centre infrastructure, I work in cloud infrastructure; I work on build systems and write build jobs; I work in Kubernetes and with Terraform; I write shell scripts, go programs, python.
+      </p>
+      <p>
+        Michael, who I worked with, was newly Staff at a company without a real agreement about what staff meant. His lead couldn't say what was supposed to be different now. We met every two weeks. I helped him learn Staff Engineer level discipline and habits, and also showed him new tools along the way.
+      </p>
+      <blockquote>Gwyn, you have changed the way that I work and what I know I can achieve. — Michael R., Staff Engineer</blockquote>
+    </section>
   </main>
   <footer>
     This site uses
