@@ -1,21 +1,133 @@
-<!doctype html> {{ .AndrewPartialFile.head title="PlayTechnique Consulting"}}
+<!doctype html>
+{{ .AndrewPartialFile.head title="Videos & Talks - PlayTechnique Consulting"}}
+
 <body>
   {{ .AndrewPartialFile.navigation }}
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/video/video-styles.css" />
+
+  <div id="playtechnique-header"></div>
   <main>
     <article>
       <section>
-        <ul>
-          <li>Talking about the Subcommands library in Go with John Arundel</li>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/kleYGQIARpM?si=Sl-YY3LhOEc2WrRS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <li>Reading Scripts From the 70s with John Arundel</li>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/bpsvjPIIvRc?si=V9xfwbEPFH2Yd25a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </ul>
+        <h1>Videos & Talks</h1>
+
+        <blockquote>Really enjoyed your talk last night, Gwyn. It's so easy to forget the things we use every day are the result of real people getting their hands dirty, sometimes decades ago. It was fun to touch on the most human-centric perspective on things.</blockquote>
+        <p class="attribution">
+          Quentin, A Denver DevOps attendee
+        </p>
+
+        <blockquote>It was a really fun talk Gwyn. Now I'm craving more deep dives into other linux features!</blockquote>
+        <p class="attribution">
+          Brian, a devops meetup attendee
+        </p>
+
+        <h2>Conference Talks</h2>
+        <p class="section-intro">
+          Formal presentations delivered at conferences and meetups, exploring the history and culture of DevOps and its tools.
+        </p>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <h3>Digging for Bedrock: The Forces that Shaped Containers</h3>
+            <iframe src="https://www.youtube.com/embed/fziaUWF2kNc?si=9D1eeJjL6UErcOCH" title="The Forces that Shaped Containers" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <details>
+              <summary>About this talk</summary>
+              <div class="description">
+                <p>
+                  A talk that focuses on history, the story of one generation building on the ideas of the previous generation.
+                </p>
+                <p>
+                  It starts with the question, "Why is HorseTooth Reservoir where it is?"
+                </p>
+                <p>
+                  That led me to questions about geology, the history of the North American continent, and eventually the more interesting question: why are containers the way they are?
+                </p>
+                <p>
+                  The Docker CLI rightly gets credit for making containers ubiquitous, so I started there but all while recognising that the fundamental isolation primitives have a much longer history. Tracing Docker back to DotCloud led to cgroups and namespaces, Solaris and FreeBSD, Plan 9, and Unix.
+                </p>
+                <p>
+                  There's a continuous chain of people and companies trying to make it cheaper to host software, all building on top of the ideas of the previous generation.
+                </p>
+                <p>
+                  The talk is essentially an attempt to understand the bedrock underneath containers, rather than just the features we use today.
+                </p>
+
+                <p>
+                  Slides available to <a href="/video/static/digging-for-bedrock.pdf" download>download</a>.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="video-card">
+            <h3>DevOps In a Rocket Factory</h3>
+            <p class="video-meta">
+              DevOps Days Rockies 2025
+            </p>
+            <iframe src="https://www.youtube.com/embed/gFnCBfL346o?list=PL3xK3UeH8dybxc5N-FCftjiCG_WbDs-uf" title="DevOps In a Rocket Factory" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <details>
+              <summary>About this talk</summary>
+              <div class="description">
+                <p>
+                  My first conference talk, delivered at DevOps Days Rockies 2025.
+                </p>
+                <p>
+                  When I joined a rocket motor manufacturing company, the software engineering team I joined was invisible: half the factory floor didn't know we existed, and they were the good half! Deployments were fragile and manual, our relationship with IT was poor (IT took three weeks to spin up a VM, and five days for a DNS entry). I was one member on the team, not its lead, but I figured these were my problems to solve. Technically, I moved us to automated commit-triggered deployments and built Terraform-based infrastructure automation. Culturally, I leaned into building team identity around taking pride that we are effective engineering professionals, not cowboys who make it up as we go.
+                </p>
+                <p>
+                  The deeper lesson was that DevOps culture change in manufacturing doesn't require preaching to management, it requires showing people results they've never seen before. I grounded our approach in Conway's Law and the Westrum culture model, shaping communication structures and team artifacts to drive delivery focus. Today that company has dedicated DevOps, platform engineering, and software engineering teams, and leadership considers them essential to the business. Manufacturing companies are a tinder pile for DevOps, and the right practitioner is the spark.
+                </p>
+                <a href="/public-speaking/static/slides-for-devops-talk.pdf" class="download-link" download>Download Slides</a>
+              </div>
+            </details>
+          </div>
+        </div>
       </section>
+
+      <section>
+        <h2>Conversations & Demonstrations</h2>
+        <p class="section-intro">
+          Informal discussions and coding sessions with fellow developers.
+        </p>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <h3>Talking about the Subcommands library in Go</h3>
+            <p class="video-meta">
+              With John Arundel
+            </p>
+            <iframe src="https://www.youtube.com/embed/kleYGQIARpM?si=Sl-YY3LhOEc2WrRS" title="Talking about the Subcommands library in Go" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <details>
+              <summary>About this video</summary>
+              <div class="description">
+                <p>
+                  An informal conversation about the Subcommands library in Go, exploring its design patterns and practical applications.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="video-card">
+            <h3>Reading Scripts From the 70s</h3>
+            <p class="video-meta">
+              With John Arundel
+            </p>
+            <iframe src="https://www.youtube.com/embed/bpsvjPIIvRc?si=V9xfwbEPFH2Yd25a" title="Reading Scripts From the 70s" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <details>
+              <summary>About this video</summary>
+              <div class="description">
+                <p>
+                  Exploring historical shell scripts from the 1970s, examining how computing practices have evolved and what we can learn from early Unix practices.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <div id="emailOctopusDocumentationLink"></div>
     </article>
   </main>
-  <footer>
-    This site uses
-    <a href="https://simpleanalytics.com">SimpleAnalytics</a>
-    to gather anonymous statistics about my audience. No identifying information is gathered.
-  </footer>
+  <footer>This site uses <a href="https://simpleanalytics.com">SimpleAnalytics</a> to gather anonymous statistics about my audience. No identifying information is gathered.</footer>
 </body>
