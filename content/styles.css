@@ -529,6 +529,17 @@ td {
   text-transform: capitalize;
 }
 
+/* The two calendars share one wrapper div; lay its children out in a row */
+#booking-with-me > div > div {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+#booking-with-me > div > div > div {
+  flex: 1 1 400px;
+}
+
 /* Contact page side-by-side layout */
 #contact-page-container {
   display: flex;
@@ -648,4 +659,10 @@ td {
   color: var(--color-text);
   background: var(--color-contrast);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+#bookable-calendars {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 }
