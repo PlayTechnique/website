@@ -52,8 +52,8 @@ a:hover {
     </div>
   </div>
   <div id="second-line">
-    <img src="/images/github.svg" height="20"/>
-    <img src="/images/envelope.svg" />
-    <img src="/images/linkedin.svg" />
+    <a href="https://github.com/playtechnique><img src="/images/github.svg" height="20"/></a>
+    <a href="mailto:gwyn@playtechnique.io"><img src="/images/envelope.svg" /></a>
+    <a href="https://linkedin.com/in/gwendolyn-james"><img src="/images/linkedin.svg" /></a>
   </div>
  </nav>
