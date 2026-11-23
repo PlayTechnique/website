@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     addMermaid();
 });
 
-document.addEventListener('DOMContentLoaded', renderNavigation);
-
 function addCodeHighlightingToHeader(callback) {
     // Add the CSS file to the <head>
     const link = document.createElement('link');
@@ -38,48 +36,6 @@ function addMermaid() {
     document.body.appendChild(script);
 }
 
-function renderNavigation() {
-    // Common base navigation structure
-    let navHTML = `
-        <nav class="navigation">
-            <a href="/" class="brand-link">
-                <img src="/images/dolphint.png" alt="Logo" width="40" height="40">
-                <span class="brand-name"><span class="big-bold">play</span>technique</span>
-                <span class="tagline">Professional DevOps Consultant</span>
-            </a>
-            <div id="links-group">
-    `;
-
-    // Add the closing part of the navigation
-    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
-    if (!isHomePage) {
-        navHTML += `<a href="/" class="button">Home</a>`;
-    }
-    navHTML += `
-                <a href="/about.html" class="button">About</a>
-                <a href="/contact/index.html" class="button">Contact Me</a>
-                <a href="/books.html" class="button">Free DevOps E-book</a>
-                <a href="/blog/index.html" class="button">Tech Blog</a>
-                <a href="/public-speaking/index.html" class="button">Public Speaking</a>
-    `;
-
-    navHTML += `
-            </div>
-        </nav>
-        <section id="preamble">Reliability is built by habits, not hope.</section>
-    `;
-
-    // Inject the navHTML into the container
-    const navElement = document.getElementById('playtechnique-nav-bar');
-    if (navElement) {
-        navElement.innerHTML = navHTML;
-    } else {
-        console.error("Element with ID 'playtechnique-nav-bar' not found");
-    }
-}
-
-
-
 function addAnalytics() {
     if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
         // Create the script tag for analytics
@@ -96,6 +52,7 @@ function addAnalytics() {
 
 function emailOctopusDocumentationLink() {
     const octoDiv = document.getElementById("emailOctopusDocumentationLink")
+    if (!octoDiv) return;
     const script = document.createElement("script");
 script.src = "https://eomail5.com/form/68ad9912-4952-11f1-9ee0-035341c752a0.js";
 script.async = true;
