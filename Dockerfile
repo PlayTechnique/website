@@ -1,9 +1,9 @@
-FROM golang:1.23 AS base
+FROM golang:1.27 AS base
 
 WORKDIR /usr/src/app
 
 ENV CGO_ENABLED=0
-RUN go install github.com/playtechnique/andrew/cmd/andrew@v0.3.10
+RUN go install github.com/playtechnique/andrew/cmd/andrew@v0.3.12
 
 FROM scratch
 
