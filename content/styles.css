@@ -91,18 +91,26 @@ section#preamble {
 }
 
 /* Navigation styling */
-nav.navigation {
+nav.navigation #first-line{
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px 20px;
   gap: 1em;
 }
-
+nav.navigation #second-line{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 10px 2.7em;
+  gap: 1em;
+}
 .brand-link {
   display: flex;
+  /*ensure all words, which are different sizes, have their bottoms align*/
   align-items: baseline;
   gap: 0.4em;
+  /*turn off the underlining that comes with a link*/
   text-decoration: none;
   color: var(--color-text);
   flex-shrink: 0;

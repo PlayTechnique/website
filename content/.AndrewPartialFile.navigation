@@ -38,6 +38,7 @@ a:hover {
 }
 </style>
 <nav class="navigation">
+  <div id="first-line">
     <a href="/" class="brand-link">
         <span class="brand-name"><span class="big-bold">play</span>technique</span>
         <span class="tagline">DevOps Teacher & Consultant</span>
@@ -47,6 +48,12 @@ a:hover {
         <a href="/long/index.html" class="light-button">Newsletters</a>
         <a href="/blog/index.html" class="light-button">Tech Blog</a>
         <a href="/video/index.html" class="light-button">Video</a>
-        <a href="/contact/index.html" class="light-button">Contact</a>
-   </div>
-</nav>
+        <a href="/contact/index.html" class="light-button">Contact Form</a>
+    </div>
+  </div>
+  <div id="second-line">
+    <img src="/images/github.svg" height="20"/>
+    <img src="/images/envelope.svg" />
+    <img src="/images/linkedin.svg" />
+  </div>
+ </nav>
