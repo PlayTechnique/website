@@ -102,6 +102,7 @@ nav.navigation #second-line{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: baseline;
   padding: 10px 2.7em;
   gap: 1em;
 }
