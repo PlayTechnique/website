@@ -1,5 +1,6 @@
 {{ .AndrewPartialFile.head title="Lessons You Learn by Writing Scripts by Hand" andrewpublishtime="2026-10-13 08:45:20" }}
 <body>
+  <link rel="stylesheet" href="/blog/blog-styles.css" />
   {{ .AndrewPartialFile.navigation }}
   <main>
     <aside>{{ .AndrewPartialFile.newsletter }}</aside>
@@ -112,11 +113,10 @@ echo ">>> hello, world!"
           Want to learn more about Unix in general? Check out my free <a href="/long/">Newsletters</a>. <a href="/long/an-evening-with-berferd.html">An Evening with Berferd</a> covers a weird detail in an excellent whitepaper, and you'll learn about <code>chroot</code>, an isolation primitive that's a precursor to containers.
         </p>
       </section>
+      <aside>{{ .AndrewPartialFile.whatioffer}}</aside>
     </article>
 
-    <aside>
-      <aside>{{ .AndrewPartialFile.rss }}</aside>
-    </aside>
+    <aside>{{ .AndrewPartialFile.rss }}</aside>
   </main>
 
   <footer>
