@@ -1,0 +1,126 @@
+{{ .AndrewPartialFile.head title="Using a Command Language as a High Level Programming Language" andrewpublishtime="2026-11-11 11:53:25" description="Mashey, Glasser and Haight are geniuses"}}
+<body>
+  {{ .AndrewPartialFile.navigation }}
+  <main>
+    <aside>{{ .AndrewPartialFile.newsletter }}</aside>
+    <article>
+      <h1>Using a Command Language as a High Level Programming Language</h1>
+      <section id="introduction" style="background: var(--color-background)">
+        <p>
+          My name is Gwendolyn James, and I'm writing these newsletters to help your growth, while supporting my DevOps and Infrastructure teaching practice. Feel your brain switching off at work? Let's switch it back on. Come hang out in <a href="https://join.slack.com/t/playtechniquegroup/shared_invite/zt-4ehbd8qxh-5FrMQQ2bB3F~KyfqnLsk5g">Slack</a> and let's talk code!
+        </p>
+
+        <p>
+          I'll be making a small change to my newsletter format. I've been writing one large email every 8ish weeks; I'm going to start writing 2-3 smaller emails about the same paper, and send them out a bit more frequently.
+        </p>
+        <p>
+          This is part 1 of a writeup of "Using A Command Language as a High Level Programming Language", by John Mashey.
+        </p>
+      </section>
+
+      <section id="">
+        <img src="/long/images/command-language/command_language_small.webp" width="290" height="399" style="display: block; margin-left: auto; margin-right: auto; border-radius: 16px" />
+        <h2 id="background">What's the paper's background?</h2>
+        <p>
+          John Mashey was writing in 1976, as part of the Programmer's Workbench<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> team. The paper is about how his team was inventing in the new space of Command Languages<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a
+          >, guided by the value it was delivering to the teams at AT&T.
+        </p>
+        <p>
+          His team added constructs like <code>if/then/else/endif</code>, <code>goto</code>, assignment of environment variables and more, as command line binaries (not built into the shell). I'll write about how that works, because it's illuminating and changes your perception of Unix and shell.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="how-did-commands-work">How did goto Work?</h2>
+        <p>
+          This isn't goto like in the C programming language:
+        </p>
+        <blockquote>
+          Using "goto label" causes the following actions:
+          <ol>
+            <li>A seek is performed to move the read/write pointer to the beginning of the command file.</li>
+            <li>The file is scanned from the beginning, searching for ": name" on a line, either alone or followed by a blank or a tab.</li>
+            <li>The read/write pointer is adjusted (via the seek) to point at the line following the labeled line.</li>
+          </ol>
+          <p>
+            Thus, the only effect of goto is the adjustment of the shell's file read/write pointer to cause the shell to resume interpreting commands starting at the line following the labeled line.
+          </p>
+        </blockquote>
+        <p class="attribution">
+          from the paper
+        </p>
+        <p>
+          Here's a section of a Ken Thompson script that features goto. For a deeper look at the script, <a href="https://bitfieldconsulting.com">John Arundel</a> and I <a href="https://youtu.be/bpsvjPIIvRc">discussed it on YouTube recently</a>:
+        </p>
+        <pre><code>
+if ! -r l.s -o ! -r c.c <strong>goto bad</strong>
+as l.s
+....[many lines redacted for clarity]
+exit
+<strong>: bad</strong>
+echo l.s or c.c not found
+          </code></pre>
+        <p class="attribution">
+          <a href="https://www.tuhs.org/cgi-bin/utree.pl?file=V4/usr/sys/conf/rc">The Unix Heritage Society</a>
+        </p>
+        <p>
+          The implementation of this <code>goto</code> leans on the Unix process model. The shell executes <code>goto</code>, and so it's a child process of the shell. Child processes inherit exactly their parents' file descriptors, including Standard Input.
+        </p>
+        <p>
+          It's easy to skip past what a revelation this should be for your own shell programming. <i>The child's file descriptors <b>are</b> the parent's file descriptors.</i> Manipulating one impacts the other.
+        </p>
+
+        <p>
+          <code>goto</code> then starts iterating over Standard Input. This moves the shell's own seek pointer forwards. It moves the seek pointer to <code>0, 0, 0</code> at the beginning of the file, then forwards until it finds a comment line with a matching label.
+        </p>
+        <p>
+          The implementation is old C, not ANSI C, but is still readable at <a href="https://www.tuhs.org/cgi-bin/utree.pl?file=V4/usr/source/s1/goto.c">goto.c</a>. If you want to walk through it with a friendly person, <a href="https://join.slack.com/t/playtechniquegroup/shared_invite/zt-4ehbd8qxh-5FrMQQ2bB3F~KyfqnLsk5g">Slack</a> and let's talk code!
+        </p>
+
+        <p>
+          The idea of swapping control of shared resources back and forth between shell and binaries makes the shell a Swiss Army chainsaw. You can use the right language for a job, and pass control back and forth between different best-in-class tools.
+        </p>
+        <p>
+          It makes one sympathetic, really, to Larry Wall's invention of Perl.
+        </p>
+      </section>
+      <section>
+        <h2 id="whats-in-part-two">What's In Part Two</h2>
+        <p>
+          The next part will be about a question Mashey raises: why are string-related tools so much more popular than arithmetical tools in shell?
+        </p>
+        <p>
+          <strong>P.S.</strong> Come join my <a href="https://join.slack.com/t/playtechniquegroup/shared_invite/zt-4ehbd8qxh-5FrMQQ2bB3F~KyfqnLsk5g">Slack</a>! It's a chill place for DevOps and Software engineers to learn from each other.
+        </p>
+      </section>
+      <section style="border-top: 2px solid black; border-bottom: 2px solid black; border-radius: 8px; padding: 1em 0">
+        <h2 id="Links">Links</h2>
+        <blockquote>in the mistake there is the improvement because it is in that exact moment your brain is somehow looking for an escape room, how to get out from the problem and then it comes to the invention.</blockquote>
+        <p>
+          <a href="https://youtu.be/VDB05XqqX5I?si=cS9BVgYtqv7CMj8P">Be Comfortable Being Uncomfortable</a> - developers are seeking meaning right now. This video interview with an Italian artist is about being bold enough to pursue professional vision and understanding, when no good outcome is guaranteed.
+        </p>
+        <p>
+          <a href="https://www.youtube.com/watch?v=bpsvjPIIvRc">Historical Shell Scripts Read Through</a> Get to grips with the script that calls goto in this email! The incomparable <a href="https://bitfieldconsulting.com">John Arundel</a> and I walk through a couple of shell scripts from the 1970s, written by Dennis Ritchie and Ken Thompson.
+        </p>
+      </section>
+      <section id="footnotes">
+        <p class="footnote" id="fn1">
+          [1] Linux has many flavours, like Ubuntu or Fedora or Slackware. Unix had them too; one was Programmers' Workbench. <a href="#fnref1" title="return to text">&#8617;</a>
+        </p>
+        <p class="footnote" id="fn2">
+          [2] Your shell is a command language interpreter; the commands and basic programming constructs are the Command Language. <a href="#fnref2" title="return to text">&#8617;</a>
+        </p>
+      </section>
+    </article>
+
+    <aside>
+      <aside>{{ .AndrewPartialFile.rss }}</aside>
+    </aside>
+  </main>
+
+  <footer>
+    This site uses
+    <a href="https://simpleanalytics.com">SimpleAnalytics</a>
+    to gather anonymous statistics about my audience. No identifying information is gathered.
+  </footer>
+</body>
